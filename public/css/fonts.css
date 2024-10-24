@@ -1,0 +1,62 @@
+/*--------------------------------------------
+Brandon (Original name: Brandon Text)
+---------------------------------------------*/
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Regular"),
+          url(/public/fonts/Brandon/Brandon-Regular.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Regular-Italic"),
+          url(/public/fonts/Brandon/Brandon-Regular-Italic.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Medium"),
+          url(/public/fonts/Brandon/Brandon-Medium.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Medium-Italic"),
+          url(/public/fonts/Brandon/Brandon-Medium-Italic.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Bold"),
+          url(/public/fonts/Brandon/Brandon-Bold.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Brandon";
+  src:
+          local("Brandon-Bold-Italic"),
+          url(/public/fonts/Brandon/Brandon-Bold-Italic.woff2) format('woff2');
+  font-display: swap;
+  font-weight: 700;
+  font-style: italic;
+}
