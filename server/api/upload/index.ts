@@ -7,7 +7,7 @@ import { defineEventHandler, createError } from 'h3';
 import { IMAGE_TYPES } from '~/values'
 import { getHeicImagePayload } from './utils';
 
-const upload = multer({ dest: 'uploads/temporary' });
+const upload = multer({ dest: 'server/uploads/temporary' });
 
 
 const createUserFolder = async (userId: string) => {

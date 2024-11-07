@@ -1,50 +1,18 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import build from './config/build'
+import css from './config/css'
+import modules from './config/modules'
+import tailwind from './config/tailwindcss'
+import vite from './config/vite'
+
 export default defineNuxtConfig({
-    compatibilityDate: '2024-04-03',
+  ...build,
+  ...css,
+  ...modules,
+  ...tailwind,
+  ...vite,
+  compatibilityDate: '2024-04-03',
 
-    devtools: {
-        enabled: true
-    },
-
-    serverMiddleware: [
-        {
-            path: '/api/upload',
-            handler: '~/server/api/upload.ts'
-        },
-        {
-            path: '/api/download',
-            handler: '~/server/api/download.ts'
-        }
-    ],
-
-    vite: {
-        build: {
-            rollupOptions: {
-                external: [
-                    "sharp"
-                ]
-            }
-        }
-    },
-
-    env: {
-        SHARP_IGNORE_GLOBAL_LIBVIPS: '1'
-    },
-
-    modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@nuxt/fonts', '@pinia/nuxt'],
-
-    css: [
-        '~/public/css/glass-3d.css',
-        '~/public/css/fonts.css',
-    ],
-
-    tailwindcss: {
-        config: {
-            theme: {
-                fontFamily: {
-                    sans: [`Brandon`, `Avenir`, `Franklin Gothic`]
-                }
-            }
-        }
-    },
+  devtools: {
+      enabled: true
+  },
 })

@@ -14,40 +14,45 @@
                    id="file-input"
                    ref="fileInput"
                    class="hidden"
-                   accept="image/png, image/jpeg, image/jpg, image/heic"
+                   :accept="SUPPORTED_IMAGE_TYPES"
                    multiple
                    @change="onFileChange" />
         </div>
 
-        <transition-group v-show="mainStore.files.length"
+        <transition-group v-show="mainStore.images.length"
                           name="fade"
                           tag="ul"
                           class="flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7">
-            <li v-for="(file, index) in mainStore.files"
-                :key="file.name"
+            <li v-for="(image, index) in mainStore.images"
+                :key="image.file.name"
                 :style="{ transitionDelay: `${index * 60}ms` }"
                 class="flex gap-4">
-                <div class="w-16 h-16 rounded-xl shadow-md overflow-clip">
-                    <img v-if="file.url"
-                         :src="file.url"
-                         :alt="file.name"
+                <div class="w-16 h-16 rounded-xl shadow-md overflow-clip relative">
+                    <img v-if="!image.imageCantBeDisplayed"
+                         :src="image.file.url"
+                         :alt="image.file.name"
+                         @error.once="onImageError(image)"
                          class="w-full h-full object-cover" />
                     <div v-else
                          class="glass-3d tint-2xdark h-full w-full flex items-center justify-center">
                         <PhotoIcon class="w-6" />
                     </div>
+                    <div v-if="mainStore.processing && !image.processedFile"
+                         class="tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center">
+                        <div class="spinner" />
+                    </div>
                 </div>
                 <div class="flex flex-col gap-1 justify-center">
                     <p class="font-sans text-s">
-                        {{ mainStore.rename ? file.newName : file.name }}
+                        {{ mainStore.rename ? image.newName : image.file.name }}
                     </p>
                     <p class="font-sans text-xs text-gray-400">
-                        {{ formatFileSize(file.size) }}
+                        {{ filesize(image.file.size) }}
                     </p>
                 </div>
             </li>
         </transition-group>
-        <p v-show="!mainStore.files.length"
+        <p v-show="!mainStore.images.length"
            class="font-sans">Select the files by clicking the plus icon</p>
     </div>
 </template>
@@ -59,7 +64,10 @@ import ExifReader from 'exifreader'
 import { filesize } from 'filesize'
 import { compareAsc } from 'date-fns'
 import PhotoIcon from '~/components/PhotoIcon.vue'
-import { IMAGE_TYPES } from '~/values'
+import {
+    IMAGE_TYPES,
+    SUPPORTED_IMAGE_TYPES
+} from '~/values'
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const mainStore = useMainStore()
@@ -67,10 +75,6 @@ const mainStore = useMainStore()
 const getDateFromExifDate = (exifDate) => {
     const [year, month, day, hour, minute, second] = exifDate.split(/\D/)
     return new Date(year, month - 1, day, hour, minute, second)
-}
-
-const formatFileSize = (size: number) => {
-    return filesize(size)
 }
 
 const getImagesData = async (filesArray: Array<File>): Promise<void> => {
@@ -84,19 +88,14 @@ const getImagesData = async (filesArray: Array<File>): Promise<void> => {
                 try {
                     creationDate = getDateFromExifDate(metadata.DateTimeOriginal.value[0]);
                 } catch (error) {
+                    file.creationDate = null;
                     console.error('Error parsing EXIF date', error);
                 }
             }
         }
 
         file.creationDate = creationDate;
-
-        // HEIC files are not supported by the browsers, so don't try to show them
-        if (file.type === IMAGE_TYPES.heic) {
-            file.url = null;
-        } else {
-            file.url = URL.createObjectURL(file);
-        }
+        file.url = URL.createObjectURL(file);
     }));
 };
 
@@ -108,11 +107,14 @@ const onFileChange = async (): Promise<void> => {
 
         // Sort files by timestamp
         filesArray.sort((a, b) => compareAsc(a.creationDate, b.creationDate))
-        mainStore.setFiles(filesArray)
+        mainStore.setImages(filesArray)
     }
 }
 
-
+// Some images may not be displayed because browsers don't support their format (e.g HEIC, sometimes AVIF)
+const onImageError = (image: any): void => {
+    image.imageCantBeDisplayed = true;
+}
 </script>
 
 <style lang="scss"
@@ -129,5 +131,43 @@ const onFileChange = async (): Promise<void> => {
 .custom-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+
+    animation: rotation 800ms linear infinite;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 2px solid transparent;
+    }
+
+    &::before {
+        border-top-color: hsl(0, 0%, 90%);
+        border-left-color: hsl(0, 0%, 90%);
+    }
+
+    &::after {
+        border-color: hsla(0, 0%, 90%, 30%);
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 </style>

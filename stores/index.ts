@@ -1,35 +1,57 @@
 import { defineStore } from 'pinia'
-import { renameFiles } from '~/util'
+import { assignNewNames } from '~/util'
 
 export const useMainStore = defineStore('main', {
     state: () => ({
         rename: true,
         startingDate: 1,
         optimiseSize: true,
-        files: [],
+        processing: false,
+        images: []
     }),
     actions: {
-        setFiles(value: any) {
-            this.files = value
+        setImages (images: File[]) {
+            this.images = images.map(file => {
+                return {
+                    file,
+                    newName: '',
+                    processedFile: null,
+                    imageCantBeDisplayed: false
+                }
+            })
 
-            this.renameFiles()
+            this.assignNewNames()
         },
-        renameFiles() {
-            renameFiles(this.files, Number(this.startingDate))
-        },
+        assignNewNames () {
+            assignNewNames(this.images, this.startingDate)
+        }
     },
     getters: {
-        totalFilesSize() {
-            return this.files.reduce((acc, file) => acc + file.size, 0)
+        totalFilesSize () {
+            return this.images.reduce((acc, file) => acc + file.file.size, 0)
         },
-        optimisedFilesSize() {
-            return this.totalFilesSize * 0.7;
+        optimisedFilesSize () {
+            return this.images.reduce((acc, file) => {
+                if (file.processedFile) {
+                    return acc + file.processedFile.byteLength;
+                }
+
+                return acc;
+            }, 0);
         },
-        savedFilesSize() {
-            return this.totalFilesSize - this.optimisedFilesSize;
+        savedFilesSize () {
+            if (this.optimisedFilesSize) {
+                return this.totalFilesSize - this.optimisedFilesSize;
+            }
+
+            return 0;
+
         },
-        savedFilesPercentage() {
+        savedFilesPercentage () {
             return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2));
+        },
+        allImagesProcessed () {
+            return this.images.length ? this.images.every(image => image.processedFile) : false;
         }
     }
 })
