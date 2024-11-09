@@ -19,11 +19,19 @@ export async function measurePerformance<T> (label: string, fn: () => Promise<T>
     };
 }
 
-export function logPerformance(bufferRetrievalDuration: number, decodingDuration: number, encodingDuration: number, totalDuration: number, imageName: string): void {
-    console.log(`Buffer: ${bufferRetrievalDuration} ms`);
-    console.log(`Decoding: ${decodingDuration} ms`);
-    console.log(`Encoding: ${encodingDuration} ms`);
-    console.log(`Image ${imageName}: processed in ${totalDuration} ms`);
+export function logPerformance (
+    bufferRetrievalDuration: number,
+    decodingDuration: number,
+    encodingDuration: number,
+    totalDuration: number,
+    imageName: string
+): void {
+    if (isDebugMode()) {
+        console.log(`Buffer: ${ bufferRetrievalDuration } ms`);
+        console.log(`Decoding: ${ decodingDuration } ms`);
+        console.log(`Encoding: ${ encodingDuration } ms`);
+        console.log(`Image ${ imageName }: processed in ${ totalDuration } ms`);
+    }
 }
 
 export async function processImage (image) {
