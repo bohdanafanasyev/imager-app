@@ -38,6 +38,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      elheif:
+        specifier: ^0.1.0
+        version: 0.1.0
       exifreader:
         specifier: ^4.23.5
         version: 4.23.6
@@ -1969,6 +1972,9 @@ packages:
 
   electron-to-chromium@1.5.32:
     resolution: {integrity: sha512-M+7ph0VGBQqqpTT2YrabjNKSQ2fEl9PVx6AK3N558gDH9NO8O6XN9SXXFWRo9u9PbEg/bWq+tjXQr+eXmxubCw==}
+
+  elheif@0.1.0:
+    resolution: {integrity: sha512-3gSMV3RuOY5pjT1xKzWRsl/UnV/40goB0Q/mIF1N2CsMe+gh73HHcuKg2XOFy362NOcW+C625aGvlTcQqFQUOg==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -6386,6 +6392,8 @@ snapshots:
   ee-first@1.1.1: {}
 
   electron-to-chromium@1.5.32: {}
+
+  elheif@0.1.0: {}
 
   emoji-regex@8.0.0: {}
 

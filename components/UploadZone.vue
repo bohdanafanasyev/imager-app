@@ -53,7 +53,10 @@
             </li>
         </transition-group>
         <p v-show="!mainStore.images.length"
-           class="font-sans">Select the files by clicking the plus icon</p>
+           class="font-sans">
+            Select the files by clicking the plus icon
+            <span class="opacity-50 italic">(supported formats .heif, .heic, .avif, .webp, .jpg, .png)</span>
+        </p>
     </div>
 </template>
 
@@ -64,10 +67,7 @@ import ExifReader from 'exifreader'
 import { filesize } from 'filesize'
 import { compareAsc } from 'date-fns'
 import PhotoIcon from '~/components/PhotoIcon.vue'
-import {
-    IMAGE_TYPES,
-    SUPPORTED_IMAGE_TYPES
-} from '~/values'
+import { SUPPORTED_IMAGE_TYPES } from '~/values'
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const mainStore = useMainStore()

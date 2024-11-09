@@ -92,6 +92,7 @@
 <script setup
         lang="ts">
 import { filesize } from 'filesize'
+import { IMAGE_TYPES } from '~/values'
 
 const mainStore = useMainStore();
 
@@ -104,13 +105,7 @@ const processImages = async (): Promise<void> => {
         mainStore.processing = true;
 
         for (const image of mainStore.images) {
-            const startTime = performance.now();
-            const encoded = await processImagesSW(image.file);
-            const endTime = performance.now();
-            const timeTaken = endTime - startTime;
-
-            image.processedFile = encoded;
-            console.log(`Image ${ image.newName }: processed in ${ timeTaken } ms`);
+            image.processedFile = await processImage(image);
         }
     }
 
@@ -118,19 +113,20 @@ const processImages = async (): Promise<void> => {
 };
 
 const downloadImages = async (): Promise<void> => {
-    const files = mainStore.images;
+    const images = mainStore.images;
 
-    for (let index = 0; index < files.length; index++) {
-        const file = files[index];
+    for (let index = 0; index < images.length; index++) {
+        const image = images[index];
 
-        if (file) {
-            const processedFile = file.processedFile;
+        if (image) {
+            const processedFile = image.processedFile;
+
             if (processedFile) {
-                const blob = new Blob([processedFile], {type: file.file.type});
+                const blob = new Blob([processedFile], {type: IMAGE_TYPES.webp});
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = file.file.name;
+                a.download = `${ image.newName }.webp`;
                 a.click();
                 URL.revokeObjectURL(url);
             }

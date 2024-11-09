@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { assignNewNames } from '~/util'
 
 export const useMainStore = defineStore('main', {
     state: () => ({

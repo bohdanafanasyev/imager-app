@@ -5,7 +5,8 @@ export default {
                 "@jsquash/png",
                 "@jsquash/avif",
                 "@jsquash/webp",
-                "@jsquash/jpeg"
+                "@jsquash/jpeg",
+                'elheif'
             ]
         }
     },

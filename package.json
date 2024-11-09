@@ -23,6 +23,7 @@
         "@pinia/nuxt": "^0.5.5",
         "archiver": "^7.0.1",
         "date-fns": "^4.1.0",
+        "elheif": "^0.1.0",
         "exifreader": "^4.23.5",
         "filesize": "^10.1.6",
         "libheif-js": "^1.18.2",
