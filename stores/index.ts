@@ -10,9 +10,11 @@ export const useMainStore = defineStore('main', {
         images: [] as Image[]
     }),
     actions: {
-        setImages(images: Image[]) {
-            this.images = images
+        addImages(images: Image[]) {
+            const existingImageNames = new Set(this.images.map((image) => image.file.name))
+            const newImages = images.filter((image) => !existingImageNames.has(image.file.name))
 
+            this.images.push(...newImages)
             this.assignNewNames()
         },
         assignNewNames() {

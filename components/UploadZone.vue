@@ -181,7 +181,7 @@ const onFileChange = async (): Promise<void> => {
             return compareAsc(a.creationDate, b.creationDate)
         })
 
-        mainStore.setImages(imagesArray)
+        mainStore.addImages(imagesArray)
     }
 }
 
