@@ -17,6 +17,9 @@ export const useMainStore = defineStore('main', {
         },
         assignNewNames() {
             assignNewNames(this.images, this.startingDate)
+        },
+        removeImage(index: number) {
+            this.images.splice(index, 1)
         }
     },
     getters: {

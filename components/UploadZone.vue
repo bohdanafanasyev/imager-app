@@ -7,6 +7,7 @@
             <label
                 for='file-input'
                 class='btn-secondary btn-sm block'
+                style='padding: 0 14px'
             >
                 <span class='btn-text'>
                     +
@@ -23,17 +24,15 @@
             >
         </div>
 
-        <transition-group
+        <ul
             v-show='mainStore.images.length'
-            name='fade'
-            tag='ul'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
         >
             <li
                 v-for='(image, index) in mainStore.images'
                 :key='image.file.name'
                 :style='{ transitionDelay: `${index * 60}ms` }'
-                class='flex gap-4'
+                class='flex gap-4 group'
             >
                 <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
                     <img
@@ -64,8 +63,16 @@
                         {{ filesize(image.file.size) }}
                     </p>
                 </div>
+                <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
+                    <button
+                        class='font-medium text-xs text-gray-400 hover:text-gray-200 p-4'
+                        @click='mainStore.removeImage(index)'
+                    >
+                        Delete
+                    </button>
+                </div>
             </li>
-        </transition-group>
+        </ul>
         <p
             v-show='!mainStore.images.length'
             class='font-sans'
@@ -187,15 +194,6 @@ const onImageError = (image: Image): void => {
 <style lang="scss"
        scoped
 >
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 0.5s, transform 0.5s;
-}
-
-.fade-enter-from, .fade-leave-to {
-    opacity: 0;
-    transform: translateY(5px);
-}
-
 .custom-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
