@@ -23,6 +23,9 @@ export const useMainStore = defineStore('main', {
         totalFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
         },
+        totalProcessedFiles(): number {
+            return this.images.filter((image: Image) => image.encodedArrayBuffer).length
+        },
         optimisedFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => {
                 if (image.encodedArrayBuffer) {

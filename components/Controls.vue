@@ -61,34 +61,26 @@
             </div>
 
             <div class='flex flex-col gap-4'>
-                <div class='flex text-xs place-items-center justify-between font-medium'>
-                    <span class='text-ital'>Uploaded size</span>
-                    <span>
-                        {{ mainStore.totalFilesSize ? filesize(mainStore.totalFilesSize) : "TBD" }}
-                    </span>
-                </div>
-                <div class='flex text-xs place-items-center justify-between font-medium'>
-                    <span class='text-ital'>Optimised size</span>
-                    <span>
-                        {{ mainStore.optimisedFilesSize > 0 ? filesize(mainStore.optimisedFilesSize) : "TBD" }}
-                    </span>
-                </div>
-                <div class='flex text-xs place-items-center justify-between font-medium'>
-                    <span class='text-ital'>Saved size</span>
-                    <span>
-                        {{
-                            mainStore.savedFilesSize > 0 ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : "TBD"
-                        }}
-                    </span>
+                <div
+                    v-for='stat in stats'
+                    :key='stat.label'
+                    class='flex text-xs place-items-center justify-between font-medium'
+                >
+                    <span class='text-ital'>{{ stat.label }}</span>
+                    <span>{{ stat.value }}</span>
                 </div>
             </div>
 
             <div class='flex'>
                 <button
                     class='btn-secondary btn-sm ml-auto'
+                    :class='{
+                        ["pointer-events-none"]: mainStore.processing || !mainStore.images.length
+                    }'
+                    :disabled='mainStore.processing || !mainStore.images.length'
                     @click='processImages'
                 >
-                    <span class='btn-text'>Process</span>
+                    <span class='btn-text'>Optimise</span>
                 </button>
                 <button
                     v-if='mainStore.allImagesProcessed'
@@ -102,9 +94,8 @@
     </div>
 </template>
 
-<script setup
-        lang="ts"
->
+<script setup lang="ts">
+import { computed } from 'vue'
 import { filesize } from 'filesize'
 
 const mainStore = useMainStore()
@@ -128,6 +119,29 @@ const processImages = async (): Promise<void> => {
 const downloadImages = (): void => {
     downloadFiles(mainStore.images, mainStore.rename)
 }
+
+const stats = computed(() => [
+    {
+        label: 'Uploaded files',
+        value: mainStore.images.length > 0 ? mainStore.images.length : 'TBD'
+    },
+    {
+        label: 'Optimised files',
+        value: mainStore.images.length > 0 ? `${mainStore.totalProcessedFiles} of ${mainStore.images.length}` : 'TBD'
+    },
+    {
+        label: 'Uploaded size',
+        value: mainStore.totalFilesSize ? filesize(mainStore.totalFilesSize) : 'TBD'
+    },
+    {
+        label: 'Optimised size',
+        value: mainStore.optimisedFilesSize > 0 ? filesize(mainStore.optimisedFilesSize) : 'TBD'
+    },
+    {
+        label: 'Saved size',
+        value: mainStore.savedFilesSize > 0 ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : 'TBD'
+    }
+])
 </script>
 
 <style>
