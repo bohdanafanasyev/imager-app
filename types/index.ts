@@ -1,7 +1,7 @@
 export type Image = {
     file: File
     newName: string
-    processedFile: ArrayBuffer | null
+    encodedArrayBuffer: ArrayBuffer | null
     creationDate: Date | null
     thumbnail: {
         url: string

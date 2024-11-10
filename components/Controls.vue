@@ -106,7 +106,6 @@
         lang="ts"
 >
 import { filesize } from 'filesize'
-import { IMAGE_TYPES } from '~/values'
 
 const mainStore = useMainStore()
 
@@ -119,33 +118,15 @@ const processImages = async (): Promise<void> => {
         mainStore.processing = true
 
         for (const image of mainStore.images) {
-            image.processedFile = await processImage(image)
+            image.encodedArrayBuffer = await processImage(image)
         }
     }
 
     mainStore.processing = false
 }
 
-const downloadImages = async (): Promise<void> => {
-    const images = mainStore.images
-
-    for (let index = 0; index < images.length; index++) {
-        const image = images[index]
-
-        if (image) {
-            const processedFile = image.processedFile
-
-            if (processedFile) {
-                const blob = new Blob([processedFile], { type: IMAGE_TYPES.webp })
-                const url = URL.createObjectURL(blob)
-                const a = document.createElement('a')
-                a.href = url
-                a.download = `${image.newName}.webp`
-                a.click()
-                URL.revokeObjectURL(url)
-            }
-        }
-    }
+const downloadImages = (): void => {
+    downloadFiles(mainStore.images, mainStore.rename)
 }
 </script>
 

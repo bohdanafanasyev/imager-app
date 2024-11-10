@@ -13,5 +13,5 @@ const decoders = {
 }
 
 export async function jsquashDecode(fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData> {
-    return decoders[fileType](arrayBuffer)
+    return await decoders[fileType](arrayBuffer)
 }

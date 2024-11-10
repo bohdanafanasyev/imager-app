@@ -25,8 +25,8 @@ export const useMainStore = defineStore('main', {
         },
         optimisedFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => {
-                if (image.processedFile) {
-                    return accumulator + image.processedFile.byteLength
+                if (image.encodedArrayBuffer) {
+                    return accumulator + image.encodedArrayBuffer.byteLength
                 }
 
                 return accumulator
@@ -43,7 +43,7 @@ export const useMainStore = defineStore('main', {
             return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
         },
         allImagesProcessed(): boolean {
-            return this.images.length ? this.images.every((image: Image) => image.processedFile) : false
+            return this.images.length ? this.images.every((image: Image) => image.encodedArrayBuffer) : false
         }
     }
 })

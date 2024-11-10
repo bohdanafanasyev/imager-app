@@ -50,7 +50,7 @@
                         <PhotoIcon class='w-6' />
                     </div>
                     <div
-                        v-if='mainStore.processing && !image.processedFile'
+                        v-if='mainStore.processing && !image.encodedArrayBuffer'
                         class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
                     >
                         <div class='spinner' />
@@ -91,7 +91,7 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const mainStore = useMainStore()
 
 const acceptedImageTypes = SUPPORTED_IMAGE_TYPES_VALUES.join(',')
-const displayedAcceptedImageTypes = acceptedImageTypes.replace(/image\//g, '.')
+const displayedAcceptedImageTypes = acceptedImageTypes.replace(/image\//g, ' .')
 
 const getDateFromExifDate = (exifDate: string) => {
     const [year, month, day, hour, minute, second] = exifDate.split(/\D/)
@@ -146,7 +146,7 @@ const onFileChange = async (): Promise<void> => {
             file,
             imageCantBeDisplayed: false,
             newName: '',
-            processedFile: null,
+            encodedArrayBuffer: null,
             creationDate: null,
             thumbnail: {
                 url: '',

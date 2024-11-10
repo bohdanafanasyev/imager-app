@@ -4,7 +4,7 @@ import {
 } from 'date-fns'
 import type { Image } from '~/types'
 
-const getRenamedFileName = (currentDay: number, date: Date) => {
+const getRenamedFileName = (currentDay: number, date: Date): string => {
     const day = `Day ${currentDay}`
     const hours = String(date.getHours()).padStart(2, '0')
     const minutes = String(date.getMinutes()).padStart(2, '0')
@@ -22,6 +22,7 @@ export function assignNewNames(
         // Assign names based on order
         let currentDay = startingDay
         let previousDate = images[0].creationDate
+        const nameCountMap: { [key: string]: number } = {}
 
         images.forEach((image) => {
             if (previousDate && image.creationDate) {
@@ -30,10 +31,16 @@ export function assignNewNames(
                     previousDate = image.creationDate
                 }
 
-                const format = image.file.name.split('.').pop()
-                const newName = getRenamedFileName(currentDay, image.creationDate)
+                let newName = getRenamedFileName(currentDay, image.creationDate)
+                if (nameCountMap[newName]) {
+                    newName = `${newName} (${nameCountMap[newName]})`
+                    nameCountMap[newName] += 1
+                }
+                else {
+                    nameCountMap[newName] = 1
+                }
 
-                image.newName = `${newName}.${format}`
+                image.newName = newName
             }
             else {
                 // Todo error handling when date is not available
