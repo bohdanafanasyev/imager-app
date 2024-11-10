@@ -17,6 +17,7 @@
         "@jsquash/jpeg": "^1.1.5",
         "@jsquash/png": "^3.0.1",
         "@jsquash/webp": "^1.4.0",
+        "@nuxt/eslint": "^0.6.1",
         "@nuxt/fonts": "^0.9.2",
         "@nuxt/image": "^1.8.1",
         "@nuxtjs/tailwindcss": "^6.12.1",
@@ -35,6 +36,8 @@
         "vue-router": "latest"
     },
     "devDependencies": {
-        "nuxi": "^3.14.0"
+        "nuxi": "^3.14.0",
+        "typescript": "^5.6.3",
+        "vue-tsc": "^2.1.10"
     }
 }

@@ -1,67 +1,84 @@
 <template>
-    <div class="w-full py-8 pl-8 pr-1 flex flex-col">
-        <div class="flex gap-4 mb-8">
-            <h4 class="text-xl font-sans text-strong">
+    <div class='w-full py-8 pl-8 pr-1 flex flex-col'>
+        <div class='flex gap-4 mb-8'>
+            <h4 class='text-xl font-sans text-strong'>
                 Files
             </h4>
-            <label for="file-input"
-                   class="btn-secondary btn-sm block">
-            <span class="btn-text">
-                +
-            </span>
+            <label
+                for='file-input'
+                class='btn-secondary btn-sm block'
+            >
+                <span class='btn-text'>
+                    +
+                </span>
             </label>
-            <input type="file"
-                   id="file-input"
-                   ref="fileInput"
-                   class="hidden"
-                   :accept="SUPPORTED_IMAGE_TYPES"
-                   multiple
-                   @change="onFileChange" />
+            <input
+                id='file-input'
+                ref='fileInput'
+                type='file'
+                class='hidden'
+                :accept='SUPPORTED_IMAGE_TYPES'
+                multiple
+                @change='onFileChange'
+            >
         </div>
 
-        <transition-group v-show="mainStore.images.length"
-                          name="fade"
-                          tag="ul"
-                          class="flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7">
-            <li v-for="(image, index) in mainStore.images"
-                :key="image.file.name"
-                :style="{ transitionDelay: `${index * 60}ms` }"
-                class="flex gap-4">
-                <div class="w-16 h-16 rounded-xl shadow-md overflow-clip relative">
-                    <img v-if="!image.imageCantBeDisplayed"
-                         :src="image.file.url"
-                         :alt="image.file.name"
-                         @error.once="onImageError(image)"
-                         class="w-full h-full object-cover" />
-                    <div v-else
-                         class="glass-3d tint-2xdark h-full w-full flex items-center justify-center">
-                        <PhotoIcon class="w-6" />
+        <transition-group
+            v-show='mainStore.images.length'
+            name='fade'
+            tag='ul'
+            class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
+        >
+            <li
+                v-for='(image, index) in mainStore.images'
+                :key='image.file.name'
+                :style='{ transitionDelay: `${index * 60}ms` }'
+                class='flex gap-4'
+            >
+                <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
+                    <img
+                        v-if='!image.imageCantBeDisplayed'
+                        :src='image.file.url'
+                        :alt='image.file.name'
+                        class='w-full h-full object-cover'
+                        @error.once='onImageError(image)'
+                    >
+                    <div
+                        v-else
+                        class='glass-3d tint-2xdark h-full w-full flex items-center justify-center'
+                    >
+                        <PhotoIcon class='w-6' />
                     </div>
-                    <div v-if="mainStore.processing && !image.processedFile"
-                         class="tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center">
-                        <div class="spinner" />
+                    <div
+                        v-if='mainStore.processing && !image.processedFile'
+                        class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
+                    >
+                        <div class='spinner' />
                     </div>
                 </div>
-                <div class="flex flex-col gap-1 justify-center">
-                    <p class="font-sans text-s">
+                <div class='flex flex-col gap-1 justify-center'>
+                    <p class='font-sans text-s'>
                         {{ mainStore.rename ? image.newName : image.file.name }}
                     </p>
-                    <p class="font-sans text-xs text-gray-400">
+                    <p class='font-sans text-xs text-gray-400'>
                         {{ filesize(image.file.size) }}
                     </p>
                 </div>
             </li>
         </transition-group>
-        <p v-show="!mainStore.images.length"
-           class="font-sans">
+        <p
+            v-show='!mainStore.images.length'
+            class='font-sans'
+        >
             Select the files by clicking the plus icon
-            <span class="opacity-50 italic">(supported formats .heif, .heic, .avif, .webp, .jpg, .png)</span>
+            <span class='opacity-50 italic'>(supported formats .heif, .heic, .avif, .webp, .jpg, .png)</span>
         </p>
     </div>
 </template>
 
 <script setup
-        lang="ts">
+        lang="ts"
+>
 import { ref } from 'vue'
 import ExifReader from 'exifreader'
 import { filesize } from 'filesize'
@@ -79,25 +96,26 @@ const getDateFromExifDate = (exifDate) => {
 
 const getImagesData = async (filesArray: Array<File>): Promise<void> => {
     await Promise.all(filesArray.map(async (file) => {
-        let creationDate = new Date(file.lastModified);
+        let creationDate = new Date(file.lastModified)
 
         if (!creationDate) {
-            const metadata = await ExifReader.load(file, {async: true});
+            const metadata = await ExifReader.load(file, { async: true })
 
             if (metadata.DateTimeOriginal) {
                 try {
-                    creationDate = getDateFromExifDate(metadata.DateTimeOriginal.value[0]);
-                } catch (error) {
-                    file.creationDate = null;
-                    console.error('Error parsing EXIF date', error);
+                    creationDate = getDateFromExifDate(metadata.DateTimeOriginal.value[0])
+                }
+                catch (error) {
+                    file.creationDate = null
+                    console.error('Error parsing EXIF date', error)
                 }
             }
         }
 
-        file.creationDate = creationDate;
-        file.url = URL.createObjectURL(file);
-    }));
-};
+        file.creationDate = creationDate
+        file.url = URL.createObjectURL(file)
+    }))
+}
 
 const onFileChange = async (): Promise<void> => {
     if (fileInput.value?.files) {
@@ -113,12 +131,13 @@ const onFileChange = async (): Promise<void> => {
 
 // Some images may not be displayed because browsers don't support their format (e.g HEIC, sometimes AVIF)
 const onImageError = (image: any): void => {
-    image.imageCantBeDisplayed = true;
+    image.imageCantBeDisplayed = true
 }
 </script>
 
 <style lang="scss"
-       scoped>
+       scoped
+>
 .fade-enter-active, .fade-leave-active {
     transition: opacity 0.5s, transform 0.5s;
 }

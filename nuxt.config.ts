@@ -12,6 +12,23 @@ export default defineNuxtConfig({
   ...vite,
   compatibilityDate: '2024-04-03',
 
+  eslint: {
+    config: {
+      stylistic: {
+        semi: false,
+        quotes: 'single',
+        arrowParens: true,
+        blockSpacing: true,
+        indent: 4,
+        commaDangle: 'never',
+      },
+    },
+  },
+
+  typescript: {
+      typeCheck: true
+  },
+
   devtools: {
       enabled: true
   },
