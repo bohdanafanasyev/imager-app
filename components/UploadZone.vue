@@ -17,7 +17,7 @@
                 ref='fileInput'
                 type='file'
                 class='hidden'
-                :accept='SUPPORTED_IMAGE_TYPES'
+                :accept='acceptedImageTypes'
                 multiple
                 @change='onFileChange'
             >
@@ -37,8 +37,8 @@
             >
                 <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
                     <img
-                        v-if='!image.imageCantBeDisplayed'
-                        :src='image.file.url'
+                        v-if='!image.thumbnail.loadError'
+                        :src='image.thumbnail.url'
                         :alt='image.file.name'
                         class='w-full h-full object-cover'
                         @error.once='onImageError(image)'
@@ -71,7 +71,7 @@
             class='font-sans'
         >
             Select the files by clicking the plus icon
-            <span class='opacity-50 italic'>(supported formats .heif, .heic, .avif, .webp, .jpg, .png)</span>
+            <span class='opacity-50 italic'>(supported formats {{ displayedAcceptedImageTypes }})</span>
         </p>
     </div>
 </template>
@@ -84,54 +84,103 @@ import ExifReader from 'exifreader'
 import { filesize } from 'filesize'
 import { compareAsc } from 'date-fns'
 import PhotoIcon from '~/components/PhotoIcon.vue'
-import { SUPPORTED_IMAGE_TYPES } from '~/values'
+import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
+import type { Image } from '~/types'
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const mainStore = useMainStore()
 
-const getDateFromExifDate = (exifDate) => {
+const acceptedImageTypes = SUPPORTED_IMAGE_TYPES_VALUES.join(',')
+const displayedAcceptedImageTypes = acceptedImageTypes.replace(/image\//g, '.')
+
+const getDateFromExifDate = (exifDate: string) => {
     const [year, month, day, hour, minute, second] = exifDate.split(/\D/)
-    return new Date(year, month - 1, day, hour, minute, second)
+
+    return new Date(
+        Number(year),
+        Number(month) - 1,
+        Number(day),
+        Number(hour),
+        Number(minute),
+        Number(second)
+    )
 }
 
-const getImagesData = async (filesArray: Array<File>): Promise<void> => {
-    await Promise.all(filesArray.map(async (file) => {
+const getExifDateDateTimeOriginal = (dateTimeOriginal: ExifReader.StringArrayTag | undefined): string | undefined => {
+    if (dateTimeOriginal) {
+        if (dateTimeOriginal.value && Array.isArray(dateTimeOriginal.value)) {
+            return dateTimeOriginal.value[0]
+        }
+    }
+
+    return undefined
+}
+
+const setImageData = async (images: Image[]): Promise<void> => {
+    await Promise.all(images.map(async (image) => {
+        const { file } = image
         let creationDate = new Date(file.lastModified)
 
         if (!creationDate) {
             const metadata = await ExifReader.load(file, { async: true })
+            const dateTimeOriginal = metadata.DateTimeOriginal as ExifReader.StringArrayTag | undefined
+            const date: string | undefined = getExifDateDateTimeOriginal(dateTimeOriginal)
 
-            if (metadata.DateTimeOriginal) {
-                try {
-                    creationDate = getDateFromExifDate(metadata.DateTimeOriginal.value[0])
-                }
-                catch (error) {
-                    file.creationDate = null
-                    console.error('Error parsing EXIF date', error)
-                }
+            if (date) {
+                creationDate = getDateFromExifDate(date)
+            }
+            else {
+                console.error('No creation date available', file.name)
             }
         }
 
-        file.creationDate = creationDate
-        file.url = URL.createObjectURL(file)
+        image.creationDate = creationDate
+        image.thumbnail.url = URL.createObjectURL(file)
     }))
 }
 
 const onFileChange = async (): Promise<void> => {
     if (fileInput.value?.files) {
         const filesArray = Array.from(fileInput.value.files)
+        const imagesArray: Image[] = filesArray.map((file) => ({
+            file,
+            imageCantBeDisplayed: false,
+            newName: '',
+            processedFile: null,
+            creationDate: null,
+            thumbnail: {
+                url: '',
+                loadError: false
+            }
+        }))
 
-        await getImagesData(filesArray)
+        await setImageData(imagesArray)
 
         // Sort files by timestamp
-        filesArray.sort((a, b) => compareAsc(a.creationDate, b.creationDate))
-        mainStore.setImages(filesArray)
+        // Ensure that images without a creationDate are placed at the end of the sorted array
+        imagesArray.sort((a, b) => {
+            if (!a.creationDate && !b.creationDate) {
+                return 0
+            }
+
+            if (!a.creationDate) {
+                return 1
+            }
+
+            if (!b.creationDate) {
+                return -1
+            }
+
+            return compareAsc(a.creationDate, b.creationDate)
+        })
+
+        mainStore.setImages(imagesArray)
     }
 }
 
-// Some images may not be displayed because browsers don't support their format (e.g HEIC, sometimes AVIF)
-const onImageError = (image: any): void => {
-    image.imageCantBeDisplayed = true
+// Some images may not be displayed because browsers don't support their format (e.g. HEIC, sometimes AVIF)
+const onImageError = (image: Image): void => {
+    image.thumbnail.loadError = true
 }
 </script>
 

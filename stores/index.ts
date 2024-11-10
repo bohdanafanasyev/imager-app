@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { Image } from '~/types'
 
 export const useMainStore = defineStore('main', {
     state: () => ({
@@ -6,51 +7,43 @@ export const useMainStore = defineStore('main', {
         startingDate: 1,
         optimiseSize: true,
         processing: false,
-        images: []
+        images: [] as Image[]
     }),
     actions: {
-        setImages (images: File[]) {
-            this.images = images.map(file => {
-                return {
-                    file,
-                    newName: '',
-                    processedFile: null,
-                    imageCantBeDisplayed: false
-                }
-            })
+        setImages(images: Image[]) {
+            this.images = images
 
             this.assignNewNames()
         },
-        assignNewNames () {
+        assignNewNames() {
             assignNewNames(this.images, this.startingDate)
         }
     },
     getters: {
-        totalFilesSize () {
-            return this.images.reduce((acc, file) => acc + file.file.size, 0)
+        totalFilesSize(): number {
+            return this.images.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
         },
-        optimisedFilesSize () {
-            return this.images.reduce((acc, file) => {
-                if (file.processedFile) {
-                    return acc + file.processedFile.byteLength;
+        optimisedFilesSize(): number {
+            return this.images.reduce((accumulator: number, image: Image) => {
+                if (image.processedFile) {
+                    return accumulator + image.processedFile.byteLength
                 }
 
-                return acc;
-            }, 0);
+                return accumulator
+            }, 0)
         },
-        savedFilesSize () {
+        savedFilesSize(): number {
             if (this.optimisedFilesSize) {
-                return this.totalFilesSize - this.optimisedFilesSize;
+                return this.totalFilesSize - this.optimisedFilesSize
             }
 
-            return 0;
-
+            return 0
         },
-        savedFilesPercentage () {
-            return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2));
+        savedFilesPercentage(): number {
+            return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
         },
-        allImagesProcessed () {
-            return this.images.length ? this.images.every(image => image.processedFile) : false;
+        allImagesProcessed(): boolean {
+            return this.images.length ? this.images.every((image: Image) => image.processedFile) : false
         }
     }
 })

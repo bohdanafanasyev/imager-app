@@ -1,13 +1,11 @@
 import {
     JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES,
     ELHEIF_SUPPORTED_IMAGE_TYPES,
-    SUPPORTED_IMAGE_TYPES
+    SUPPORTED_IMAGE_TYPES_VALUES
 } from '~/values'
+import type { Image } from '~/types'
 
-export async function measurePerformance<T>(fn: () => Promise<T>): Promise<{
-    result: T
-    duration: number
-}> {
+async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
     const result = await fn()
     const endTime = performance.now()
@@ -27,17 +25,17 @@ export function logPerformance(
     imageName: string
 ): void {
     if (isDebugMode()) {
-        console.log(`Buffer: ${bufferRetrievalDuration} ms`)
-        console.log(`Decoding: ${decodingDuration} ms`)
-        console.log(`Encoding: ${encodingDuration} ms`)
-        console.log(`Image ${imageName}: processed in ${totalDuration} ms`)
+        console.log(`Buffer: ${bufferRetrievalDuration}ms`)
+        console.log(`Decoding: ${decodingDuration}ms`)
+        console.log(`Encoding: ${encodingDuration}ms`)
+        console.log(`Image ${imageName}: processed in ${totalDuration}ms`)
     }
 }
 
-export async function processImage(image) {
+export async function processImage(image: Image) {
     const { file } = image
 
-    if (!SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+    if (!SUPPORTED_IMAGE_TYPES_VALUES.includes(file.type)) {
         throw new Error('Unsupported image type')
     }
 
@@ -48,19 +46,21 @@ export async function processImage(image) {
         duration: bufferRetrievalDuration
     } = await measurePerformance(() => file.arrayBuffer())
 
-    let decodedImageData
+    let decodedImageData: ImageData
     let decodingDuration = 0
+
     if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
         ({
             result: decodedImageData,
             duration: decodingDuration
         } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
+        decodedImageData = await jsquashDecode(file.type, arrayBuffer)
     }
     else if (ELHEIF_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
         ({
             result: decodedImageData,
             duration: decodingDuration
-        } = await measurePerformance(() => elheifDecode(file.type, arrayBuffer)))
+        } = await measurePerformance(() => elheifDecode(arrayBuffer)))
     }
 
     const {

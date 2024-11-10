@@ -1,7 +1,7 @@
-import { decode as jpegDecode } from "@jsquash/jpeg";
-import { decode as webpDecode } from "@jsquash/webp";
-import { decode as avifDecode } from "@jsquash/avif";
-import { decode as pngDecode } from "@jsquash/png";
+import { decode as jpegDecode } from '@jsquash/jpeg'
+import { decode as webpDecode } from '@jsquash/webp'
+import { decode as avifDecode } from '@jsquash/avif'
+import { decode as pngDecode } from '@jsquash/png'
 import { IMAGE_TYPES } from '~/values'
 
 const decoders = {
@@ -12,8 +12,6 @@ const decoders = {
     [IMAGE_TYPES.webp]: webpDecode
 }
 
-export async function jsquashDecode (fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData> {
-    const decoder = decoders[fileType];
-
-    return await decoder(arrayBuffer);
+export async function jsquashDecode(fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData> {
+    return decoders[fileType](arrayBuffer)
 }

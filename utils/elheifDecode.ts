@@ -3,8 +3,10 @@ import {
     jsDecodeImage
 } from 'elheif'
 
-export async function elheifDecode (fileType: string, arrayBuffer: ArrayBuffer): Promise<ArrayBuffer> {
+export async function elheifDecode(arrayBuffer: ArrayBuffer): Promise<ImageData> {
     await ensureInitialized()
 
-    return jsDecodeImage(arrayBuffer).data[0]
+    // @ts-expect-error - The result.data is a Uint8Array, but we need a clamped Uint8Array
+    // also the return type is not ImageData
+    return jsDecodeImage(new Uint8Array(arrayBuffer)).data[0]
 }
