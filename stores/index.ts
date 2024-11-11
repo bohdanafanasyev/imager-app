@@ -5,8 +5,8 @@ export const useMainStore = defineStore('main', {
     state: () => ({
         rename: true,
         startingDate: 1,
-        optimiseSize: true,
-        processing: false,
+        optimise: true,
+        isOptimising: false,
         images: [] as Image[]
     }),
     actions: {
@@ -28,8 +28,11 @@ export const useMainStore = defineStore('main', {
         totalFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
         },
-        totalProcessedFiles(): number {
+        totalOptimisedFiles(): number {
             return this.images.filter((image: Image) => image.encodedArrayBuffer).length
+        },
+        allImagesOptimised(): boolean {
+            return this.images.length ? this.images.every((image: Image) => image.encodedArrayBuffer) : false
         },
         optimisedFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => {
@@ -40,8 +43,11 @@ export const useMainStore = defineStore('main', {
                 return accumulator
             }, 0)
         },
+        shouldGetOptimisedResult(): boolean {
+            return this.optimise && this.images.length > 0 && this.allImagesOptimised
+        },
         savedFilesSize(): number {
-            if (this.optimisedFilesSize) {
+            if (this.shouldGetOptimisedResult) {
                 return this.totalFilesSize - this.optimisedFilesSize
             }
 
@@ -50,8 +56,12 @@ export const useMainStore = defineStore('main', {
         savedFilesPercentage(): number {
             return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
         },
-        allImagesProcessed(): boolean {
-            return this.images.length ? this.images.every((image: Image) => image.encodedArrayBuffer) : false
+        co2Saved(): number {
+            if (this.shouldGetOptimisedResult) {
+                return calculateCO2Emissions(this.totalFilesSize, this.optimisedFilesSize).reduction
+            }
+
+            return 0
         }
     }
 })

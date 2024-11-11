@@ -6,12 +6,9 @@
             </h4>
             <label
                 for='file-input'
-                class='btn-secondary btn-sm block'
-                style='padding: 0 14px'
+                class='btn-secondary btn-icon-sm block'
             >
-                <span class='btn-text'>
-                    +
-                </span>
+                <span class='z-20 text-bold'>+</span>
             </label>
             <input
                 id='file-input'
@@ -31,9 +28,9 @@
             <li
                 v-for='(image, index) in mainStore.images'
                 :key='image.file.name'
-                :style='{ transitionDelay: `${index * 60}ms` }'
                 class='flex gap-4 group'
             >
+                <!-- Thumbnail image -->
                 <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
                     <img
                         v-if='!image.thumbnail.loadError'
@@ -45,24 +42,37 @@
                     <div
                         v-else
                         class='glass-3d tint-2xdark h-full w-full flex items-center justify-center'
+                        title="Image couldn't be displayed by the browser"
                     >
-                        <PhotoIcon class='w-6' />
+                        <PhotoIcon class='w-6 pointer-events-none' />
                     </div>
                     <div
-                        v-if='mainStore.processing && !image.encodedArrayBuffer'
+                        v-if='mainStore.isOptimising && !image.encodedArrayBuffer'
                         class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
                     >
                         <div class='spinner' />
                     </div>
                 </div>
+
+                <!-- Title and stats -->
                 <div class='flex flex-col gap-1 justify-center'>
                     <p class='font-sans text-s'>
                         {{ mainStore.rename ? image.newName : image.file.name }}
                     </p>
-                    <p class='font-sans text-xs text-gray-400'>
-                        {{ filesize(image.file.size) }}
-                    </p>
+                    <div class='flex gap-1'>
+                        <p class='font-sans text-xs text-gray-400 flex gap-1'>
+                            {{ filesize(image.file.size) }}
+                            <template v-if='image.encodedArrayBuffer?.byteLength'>
+                                <span>→</span>
+                                <span class='text-green-500'>
+                                    {{ filesize(image.encodedArrayBuffer.byteLength) }}
+                                </span>
+                            </template>
+                        </p>
+                    </div>
                 </div>
+
+                <!-- Controls -->
                 <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
                     <button
                         class='font-medium text-xs text-gray-400 hover:text-gray-200 p-4'
@@ -141,6 +151,7 @@ const setImageData = async (images: Image[]): Promise<void> => {
             }
         }
 
+        image.format.original = getFileExtensionFromFileType(file.type)
         image.creationDate = creationDate
         image.thumbnail.url = URL.createObjectURL(file)
     }))
@@ -151,10 +162,13 @@ const onFileChange = async (): Promise<void> => {
         const filesArray = Array.from(fileInput.value.files)
         const imagesArray: Image[] = filesArray.map((file) => ({
             file,
-            imageCantBeDisplayed: false,
             newName: '',
             encodedArrayBuffer: null,
             creationDate: null,
+            format: {
+                original: '',
+                converted: ''
+            },
             thumbnail: {
                 url: '',
                 loadError: false

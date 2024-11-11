@@ -28,7 +28,7 @@ export function logPerformance(
         console.log(`Buffer: ${bufferRetrievalDuration}ms`)
         console.log(`Decoding: ${decodingDuration}ms`)
         console.log(`Encoding: ${encodingDuration}ms`)
-        console.log(`Image ${imageName}: processed in ${totalDuration}ms`)
+        console.log(`Image ${imageName}: optimised in ${totalDuration}ms`)
     }
 }
 

@@ -12,7 +12,7 @@ function download(blob: Blob, fileName: string): void {
     URL.revokeObjectURL(url)
 }
 
-async function downloadSingleFile(image: Image, rename: boolean): Promise<void> {
+async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
     if (image.encodedArrayBuffer) {
         const blob = new Blob([image.encodedArrayBuffer], { type: IMAGE_TYPES.webp })
         const finalName = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
@@ -21,7 +21,7 @@ async function downloadSingleFile(image: Image, rename: boolean): Promise<void> 
     }
 }
 
-async function downloadMultipleFiles(images: Image[], rename: boolean): Promise<void> {
+async function downloadMultipleFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
     const zip = new JSZip()
 
     for (let index = 0; index < images.length; index++) {
@@ -38,11 +38,11 @@ async function downloadMultipleFiles(images: Image[], rename: boolean): Promise<
     download(zipBlob, 'images.zip')
 }
 
-export async function downloadFiles(images: Image[], rename: boolean): Promise<void> {
+export async function downloadFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
     if (images.length === 1) {
-        await downloadSingleFile(images[0], rename)
+        await downloadSingleFile(images[0], rename, optimise)
     }
     else if (images.length > 1) {
-        await downloadMultipleFiles(images, rename)
+        await downloadMultipleFiles(images, rename, optimise)
     }
 }

@@ -993,8 +993,8 @@ The solution though not perfect is to add a parent wrapper that sets the border-
 :root {
   /* Hue and saturation values ✨ Config these values */
   /* ================================================== */
-  --primary-h: 40;
-  --primary-s: 65%;
+  --primary-h: 130;
+  --primary-s: 50%;
   --neutral-h: 205;
   --neutral-s: 20%;
   /* Primary */

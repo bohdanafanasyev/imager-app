@@ -2,7 +2,7 @@
     <div class='w-96 h-full separator border-gray-500 p-8'>
         <div class='flex gap-4 mb-8'>
             <h4 class='text-xl font-sans text-strong'>
-                Process
+                Settings
             </h4>
         </div>
 
@@ -54,36 +54,44 @@
                 </label>
 
                 <input
-                    v-model='mainStore.optimiseSize'
+                    v-model='mainStore.optimise'
                     class='switch'
                     type='checkbox'
                 >
             </div>
 
-            <div class='flex flex-col gap-4'>
+            <div
+                v-if='mainStore.optimise'
+                class='flex flex-col gap-4'
+            >
                 <div
                     v-for='stat in stats'
                     :key='stat.label'
                     class='flex text-xs place-items-center justify-between font-medium'
                 >
                     <span class='text-ital'>{{ stat.label }}</span>
-                    <span>{{ stat.value }}</span>
+                    <span
+                        :class="{
+                            'text-green-500': stat.value && stat.highlight
+                        }"
+                    >{{ stat.value }}</span>
                 </div>
             </div>
 
             <div class='flex'>
                 <button
+                    v-if='mainStore.optimise'
                     class='btn-secondary btn-sm ml-auto'
                     :class='{
-                        ["pointer-events-none"]: mainStore.processing || !mainStore.images.length
+                        ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
                     }'
-                    :disabled='mainStore.processing || !mainStore.images.length'
+                    :disabled='mainStore.isOptimising'
                     @click='processImages'
                 >
                     <span class='btn-text'>Optimise</span>
                 </button>
                 <button
-                    v-if='mainStore.allImagesProcessed'
+                    v-if='mainStore.allImagesOptimised || !mainStore.optimise'
                     class='btn-secondary btn-sm ml-auto'
                     @click='downloadImages'
                 >
@@ -97,6 +105,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { filesize } from 'filesize'
+import { IMAGE_TYPES } from '~/values'
+import { formatCO2Emissions } from '~/utils/co2Emissions'
 
 const mainStore = useMainStore()
 
@@ -106,18 +116,19 @@ const onStartingDayChange = () => {
 
 const processImages = async (): Promise<void> => {
     if (mainStore.images.length) {
-        mainStore.processing = true
+        mainStore.isOptimising = true
 
         for (const image of mainStore.images) {
             image.encodedArrayBuffer = await processImage(image)
+            image.format.converted = getFileExtensionFromFileType(IMAGE_TYPES.webp)
         }
     }
 
-    mainStore.processing = false
+    mainStore.isOptimising = false
 }
 
 const downloadImages = (): void => {
-    downloadFiles(mainStore.images, mainStore.rename)
+    downloadFiles(mainStore.images, mainStore.rename, mainStore.optimise)
 }
 
 const stats = computed(() => [
@@ -127,7 +138,7 @@ const stats = computed(() => [
     },
     {
         label: 'Optimised files',
-        value: mainStore.images.length > 0 ? `${mainStore.totalProcessedFiles} of ${mainStore.images.length}` : 'TBD'
+        value: mainStore.images.length > 0 ? `${mainStore.totalOptimisedFiles} of ${mainStore.images.length}` : 'TBD'
     },
     {
         label: 'Uploaded size',
@@ -135,11 +146,17 @@ const stats = computed(() => [
     },
     {
         label: 'Optimised size',
-        value: mainStore.optimisedFilesSize > 0 ? filesize(mainStore.optimisedFilesSize) : 'TBD'
+        value: mainStore.shouldGetOptimisedResult ? filesize(mainStore.optimisedFilesSize) : 'TBD',
+        highlight: mainStore.shouldGetOptimisedResult
     },
     {
         label: 'Saved size',
-        value: mainStore.savedFilesSize > 0 ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : 'TBD'
+        value: mainStore.shouldGetOptimisedResult ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : 'TBD'
+    },
+    {
+        label: 'CO2 saved',
+        value: mainStore.shouldGetOptimisedResult ? formatCO2Emissions(mainStore.co2Saved) : 'TBD',
+        highlight: mainStore.shouldGetOptimisedResult
     }
 ])
 </script>
