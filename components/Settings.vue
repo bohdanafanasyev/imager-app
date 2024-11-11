@@ -89,7 +89,7 @@
                         ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
                     }'
                     :disabled='mainStore.isOptimising'
-                    @click='processImages'
+                    @click='optimiseImages'
                 >
                     <span class='btn-text'>Optimise</span>
                 </button>
@@ -119,12 +119,12 @@ const onStartingDayChange = () => {
     mainStore.assignNewNames()
 }
 
-const processImages = async (): Promise<void> => {
+const optimiseImages = async (): Promise<void> => {
     if (mainStore.images.length) {
         mainStore.isOptimising = true
 
         for (const image of mainStore.images) {
-            image.encodedArrayBuffer = await processImage(image)
+            image.encodedArrayBuffer = await optimiseImage(image)
             image.format.converted = getFileExtensionFromFileType(IMAGE_TYPES.webp)
         }
     }
