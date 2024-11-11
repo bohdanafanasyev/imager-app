@@ -26,6 +26,8 @@ async function getFileDownloadData(image: Image, rename: boolean, optimise: bool
     }
 }
 
+// For now single file is disabled, since browser seems to influence the final name of the file
+// Replacing the colon with a dash, for example in macOS
 async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
     const { file, fileName, type } = await getFileDownloadData(image, rename, optimise)
 
@@ -54,10 +56,5 @@ async function downloadMultipleFiles(images: Image[], rename: boolean, optimise:
 }
 
 export async function downloadFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
-    if (images.length === 1) {
-        await downloadSingleFile(images[0], rename, optimise)
-    }
-    else if (images.length > 1) {
-        await downloadMultipleFiles(images, rename, optimise)
-    }
+    await downloadMultipleFiles(images, rename, optimise)
 }
