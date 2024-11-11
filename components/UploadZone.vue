@@ -62,7 +62,7 @@
                     <div class='flex gap-1'>
                         <p class='font-sans text-xs text-gray-400 flex gap-1'>
                             {{ filesize(image.file.size) }}
-                            <template v-if='image.encodedArrayBuffer?.byteLength'>
+                            <template v-if='mainStore.optimise && image.encodedArrayBuffer?.byteLength'>
                                 <span>→</span>
                                 <span class='text-green-500'>
                                     {{ filesize(image.encodedArrayBuffer.byteLength) }}

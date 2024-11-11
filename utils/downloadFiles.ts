@@ -12,12 +12,27 @@ function download(blob: Blob, fileName: string): void {
     URL.revokeObjectURL(url)
 }
 
-async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
-    if (image.encodedArrayBuffer) {
-        const blob = new Blob([image.encodedArrayBuffer], { type: IMAGE_TYPES.webp })
-        const finalName = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
+async function getFileDownloadData(image: Image, rename: boolean, optimise: boolean) {
+    const file = optimise ? image.encodedArrayBuffer : await image.file.arrayBuffer()
+    const format = optimise ? image.format.converted : image.format.original
+    const name = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
+    const type = optimise ? IMAGE_TYPES.webp : image.file.type
+    const fileName = `${name}.${format}`
 
-        download(blob, `${finalName}.webp`)
+    return {
+        file,
+        fileName,
+        type
+    }
+}
+
+async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
+    const { file, fileName, type } = await getFileDownloadData(image, rename, optimise)
+
+    if (file) {
+        const blob = new Blob([file], { type })
+
+        download(blob, fileName)
     }
 }
 
@@ -26,10 +41,10 @@ async function downloadMultipleFiles(images: Image[], rename: boolean, optimise:
 
     for (let index = 0; index < images.length; index++) {
         const image = images[index]
+        const { file, fileName } = await getFileDownloadData(image, rename, optimise)
 
-        if (image.encodedArrayBuffer) {
-            const finalName = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
-            zip.file(`${finalName}.webp`, image.encodedArrayBuffer)
+        if (file) {
+            zip.file(fileName, file)
         }
     }
 

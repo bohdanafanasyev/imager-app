@@ -19,7 +19,10 @@
                 >
             </div>
 
-            <div class='gap-4 flex flex-col'>
+            <div
+                v-if='mainStore.rename'
+                class='gap-4 flex flex-col'
+            >
                 <h5 class='text-l font-sans text-strong'>
                     File staring date
                 </h5>
@@ -80,7 +83,7 @@
 
             <div class='flex'>
                 <button
-                    v-if='mainStore.optimise'
+                    v-if='mainStore.optimise && !mainStore.allImagesOptimised'
                     class='btn-secondary btn-sm ml-auto'
                     :class='{
                         ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
@@ -102,7 +105,9 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup
+        lang="ts"
+>
 import { computed } from 'vue'
 import { filesize } from 'filesize'
 import { IMAGE_TYPES } from '~/values'
