@@ -1,14 +1,25 @@
 export type Image = {
     file: File
     newName: string
-    encodedArrayBuffer: ArrayBuffer | null
+    optimisationResult: OptimisedImageResult | null
     creationDate: Date | null
     format: {
         original: string
-        converted: string
+        optimised: string
     }
     thumbnail: {
         url: string
         loadError: boolean
+    }
+}
+
+export type OptimisedImageResult = {
+    arrayBuffer: ArrayBuffer
+    quality: number
+    encoderFormat: string
+    performance: {
+        decoding: number
+        encoding: number
+        total: number
     }
 }

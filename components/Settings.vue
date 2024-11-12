@@ -1,106 +1,74 @@
 <template>
-    <div class='w-96 h-full separator border-gray-500 p-8'>
+    <div>
         <div class='flex gap-4 mb-8'>
             <h4 class='text-xl font-sans text-strong'>
                 Settings
             </h4>
         </div>
 
-        <div class='gap-8 flex flex-col'>
-            <div class='input-group flex justify-between'>
-                <label class='text-l font-sans text-strong'>
-                    Rename
-                </label>
-
-                <input
+        <div class='gap-12 flex flex-col'>
+            <div class='flex flex-col gap-6'>
+                <ToggleInput
+                    id='renameInput'
                     v-model='mainStore.rename'
-                    class='switch'
-                    type='checkbox'
-                >
+                    label='Rename'
+                />
+
+                <Dropdown
+                    v-if='mainStore.rename'
+                    id='startingDayDropdown'
+                    v-model='mainStore.startingDay'
+                    :options='renameStartingDayOptions'
+                    label='Starting day'
+                    @change='onStartingDayChange'
+                />
             </div>
 
-            <div
-                v-if='mainStore.rename'
-                class='gap-4 flex flex-col'
-            >
-                <h5 class='text-l font-sans text-strong'>
-                    File staring date
-                </h5>
-                <div class='text-input-bg spotlight'>
-                    <select
-                        v-model='mainStore.startingDate'
-                        class='text-input'
-                        name='text-input'
-                        :disabled='!mainStore.rename'
-                        @change='onStartingDayChange'
-                    >
-                        <option
-                            selected
-                            value='1'
-                        >
-                            Day 1
-                        </option>
-                        <option
-                            v-for='i in 29'
-                            :key='i + 1'
-                            :value='i + 1'
-                        >
-                            Day {{ i + 1 }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class='input-group flex justify-between'>
-                <label class='text-l font-sans text-strong'>
-                    Optimise size
-                </label>
-
-                <input
+            <div class='flex flex-col gap-6'>
+                <ToggleInput
+                    id='optimiseInput'
                     v-model='mainStore.optimise'
-                    class='switch'
-                    type='checkbox'
-                >
-            </div>
+                    label='Optimise size'
+                />
 
-            <div
-                v-if='mainStore.optimise'
-                class='flex flex-col gap-4'
+                <template v-if='mainStore.optimise'>
+                    <Dropdown
+                        id='qualityDropdown'
+                        v-model='mainStore.quality'
+                        :options='qualityOptions'
+                        label='Preset'
+                    />
+
+                    <Dropdown
+                        id='outputFormatDropdown'
+                        v-model='mainStore.outputFormat'
+                        :options='fileOutputFormatOptions'
+                        label='File output format'
+                    />
+                </template>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class='flex mt-8'>
+            <button
+                v-if='mainStore.optimise && !mainStore.allImagesOptimised'
+                class='btn-secondary btn-sm ml-auto'
+                :class='{
+                    ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
+                }'
+                :disabled='mainStore.isOptimising'
+                @click='optimiseImages'
             >
-                <div
-                    v-for='stat in stats'
-                    :key='stat.label'
-                    class='flex text-xs place-items-center justify-between font-medium'
-                >
-                    <span class='text-ital'>{{ stat.label }}</span>
-                    <span
-                        :class="{
-                            'text-green-500': stat.value && stat.highlight
-                        }"
-                    >{{ stat.value }}</span>
-                </div>
-            </div>
-
-            <div class='flex'>
-                <button
-                    v-if='mainStore.optimise && !mainStore.allImagesOptimised'
-                    class='btn-secondary btn-sm ml-auto'
-                    :class='{
-                        ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
-                    }'
-                    :disabled='mainStore.isOptimising'
-                    @click='optimiseImages'
-                >
-                    <span class='btn-text'>Optimise</span>
-                </button>
-                <button
-                    v-if='mainStore.allImagesOptimised || !mainStore.optimise'
-                    class='btn-secondary btn-sm ml-auto'
-                    @click='downloadImages'
-                >
-                    <span class='btn-text'>Download</span>
-                </button>
-            </div>
+                <span class='btn-text'>Optimise</span>
+            </button>
+            <button
+                v-if='mainStore.allImagesOptimised || !mainStore.optimise'
+                class='btn-secondary btn-sm ml-auto'
+                @click='downloadImages'
+            >
+                <span class='btn-text'>Download</span>
+            </button>
         </div>
     </div>
 </template>
@@ -108,10 +76,8 @@
 <script setup
         lang="ts"
 >
-import { computed } from 'vue'
-import { filesize } from 'filesize'
-import { IMAGE_TYPES } from '~/values'
-import { formatCO2Emissions } from '~/utils/co2Emissions'
+import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
+import ToggleInput from '~/components/ToggleInput.vue'
 
 const mainStore = useMainStore()
 
@@ -124,8 +90,8 @@ const optimiseImages = async (): Promise<void> => {
         mainStore.isOptimising = true
 
         for (const image of mainStore.images) {
-            image.encodedArrayBuffer = await optimiseImage(image)
-            image.format.converted = getFileExtensionFromFileType(IMAGE_TYPES.webp)
+            image.optimisationResult = await optimiseImage(image, Number(mainStore.quality), SUPPORTED_ENCODER_IMAGE_FORMATS.webp)
+            image.format.optimised = image.optimisationResult.encoderFormat
         }
     }
 
@@ -136,38 +102,33 @@ const downloadImages = (): void => {
     downloadFiles(mainStore.images, mainStore.rename, mainStore.optimise)
 }
 
-const stats = computed(() => [
+const qualityOptions = [
     {
-        label: 'Uploaded files',
-        value: mainStore.images.length > 0 ? mainStore.images.length : 'TBD'
+        label: 'Best quality, small size optimisation',
+        value: QUALITY.ninety
     },
     {
-        label: 'Optimised files',
-        value: mainStore.images.length > 0 ? `${mainStore.totalOptimisedFiles} of ${mainStore.images.length}` : 'TBD'
-    },
-    {
-        label: 'Uploaded size',
-        value: mainStore.totalFilesSize ? filesize(mainStore.totalFilesSize) : 'TBD'
-    },
-    {
-        label: 'Optimised size',
-        value: mainStore.shouldGetOptimisedResult ? filesize(mainStore.optimisedFilesSize) : 'TBD',
-        highlight: mainStore.shouldGetOptimisedResult
-    },
-    {
-        label: 'Saved size',
-        value: mainStore.shouldGetOptimisedResult ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : 'TBD'
-    },
-    {
-        label: 'CO2 saved',
-        value: mainStore.shouldGetOptimisedResult ? formatCO2Emissions(mainStore.co2Saved) : 'TBD',
-        highlight: mainStore.shouldGetOptimisedResult
-    }
-])
-</script>
+        value: QUALITY.eighty,
+        label: 'Good quality, decent size'
 
-<style>
-.separator {
-    border-inline-start: 1px solid hsla(0, 0%, 100%, .1);
-}
-</style>
+    },
+    {
+        value: QUALITY.seventy,
+        label: 'Best size, good quality'
+    },
+    {
+        value: QUALITY.sixty,
+        label: 'Crazy small size, decent quality'
+    }
+]
+
+const renameStartingDayOptions = [
+    { value: '1', label: 'Day 1' },
+    ...Array.from({ length: 29 }, (_, i) => ({ value: String(i + 2), label: `Day ${i + 2}` }))
+]
+
+const fileOutputFormatOptions = [
+    { value: SUPPORTED_ENCODER_IMAGE_FORMATS.webp, label: 'WebP' },
+    { value: SUPPORTED_ENCODER_IMAGE_FORMATS.avif, label: 'AVIF' }
+]
+</script>

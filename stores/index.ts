@@ -1,12 +1,16 @@
 import { defineStore } from 'pinia'
 import type { Image } from '~/types'
+import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
 export const useMainStore = defineStore('main', {
     state: () => ({
         rename: true,
-        startingDate: 1,
+        startingDay: '1',
         optimise: true,
+        quality: QUALITY.seventy,
+        outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
         isOptimising: false,
+        isDebugMode: isDebugMode(),
         images: [] as Image[]
     }),
     actions: {
@@ -18,7 +22,7 @@ export const useMainStore = defineStore('main', {
             this.assignNewNames()
         },
         assignNewNames() {
-            assignNewNames(this.images, this.startingDate)
+            assignNewNames(this.images, Number(this.startingDay))
         },
         removeImage(index: number) {
             this.images.splice(index, 1)
@@ -29,15 +33,15 @@ export const useMainStore = defineStore('main', {
             return this.images.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
         },
         totalOptimisedFiles(): number {
-            return this.images.filter((image: Image) => image.encodedArrayBuffer).length
+            return this.images.filter((image: Image) => image.optimisationResult).length
         },
         allImagesOptimised(): boolean {
-            return this.images.length ? this.images.every((image: Image) => image.encodedArrayBuffer) : false
+            return this.images.length ? this.images.every((image: Image) => image.optimisationResult) : false
         },
         optimisedFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => {
-                if (image.encodedArrayBuffer) {
-                    return accumulator + image.encodedArrayBuffer.byteLength
+                if (image.optimisationResult) {
+                    return accumulator + image.optimisationResult.arrayBuffer.byteLength
                 }
 
                 return accumulator
@@ -54,7 +58,11 @@ export const useMainStore = defineStore('main', {
             return 0
         },
         savedFilesPercentage(): number {
-            return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
+            if (this.shouldGetOptimisedResult) {
+                return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
+            }
+
+            return 0
         },
         co2Saved(): number {
             if (this.shouldGetOptimisedResult) {

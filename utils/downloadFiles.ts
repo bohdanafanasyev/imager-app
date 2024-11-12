@@ -13,8 +13,8 @@ function download(blob: Blob, fileName: string): void {
 }
 
 async function getFileDownloadData(image: Image, rename: boolean, optimise: boolean) {
-    const file = optimise ? image.encodedArrayBuffer : await image.file.arrayBuffer()
-    const format = optimise ? image.format.converted : image.format.original
+    const file = optimise ? image.optimisationResult?.arrayBuffer : await image.file.arrayBuffer()
+    const format = optimise ? image.format.optimised : image.format.original
     const name = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
     const type = optimise ? IMAGE_TYPES.webp : image.file.type
     const fileName = `${name}.${format}`
@@ -28,15 +28,15 @@ async function getFileDownloadData(image: Image, rename: boolean, optimise: bool
 
 // For now single file is disabled, since browser seems to influence the final name of the file
 // Replacing the colon with a dash, for example in macOS
-async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
-    const { file, fileName, type } = await getFileDownloadData(image, rename, optimise)
-
-    if (file) {
-        const blob = new Blob([file], { type })
-
-        download(blob, fileName)
-    }
-}
+// async function downloadSingleFile(image: Image, rename: boolean, optimise: boolean): Promise<void> {
+//     const { file, fileName, type } = await getFileDownloadData(image, rename, optimise)
+//
+//     if (file) {
+//         const blob = new Blob([file], { type })
+//
+//         download(blob, fileName)
+//     }
+// }
 
 async function downloadMultipleFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
     const zip = new JSZip()

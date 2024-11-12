@@ -1,14 +1,21 @@
 import { encode as avifEncode } from '@jsquash/avif'
 import { encode as webpEncode } from '@jsquash/webp'
-import { IMAGE_TYPES } from '~/values'
+import { IMAGE_FORMATS } from '~/values'
 
 const encoders = {
-    [IMAGE_TYPES.avif]: avifEncode,
-    [IMAGE_TYPES.webp]: webpEncode
+    [IMAGE_FORMATS.avif]: avifEncode,
+    [IMAGE_FORMATS.webp]: webpEncode
 }
 
-export async function encodeImageData(imageData: ImageData): Promise<ArrayBuffer> {
-    const encoder = encoders[IMAGE_TYPES.webp]
+export async function encodeImageData(imageData: ImageData, quality: number, encoderFormat: string): Promise<ArrayBuffer> {
+    const encoder = encoders[encoderFormat]
 
-    return await encoder(imageData)
+    // Options can be live experimented with here:
+    // https://squoosh.app/editor
+    return await encoder(
+        imageData,
+        {
+            quality,
+            method: 6
+        })
 }

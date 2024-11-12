@@ -3,7 +3,7 @@ import {
     ELHEIF_SUPPORTED_IMAGE_TYPES,
     SUPPORTED_IMAGE_TYPES_VALUES
 } from '~/values'
-import type { Image } from '~/types'
+import type { Image, OptimisedImageResult } from '~/types'
 
 async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
@@ -18,21 +18,19 @@ async function measurePerformance<T>(fn: () => Promise<T>) {
 }
 
 export function logPerformance(
-    bufferRetrievalDuration: number,
     decodingDuration: number,
     encodingDuration: number,
     totalDuration: number,
     imageName: string
 ): void {
     if (isDebugMode()) {
-        console.log(`Buffer: ${bufferRetrievalDuration}ms`)
         console.log(`Decoding: ${decodingDuration}ms`)
         console.log(`Encoding: ${encodingDuration}ms`)
         console.log(`Image ${imageName}: optimised in ${totalDuration}ms`)
     }
 }
 
-export async function processImage(image: Image) {
+export async function optimiseImage(image: Image, quality: number, encoderFormat: string): Promise<OptimisedImageResult> {
     const { file } = image
 
     if (!SUPPORTED_IMAGE_TYPES_VALUES.includes(file.type)) {
@@ -40,11 +38,7 @@ export async function processImage(image: Image) {
     }
 
     const totalStartTime = performance.now()
-
-    const {
-        result: arrayBuffer,
-        duration: bufferRetrievalDuration
-    } = await measurePerformance(() => file.arrayBuffer())
+    const arrayBuffer = await file.arrayBuffer()
 
     let decodedImageData: ImageData
     let decodingDuration = 0
@@ -66,12 +60,21 @@ export async function processImage(image: Image) {
     const {
         result: encodedArrayBuffer,
         duration: encodingDuration
-    } = await measurePerformance(() => encodeImageData(decodedImageData))
+    } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat))
 
     const totalEndTime = performance.now()
     const totalDuration = totalEndTime - totalStartTime
 
-    logPerformance(bufferRetrievalDuration, decodingDuration, encodingDuration, totalDuration, image.newName)
+    logPerformance(decodingDuration, encodingDuration, totalDuration, image.newName)
 
-    return encodedArrayBuffer
+    return {
+        arrayBuffer: encodedArrayBuffer,
+        quality,
+        encoderFormat,
+        performance: {
+            decoding: decodingDuration,
+            encoding: encodingDuration,
+            total: totalDuration
+        }
+    }
 }

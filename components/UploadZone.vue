@@ -47,7 +47,7 @@
                         <PhotoIcon class='w-6 pointer-events-none' />
                     </div>
                     <div
-                        v-if='mainStore.isOptimising && !image.encodedArrayBuffer'
+                        v-if='mainStore.isOptimising && !image.optimisationResult'
                         class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
                     >
                         <div class='spinner' />
@@ -62,10 +62,10 @@
                     <div class='flex gap-1'>
                         <p class='font-sans text-xs text-gray-400 flex gap-1'>
                             {{ filesize(image.file.size) }}
-                            <template v-if='mainStore.optimise && image.encodedArrayBuffer?.byteLength'>
+                            <template v-if='mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
                                 <span>→</span>
                                 <span class='text-green-500'>
-                                    {{ filesize(image.encodedArrayBuffer.byteLength) }}
+                                    {{ filesize(image.optimisationResult?.arrayBuffer?.byteLength) }}
                                 </span>
                             </template>
                         </p>
@@ -163,11 +163,11 @@ const onFileChange = async (): Promise<void> => {
         const imagesArray: Image[] = filesArray.map((file) => ({
             file,
             newName: '',
-            encodedArrayBuffer: null,
+            optimisationResult: null,
             creationDate: null,
             format: {
                 original: '',
-                converted: ''
+                optimised: ''
             },
             thumbnail: {
                 url: '',
