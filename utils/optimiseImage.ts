@@ -4,6 +4,7 @@ import {
     SUPPORTED_IMAGE_TYPES_VALUES
 } from '~/values'
 import type { Image, OptimisedImageResult } from '~/types'
+import { formatMsToSeconds } from '~/utils/format'
 
 async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
@@ -24,9 +25,9 @@ export function logPerformance(
     imageName: string
 ): void {
     if (isDebugMode()) {
-        console.log(`Decoding: ${decodingDuration}ms`)
-        console.log(`Encoding: ${encodingDuration}ms`)
-        console.log(`Image ${imageName}: optimised in ${totalDuration}ms`)
+        console.log(`Decoding: ${decodingDuration}s`)
+        console.log(`Encoding: ${encodingDuration}s`)
+        console.log(`Image ${imageName}: optimised in ${totalDuration}s`)
     }
 }
 
@@ -64,17 +65,23 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
 
     const totalEndTime = performance.now()
     const totalDuration = totalEndTime - totalStartTime
+    const performanceStats = {
+        decoding: formatMsToSeconds(decodingDuration),
+        encoding: formatMsToSeconds(encodingDuration),
+        total: formatMsToSeconds(totalDuration)
+    }
 
-    logPerformance(decodingDuration, encodingDuration, totalDuration, image.newName)
+    logPerformance(
+        performanceStats.decoding,
+        performanceStats.encoding,
+        performanceStats.total,
+        image.newName
+    )
 
     return {
         arrayBuffer: encodedArrayBuffer,
         quality,
         encoderFormat,
-        performance: {
-            decoding: decodingDuration,
-            encoding: encodingDuration,
-            total: totalDuration
-        }
+        performance: performanceStats
     }
 }

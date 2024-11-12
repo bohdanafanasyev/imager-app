@@ -1,5 +1,5 @@
 import JSZip from 'jszip'
-import { IMAGE_TYPES } from '~/values'
+import { IMAGE_TYPES, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 import type { Image } from '~/types'
 
 function download(blob: Blob, fileName: string): void {
@@ -13,8 +13,8 @@ function download(blob: Blob, fileName: string): void {
 }
 
 async function getFileDownloadData(image: Image, rename: boolean, optimise: boolean) {
-    const file = optimise ? image.optimisationResult?.arrayBuffer : await image.file.arrayBuffer()
-    const format = optimise ? image.format.optimised : image.format.original
+    const file = optimise ? image.optimisationResult!.arrayBuffer : await image.file.arrayBuffer()
+    const format = optimise ? SUPPORTED_ENCODER_IMAGE_FORMATS[image.optimisationResult!.encoderFormat] : image.format.original
     const name = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
     const type = optimise ? IMAGE_TYPES.webp : image.file.type
     const fileName = `${name}.${format}`

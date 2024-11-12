@@ -6,13 +6,23 @@
         />
         <div class='z-10 relative glass-3d tint-3xdark w-full h-full rounded-3xl flex'>
             <UploadZone />
-            <div class='w-96 h-full separator border-gray-500 p-8 flex flex-col justify-between'>
+            <div class='w-96 h-full separator border-gray-500 py-8 px-6 flex flex-col justify-between'>
                 <Settings />
                 <Statistics />
             </div>
         </div>
     </div>
 </template>
+
+<script setup
+        lang="ts"
+>
+const mainStore = useMainStore()
+
+onMounted(() => {
+    mainStore.isDebugMode = isDebugMode()
+})
+</script>
 
 <style>
 .separator {

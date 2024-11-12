@@ -39,12 +39,20 @@
                         label='Preset'
                     />
 
-                    <Dropdown
-                        id='outputFormatDropdown'
-                        v-model='mainStore.outputFormat'
-                        :options='fileOutputFormatOptions'
-                        label='File output format'
-                    />
+                    <div class='flex flex-col gap-4'>
+                        <Dropdown
+                            id='outputFormatDropdown'
+                            v-model='mainStore.outputFormat'
+                            :options='fileOutputFormatOptions'
+                            label='Output format'
+                        />
+                        <p
+                            v-if='mainStore.outputFormat === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
+                            class='text-2xs italic font-sans text-green-500'
+                        >
+                            AVIF optimisation takes longer than WebP, however it provides better compression rates.
+                        </p>
+                    </div>
                 </template>
             </div>
         </div>
@@ -90,7 +98,7 @@ const optimiseImages = async (): Promise<void> => {
         mainStore.isOptimising = true
 
         for (const image of mainStore.images) {
-            image.optimisationResult = await optimiseImage(image, Number(mainStore.quality), SUPPORTED_ENCODER_IMAGE_FORMATS.webp)
+            image.optimisationResult = await optimiseImage(image, Number(mainStore.quality), mainStore.outputFormat)
             image.format.optimised = image.optimisationResult.encoderFormat
         }
     }
@@ -104,21 +112,20 @@ const downloadImages = (): void => {
 
 const qualityOptions = [
     {
-        label: 'Best quality, small size optimisation',
+        label: 'High quality, small optimization',
         value: QUALITY.ninety
     },
     {
-        value: QUALITY.eighty,
-        label: 'Good quality, decent size'
-
+        label: 'Good quality, moderate optimization',
+        value: QUALITY.eighty
     },
     {
-        value: QUALITY.seventy,
-        label: 'Best size, good quality'
+        label: 'Balanced quality and optimization',
+        value: QUALITY.seventy
     },
     {
-        value: QUALITY.sixty,
-        label: 'Crazy small size, decent quality'
+        label: 'Decent quality, high optimization',
+        value: QUALITY.sixty
     }
 ]
 

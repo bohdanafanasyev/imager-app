@@ -1206,9 +1206,9 @@ html {
 /* ================================================== */
 /* https://modern-fluid-typography.vercel.app/ */
 :root {
-  --text-2xs: clamp(0.75rem, 4vw - 1.5rem, 0.8rem);
+  --text-2xs: clamp(0.75rem, 4vw - 1rem, 0.85rem);
   --text-xs: clamp(0.875rem, 4vw - 1rem, 0.9rem);
-  --text-sm: clamp(1rem, 0.13vw + 1rem, 1.125rem);
+  --text-sm: clamp(1rem, 0.13vw + 1rem, 1rem);
   --text-md: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);
   --text-lg: clamp(1.375rem, 1.3vw + 1rem, 1.75rem);
   --text-xl: clamp(1.5rem, 1.7vw + 1rem, 2.25rem);

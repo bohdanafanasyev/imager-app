@@ -65,7 +65,15 @@
                             <template v-if='mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
                                 <span>→</span>
                                 <span class='text-green-500'>
-                                    {{ filesize(image.optimisationResult?.arrayBuffer?.byteLength) }}
+                                    {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
+                                </span>
+                                <span
+                                    v-if='mainStore.isDebugMode'
+                                    class='text-gray-300'
+                                >
+                                    [decoding: {{ image.optimisationResult.performance.decoding }}s /
+                                    encoding: {{ image.optimisationResult.performance.encoding }}s /
+                                    total: {{ image.optimisationResult.performance.total }}s]
                                 </span>
                             </template>
                         </p>

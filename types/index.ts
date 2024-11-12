@@ -1,3 +1,9 @@
+export type PerformanceStats = {
+    decoding: number
+    encoding: number
+    total: number
+}
+
 export type Image = {
     file: File
     newName: string
@@ -17,9 +23,5 @@ export type OptimisedImageResult = {
     arrayBuffer: ArrayBuffer
     quality: number
     encoderFormat: string
-    performance: {
-        decoding: number
-        encoding: number
-        total: number
-    }
+    performance: PerformanceStats
 }

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Image } from '~/types'
+import type { Image, PerformanceStats } from '~/types'
 import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
 export const useMainStore = defineStore('main', {
@@ -10,7 +10,7 @@ export const useMainStore = defineStore('main', {
         quality: QUALITY.seventy,
         outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
         isOptimising: false,
-        isDebugMode: isDebugMode(),
+        isDebugMode: false,
         images: [] as Image[]
     }),
     actions: {
@@ -70,6 +70,27 @@ export const useMainStore = defineStore('main', {
             }
 
             return 0
+        },
+        performanceStats(): PerformanceStats | null {
+            if (this.shouldGetOptimisedResult && this.isDebugMode) {
+                const stats = this.images.reduce((accumulator: PerformanceStats, image: Image) => {
+                    const { decoding, encoding, total } = image.optimisationResult!.performance
+
+                    accumulator.decoding += decoding
+                    accumulator.encoding += encoding
+                    accumulator.total += total
+
+                    return accumulator
+                }, { decoding: 0, encoding: 0, total: 0 })
+
+                return {
+                    decoding: Number(stats.decoding.toFixed(2)),
+                    encoding: Number(stats.encoding.toFixed(2)),
+                    total: Number(stats.total.toFixed(2))
+                }
+            }
+
+            return null
         }
     }
 })
