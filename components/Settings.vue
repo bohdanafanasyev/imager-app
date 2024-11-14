@@ -7,39 +7,45 @@
         </div>
 
         <div class='gap-12 flex flex-col'>
-            <div class='flex flex-col gap-6'>
+            <div class='flex flex-col'>
                 <ToggleInput
                     id='renameInput'
                     v-model='mainStore.rename'
                     label='Rename'
                 />
 
-                <Dropdown
-                    v-if='mainStore.rename'
-                    id='startingDayDropdown'
-                    v-model='mainStore.startingDay'
-                    :options='renameStartingDayOptions'
-                    label='Starting day'
-                    @change='onStartingDayChange'
-                />
+                <HeightTransition
+                    :is-expanded='mainStore.rename'
+                >
+                    <Dropdown
+                        v-show='mainStore.rename'
+                        id='startingDayDropdown'
+                        v-model='mainStore.startingDay'
+                        class='mt-6'
+                        :options='renameStartingDayOptions'
+                        label='Starting day'
+                        @change='onStartingDayChange'
+                    />
+                </HeightTransition>
             </div>
 
-            <div class='flex flex-col gap-6'>
+            <div class='flex flex-col'>
                 <ToggleInput
                     id='optimiseInput'
                     v-model='mainStore.optimise'
                     label='Optimise size'
                 />
 
-                <template v-if='mainStore.optimise'>
+                <HeightTransition :is-expanded='mainStore.optimise'>
                     <Dropdown
                         id='qualityDropdown'
                         v-model='mainStore.quality'
+                        class='mt-6'
                         :options='qualityOptions'
                         label='Preset'
                     />
 
-                    <div class='flex flex-col gap-4'>
+                    <div class='flex flex-col gap-4 mt-6'>
                         <Dropdown
                             id='outputFormatDropdown'
                             v-model='mainStore.outputFormat'
@@ -53,7 +59,7 @@
                             AVIF optimisation takes longer than WebP, however it provides better compression rates.
                         </p>
                     </div>
-                </template>
+                </HeightTransition>
             </div>
         </div>
 
@@ -86,6 +92,7 @@
 >
 import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 import ToggleInput from '~/components/ToggleInput.vue'
+import HeightTransition from '~/components/HeightTransition.vue'
 
 const mainStore = useMainStore()
 
