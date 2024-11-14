@@ -10,7 +10,7 @@
             <select
                 :id='id'
                 :value='modelValue'
-                class='text-input'
+                class='text-input truncate'
                 @change='onChange'
             >
                 <option
