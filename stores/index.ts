@@ -40,7 +40,7 @@ export const useMainStore = defineStore('main', {
         },
         optimisedFilesSize(): number {
             return this.images.reduce((accumulator: number, image: Image) => {
-                if (image.optimisationResult) {
+                if (image.optimisationResult?.arrayBuffer) {
                     return accumulator + image.optimisationResult.arrayBuffer.byteLength
                 }
 

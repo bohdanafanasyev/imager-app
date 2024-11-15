@@ -20,8 +20,17 @@ export type Image = {
 }
 
 export type OptimisedImageResult = {
-    arrayBuffer: ArrayBuffer
+    arrayBuffer: ArrayBuffer | null
     quality: number
     encoderFormat: string
     performance: PerformanceStats
+}
+
+export interface DrawableToImageDataOptions {
+    width?: number
+    height?: number
+    sx?: number
+    sy?: number
+    sw?: number
+    sh?: number
 }

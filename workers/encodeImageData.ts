@@ -7,15 +7,20 @@ const encoders = {
     [IMAGE_FORMATS.webp]: webpEncode
 }
 
-export async function encodeImageData(imageData: ImageData, quality: number, encoderFormat: string): Promise<ArrayBuffer> {
+export async function encodeImageData(imageData: ImageData, quality: number, encoderFormat: string): Promise<ArrayBuffer | null> {
     const encoder = encoders[encoderFormat]
 
     // Options can be live experimented with here:
     // https://squoosh.app/editor
-    return await encoder(
-        imageData,
-        {
-            quality,
-            method: 6
-        })
+    try {
+        return await encoder(
+            imageData,
+            {
+                quality,
+                method: 6
+            })
+    }
+    catch {
+        return null
+    }
 }
