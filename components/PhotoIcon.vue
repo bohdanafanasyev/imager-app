@@ -1,61 +1,50 @@
 <template>
     <svg
-        width='32'
-        height='25'
-        viewBox='0 0 32 25'
+        width='38'
+        height='31'
+        viewBox='0 0 38 31'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
     >
-        <g filter='url(#filter0_i_0_179)'>
+        <g filter='url(#filter0_i_0_499)'>
             <rect
-                x='5'
-                width='22'
-                height='22'
-                rx='2'
-                fill='url(#paint0_linear_0_179)'
+                x='14'
+                width='24'
+                height='24'
+                rx='12'
+                fill='url(#paint0_linear_0_499)'
             />
         </g>
         <rect
-            x='5.25'
+            x='14.25'
             y='0.25'
-            width='21.5'
-            height='21.5'
-            rx='1.75'
-            stroke='url(#paint1_linear_0_179)'
+            width='23.5'
+            height='23.5'
+            rx='11.75'
+            stroke='url(#paint1_linear_0_499)'
             stroke-width='0.5'
         />
-        <g filter='url(#filter1_bi_0_179)'>
-            <rect
-                y='4'
-                width='32'
-                height='21'
-                rx='4'
-                fill='#FFA97D'
-                fill-opacity='0.7'
+        <g filter='url(#filter1_bi_0_499)'>
+            <path
+                fill-rule='evenodd'
+                clip-rule='evenodd'
+                d='M7 31C3.13401 31 0 27.866 0 24C0 20.4732 2.60822 17.5555 6.00099 17.0707L6 17C6 13.134 9.13401 10 13 10C15.6378 10 17.9349 11.4591 19.1281 13.6142C20.0045 13.2196 20.9766 13 22 13C24.9667 13 27.5023 14.8455 28.5215 17.4511C29.2917 17.1597 30.1272 17 31 17C34.866 17 38 20.134 38 24C38 27.866 34.866 31 31 31H7Z'
+                fill='#7DCCFF'
+                fill-opacity='0.2'
             />
-            <rect
-                x='0.25'
-                y='4.25'
-                width='31.5'
-                height='20.5'
-                rx='3.75'
-                stroke='url(#paint2_linear_0_179)'
+            <path
+                d='M6.03636 17.3182L6.25406 17.2871L6.25097 17.0672L6.25 16.9983C6.25094 13.2711 9.27265 10.25 13 10.25C15.5433 10.25 17.7584 11.6565 18.9094 13.7353L19.0209 13.9366L19.2308 13.8421C20.0755 13.4618 21.0127 13.25 22 13.25C24.8603 13.25 27.3057 15.0292 28.2886 17.5422L28.3787 17.7724L28.6099 17.6849C29.3524 17.4041 30.1579 17.25 31 17.25C34.7279 17.25 37.75 20.2721 37.75 24C37.75 27.7279 34.7279 30.75 31 30.75H7C3.27208 30.75 0.25 27.7279 0.25 24C0.25 20.5994 2.76498 17.7857 6.03636 17.3182Z'
+                stroke='url(#paint2_linear_0_499)'
                 stroke-width='0.5'
             />
         </g>
-        <path
-            fill-rule='evenodd'
-            clip-rule='evenodd'
-            d='M16 8C19.3137 8 22 10.6863 22 14C22 17.3137 19.3137 20 16 20C12.6863 20 10 17.3137 10 14C10 10.6863 12.6863 8 16 8ZM16 10C13.7909 10 12 11.7909 12 14C12 16.2091 13.7909 18 16 18C18.2091 18 20 16.2091 20 14C20 11.7909 18.2091 10 16 10Z'
-            fill='white'
-        />
         <defs>
             <filter
-                id='filter0_i_0_179'
-                x='5'
+                id='filter0_i_0_499'
+                x='14'
                 y='0'
-                width='22'
-                height='22'
+                width='24'
+                height='24'
                 filterUnits='userSpaceOnUse'
                 color-interpolation-filters='sRGB'
             >
@@ -90,14 +79,14 @@
                 <feBlend
                     mode='normal'
                     in2='shape'
-                    result='effect1_innerShadow_0_179'
+                    result='effect1_innerShadow_0_499'
                 />
             </filter>
             <filter
-                id='filter1_bi_0_179'
+                id='filter1_bi_0_499'
                 x='-5.43656'
-                y='-1.43656'
-                width='42.8731'
+                y='4.56344'
+                width='48.8731'
                 height='31.8731'
                 filterUnits='userSpaceOnUse'
                 color-interpolation-filters='sRGB'
@@ -113,12 +102,12 @@
                 <feComposite
                     in2='SourceAlpha'
                     operator='in'
-                    result='effect1_backgroundBlur_0_179'
+                    result='effect1_backgroundBlur_0_499'
                 />
                 <feBlend
                     mode='normal'
                     in='SourceGraphic'
-                    in2='effect1_backgroundBlur_0_179'
+                    in2='effect1_backgroundBlur_0_499'
                     result='shape'
                 />
                 <feColorMatrix
@@ -142,29 +131,29 @@
                 <feBlend
                     mode='normal'
                     in2='shape'
-                    result='effect2_innerShadow_0_179'
+                    result='effect2_innerShadow_0_499'
                 />
             </filter>
             <linearGradient
-                id='paint0_linear_0_179'
-                x1='5'
+                id='paint0_linear_0_499'
+                x1='14'
                 y1='0'
-                x2='5'
-                y2='22'
+                x2='14'
+                y2='24'
                 gradientUnits='userSpaceOnUse'
             >
-                <stop stop-color='#FF8800' />
+                <stop stop-color='#FF9600' />
                 <stop
                     offset='1'
-                    stop-color='#DB2903'
+                    stop-color='#FF6000'
                 />
             </linearGradient>
             <linearGradient
-                id='paint1_linear_0_179'
-                x1='5'
+                id='paint1_linear_0_499'
+                x1='14'
                 y1='0'
-                x2='5'
-                y2='22'
+                x2='14'
+                y2='24'
                 gradientUnits='userSpaceOnUse'
             >
                 <stop
@@ -178,11 +167,11 @@
                 />
             </linearGradient>
             <linearGradient
-                id='paint2_linear_0_179'
+                id='paint2_linear_0_499'
                 x1='0'
-                y1='4'
+                y1='10'
                 x2='0'
-                y2='25'
+                y2='31'
                 gradientUnits='userSpaceOnUse'
             >
                 <stop

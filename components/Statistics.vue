@@ -23,7 +23,6 @@
 <script setup
         lang="ts"
 >
-import { computed } from 'vue'
 import { filesize } from 'filesize'
 import { formatCO2Emissions } from '~/utils/co2Emissions'
 

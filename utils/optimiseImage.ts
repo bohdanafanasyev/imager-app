@@ -33,7 +33,6 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     let decodingDuration = 0
     let encodingDuration = 0
 
-    // debugger
     if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
         if (await canBuiltInDecodeImageType(file.type)) {
             let useFallbackDecoders = false

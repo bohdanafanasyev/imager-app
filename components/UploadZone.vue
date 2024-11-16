@@ -25,72 +25,13 @@
             v-show='mainStore.images.length'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
         >
-            <li
-                v-for='(image, index) in mainStore.images'
+            <UploadedFile
+                v-for='image in mainStore.images'
                 :key='image.file.name'
-                class='flex gap-4 group'
-            >
-                <!-- Thumbnail image -->
-                <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
-                    <img
-                        v-if='!image.thumbnail.loadError'
-                        :src='image.thumbnail.url'
-                        :alt='image.file.name'
-                        class='w-full h-full object-cover'
-                        @error.once='onImageError(image)'
-                    >
-                    <div
-                        v-else
-                        class='glass-3d tint-2xdark h-full w-full flex items-center justify-center'
-                        title="Image couldn't be displayed by the browser"
-                    >
-                        <PhotoIcon class='w-6 pointer-events-none' />
-                    </div>
-                    <div
-                        v-if='mainStore.isOptimising && !image.optimisationResult'
-                        class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
-                    >
-                        <div class='spinner' />
-                    </div>
-                </div>
-
-                <!-- Title and stats -->
-                <div class='flex flex-col gap-1 justify-center'>
-                    <p class='font-sans text-s'>
-                        {{ mainStore.rename ? image.newName : image.file.name }}
-                    </p>
-                    <div class='flex gap-1'>
-                        <p class='font-sans text-xs text-gray-400 flex gap-1'>
-                            {{ filesize(image.file.size) }}
-                            <template v-if='mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
-                                <span>→</span>
-                                <span class='text-green-500'>
-                                    {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
-                                </span>
-                                <span
-                                    v-if='mainStore.isDebugMode'
-                                    class='text-gray-300'
-                                >
-                                    [decoding: {{ image.optimisationResult.performance.decoding }}s /
-                                    encoding: {{ image.optimisationResult.performance.encoding }}s /
-                                    total: {{ image.optimisationResult.performance.total }}s]
-                                </span>
-                            </template>
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Controls -->
-                <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
-                    <button
-                        class='font-medium text-xs text-gray-400 hover:text-gray-200 p-4'
-                        @click='mainStore.removeImage(index)'
-                    >
-                        Delete
-                    </button>
-                </div>
-            </li>
+                :image='image'
+            />
         </ul>
+
         <p
             v-show='!mainStore.images.length'
             class='font-sans'
@@ -106,9 +47,7 @@
 >
 import { ref } from 'vue'
 import ExifReader from 'exifreader'
-import { filesize } from 'filesize'
 import { compareAsc } from 'date-fns'
-import PhotoIcon from '~/components/PhotoIcon.vue'
 import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
 import type { Image } from '~/types'
 
@@ -206,11 +145,6 @@ const onFileChange = async (): Promise<void> => {
         mainStore.addImages(imagesArray)
     }
 }
-
-// Some images may not be displayed because browsers don't support their format (e.g. HEIC, sometimes AVIF)
-const onImageError = (image: Image): void => {
-    image.thumbnail.loadError = true
-}
 </script>
 
 <style lang="scss"
@@ -219,43 +153,5 @@ const onImageError = (image: Image): void => {
 .custom-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
-}
-
-.spinner {
-    width: 18px;
-    height: 18px;
-
-    animation: rotation 800ms linear infinite;
-
-    &::before,
-    &::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 2px solid transparent;
-    }
-
-    &::before {
-        border-top-color: hsl(0, 0%, 90%);
-        border-left-color: hsl(0, 0%, 90%);
-    }
-
-    &::after {
-        border-color: hsla(0, 0%, 90%, 30%);
-    }
-}
-
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 </style>

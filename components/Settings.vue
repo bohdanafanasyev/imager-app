@@ -65,24 +65,22 @@
 
         <!-- Controls -->
         <div class='flex mt-8'>
-            <button
+            <Button
                 v-if='mainStore.optimise && !mainStore.allImagesOptimised'
-                class='btn-secondary btn-sm ml-auto'
                 :class='{
                     ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
                 }'
                 :disabled='mainStore.isOptimising'
                 @click='optimiseImages'
             >
-                <span class='btn-text'>Optimise</span>
-            </button>
-            <button
-                v-if='mainStore.allImagesOptimised || !mainStore.optimise'
-                class='btn-secondary btn-sm ml-auto'
+                Optimise
+            </Button>
+            <Button
+                v-if='(mainStore.optimise && mainStore.allImagesOptimised) || (mainStore.rename && !mainStore.optimise)'
                 @click='downloadImages'
             >
-                <span class='btn-text'>Download</span>
-            </button>
+                Download
+            </Button>
         </div>
     </div>
 </template>

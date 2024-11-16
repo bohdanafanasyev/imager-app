@@ -24,7 +24,9 @@ export const useMainStore = defineStore('main', {
         assignNewNames() {
             assignNewNames(this.images, Number(this.startingDay))
         },
-        removeImage(index: number) {
+        removeImage(image: Image) {
+            const index = this.images.indexOf(image)
+
             this.images.splice(index, 1)
         }
     },
@@ -44,7 +46,8 @@ export const useMainStore = defineStore('main', {
                     return accumulator + image.optimisationResult.arrayBuffer.byteLength
                 }
 
-                return accumulator
+                // If the image has not been optimised, return the original size
+                return accumulator + image.file.size
             }, 0)
         },
         shouldGetOptimisedResult(): boolean {

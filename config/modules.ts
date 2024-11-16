@@ -1,3 +1,3 @@
 export default {
-    modules: ['@nuxt/image', '@nuxtjs/tailwindcss', '@nuxt/fonts', '@pinia/nuxt', 'nuxt-workers', '@nuxt/eslint']
+    modules: ['@nuxt/ui', '@nuxt/image', '@nuxtjs/tailwindcss', '@nuxt/fonts', '@pinia/nuxt', 'nuxt-workers', '@nuxt/eslint']
 }
