@@ -21,8 +21,10 @@
             >
         </div>
 
-        <ul
+        <TransitionGroup
             v-show='mainStore.images.length'
+            name='list'
+            tag='ul'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
         >
             <UploadedFile
@@ -30,7 +32,7 @@
                 :key='image.file.name'
                 :image='image'
             />
-        </ul>
+        </TransitionGroup>
 
         <p
             v-show='!mainStore.images.length'
@@ -153,5 +155,26 @@ const onFileChange = async (): Promise<void> => {
 .custom-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
+}
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.48s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+}
+
+.list-leave-to {
+    transform: translate(-10%, 100%);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
 }
 </style>

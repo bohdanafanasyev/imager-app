@@ -19,7 +19,7 @@ export const useMainStore = defineStore('main', {
             const newImages = images.filter((image) => !existingImageNames.has(image.file.name))
 
             const processBatch = (startIndex: number) => {
-                const maxBatchSize = Math.floor(Math.random() * 11) + 10 // Random batch size between 10 and 20
+                const maxBatchSize = Math.floor(Math.random() * 11) + 20 // Random batch size between 10 and 20
                 const imagesToAdd = newImages.slice(startIndex, startIndex + maxBatchSize)
                 this.images.push(...imagesToAdd)
                 this.assignNewNames()
