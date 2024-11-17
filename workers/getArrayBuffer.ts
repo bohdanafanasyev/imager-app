@@ -1,3 +1,9 @@
-export async function getArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
-    return new Response(blob).arrayBuffer()
+export async function getArrayBuffer(blob: Blob): Promise<ArrayBuffer | null> {
+    try {
+        return await new Response(blob).arrayBuffer()
+    }
+    catch (error) {
+        console.error('Failed to get array buffer:', error)
+        return null
+    }
 }

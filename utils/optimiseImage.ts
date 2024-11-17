@@ -28,27 +28,28 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     const totalStartTime = performance.now()
     const arrayBuffer = await getArrayBuffer(file)
 
-    let decodedImageData: ImageData | null = null
     let encodedArrayBuffer: ArrayBuffer | null = null
     let decodingDuration = 0
     let encodingDuration = 0
 
-    if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
-        if (await canBuiltInDecodeImageType(file.type)) {
-            let useFallbackDecoders = false
+    if (arrayBuffer) {
+        let decodedImageData: ImageData | null = null
 
-            try {
-                ({
-                    result: decodedImageData,
-                    duration: decodingDuration
-                } = await measurePerformance(() => builtInDecode(file)))
-            }
-            catch (error) {
-                useFallbackDecoders = true
-                console.log(error)
-            }
+        if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            if (await canBuiltInDecodeImageType(file.type)) {
+                let useFallbackDecoders = false
 
-            try {
+                try {
+                    ({
+                        result: decodedImageData,
+                        duration: decodingDuration
+                    } = await measurePerformance(() => builtInDecode(file)))
+                }
+                catch (error) {
+                    useFallbackDecoders = true
+                    console.log(error)
+                }
+
                 if (useFallbackDecoders) {
                     ({
                         result: decodedImageData,
@@ -56,28 +57,20 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
                     } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
                 }
             }
-            catch (error) {
-                console.log(error)
-            }
         }
-    }
 
-    if (ELHEIF_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
-        ({
-            result: decodedImageData,
-            duration: decodingDuration
-        } = await measurePerformance(() => elheifDecode(arrayBuffer)))
-    }
+        if (ELHEIF_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
+            ({
+                result: decodedImageData,
+                duration: decodingDuration
+            } = await measurePerformance(() => elheifDecode(arrayBuffer)))
+        }
 
-    if (decodedImageData) {
-        try {
+        if (decodedImageData) {
             ({
                 result: encodedArrayBuffer,
                 duration: encodingDuration
             } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat)))
-        }
-        catch {
-            throw new Error('Failed to encode image')
         }
     }
 
