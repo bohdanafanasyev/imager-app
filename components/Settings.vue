@@ -103,8 +103,14 @@ const optimiseImages = async (): Promise<void> => {
         mainStore.isOptimising = true
 
         for (const image of mainStore.images) {
-            image.optimisationResult = await optimiseImage(image, Number(mainStore.quality), mainStore.outputFormat)
-            image.format.optimised = image.optimisationResult.encoderFormat
+            try {
+                image.optimisationResult = await optimiseImage(image, Number(mainStore.quality), mainStore.outputFormat)
+                image.format.optimised = image.optimisationResult.encoderFormat
+            }
+            catch (error) {
+                debugger
+                console.error(error)
+            }
         }
     }
 

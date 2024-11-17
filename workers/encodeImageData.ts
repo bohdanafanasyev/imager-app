@@ -9,11 +9,12 @@ const encoders = {
 
 export async function encodeImageData(imageData: ImageData, quality: number, encoderFormat: string): Promise<ArrayBuffer | null> {
     const encoder = encoders[encoderFormat]
+    let result
 
     // Options can be live experimented with here:
     // https://squoosh.app/editor
     try {
-        return await encoder(
+        result = await encoder(
             imageData,
             {
                 quality,
@@ -21,6 +22,9 @@ export async function encodeImageData(imageData: ImageData, quality: number, enc
             })
     }
     catch {
+        debugger
         return null
     }
+
+    return result
 }

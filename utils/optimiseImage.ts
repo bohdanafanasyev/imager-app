@@ -69,10 +69,16 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     }
 
     if (decodedImageData) {
-        ({
-            result: encodedArrayBuffer,
-            duration: encodingDuration
-        } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat)))
+        try {
+            ({
+                result: encodedArrayBuffer,
+                duration: encodingDuration
+            } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat)))
+        }
+        catch {
+            debugger
+            throw new Error('Failed to encode image')
+        }
     }
 
     const totalEndTime = performance.now()
