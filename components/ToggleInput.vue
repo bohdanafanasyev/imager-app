@@ -28,9 +28,10 @@ const props = defineProps({
     modelValue: Boolean
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const updateValue = (value: boolean) => {
     emit('update:modelValue', value)
+    emit('change', value)
 }
 </script>

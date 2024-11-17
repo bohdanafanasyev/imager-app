@@ -34,6 +34,7 @@
                     id='optimiseInput'
                     v-model='mainStore.optimise'
                     label='Optimise size'
+                    @change='onOptimiseChange'
                 />
 
                 <HeightTransition :is-expanded='mainStore.optimise'>
@@ -110,4 +111,10 @@ const fileOutputFormatOptions = [
     { value: SUPPORTED_ENCODER_IMAGE_FORMATS.webp, label: 'WebP' },
     { value: SUPPORTED_ENCODER_IMAGE_FORMATS.avif, label: 'AVIF' }
 ]
+
+const onOptimiseChange = (enabled: boolean) => {
+    if (!enabled) {
+        mainStore.isOptimising = false
+    }
+}
 </script>
