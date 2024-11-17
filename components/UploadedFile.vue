@@ -62,7 +62,7 @@
         <!-- Controls -->
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
-                class='font-medium text-xs text-gray-400 hover:text-gray-200 p-4'
+                class='font-medium text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
                 @click='mainStore.removeImage(image)'
             >
                 Delete

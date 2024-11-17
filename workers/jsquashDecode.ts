@@ -12,6 +12,17 @@ const decoders = {
     [IMAGE_TYPES.webp]: webpDecode
 }
 
-export async function jsquashDecode(fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData> {
-    return await decoders[fileType](arrayBuffer)
+export async function jsquashDecode(fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData | null> {
+    let result = null
+
+    // Options can be live experimented with here:
+    // https://squoosh.app/editor
+    try {
+        result = await decoders[fileType](arrayBuffer)
+    }
+    catch (error) {
+        console.log(error)
+    }
+
+    return result
 }

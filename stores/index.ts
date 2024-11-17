@@ -18,8 +18,18 @@ export const useMainStore = defineStore('main', {
             const existingImageNames = new Set(this.images.map((image) => image.file.name))
             const newImages = images.filter((image) => !existingImageNames.has(image.file.name))
 
-            this.images.push(...newImages)
-            this.assignNewNames()
+            const processBatch = (startIndex: number) => {
+                const maxBatchSize = Math.floor(Math.random() * 11) + 10 // Random batch size between 10 and 20
+                const imagesToAdd = newImages.slice(startIndex, startIndex + maxBatchSize)
+                this.images.push(...imagesToAdd)
+                this.assignNewNames()
+
+                if (startIndex + maxBatchSize < newImages.length) {
+                    setTimeout(() => processBatch(startIndex + maxBatchSize), 0)
+                }
+            }
+
+            processBatch(0)
         },
         assignNewNames() {
             assignNewNames(this.images, Number(this.startingDay))

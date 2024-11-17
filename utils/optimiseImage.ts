@@ -26,7 +26,7 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     }
 
     const totalStartTime = performance.now()
-    const arrayBuffer = await file.arrayBuffer()
+    const arrayBuffer = await getArrayBuffer(file)
 
     let decodedImageData: ImageData | null = null
     let encodedArrayBuffer: ArrayBuffer | null = null
@@ -34,14 +34,31 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     let encodingDuration = 0
 
     if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
-        try {
-            ({
-                result: decodedImageData,
-                duration: decodingDuration
-            } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
-        }
-        catch {
-            throw new Error('Failed to decode image')
+        if (await canBuiltInDecodeImageType(file.type)) {
+            let useFallbackDecoders = false
+
+            try {
+                ({
+                    result: decodedImageData,
+                    duration: decodingDuration
+                } = await measurePerformance(() => builtInDecode(file)))
+            }
+            catch (error) {
+                useFallbackDecoders = true
+                console.log(error)
+            }
+
+            try {
+                if (useFallbackDecoders) {
+                    ({
+                        result: decodedImageData,
+                        duration: decodingDuration
+                    } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
+                }
+            }
+            catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -60,7 +77,6 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
             } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat)))
         }
         catch {
-            debugger
             throw new Error('Failed to encode image')
         }
     }

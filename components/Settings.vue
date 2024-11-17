@@ -41,6 +41,7 @@
                         id='qualityDropdown'
                         v-model='mainStore.quality'
                         class='mt-6'
+                        :disabled='isOptimising'
                         :options='qualityOptions'
                         label='Preset'
                     />
@@ -50,6 +51,7 @@
                             id='outputFormatDropdown'
                             v-model='mainStore.outputFormat'
                             :options='fileOutputFormatOptions'
+                            :disabled='isOptimising'
                             label='Output format'
                         />
                         <p
@@ -77,6 +79,8 @@ const mainStore = useMainStore()
 const onStartingDayChange = () => {
     mainStore.assignNewNames()
 }
+
+const isOptimising = computed(() => mainStore.isOptimising)
 
 const qualityOptions = [
     {
