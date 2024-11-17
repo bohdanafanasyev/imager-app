@@ -5,6 +5,7 @@ import {
 } from '~/values'
 import type { Image, OptimisedImageResult } from '~/types'
 import { formatMsToSeconds } from '~/utils/format'
+import { jsquashDecodeTest } from '~/utils/jsquashDecode'
 
 async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
@@ -34,30 +35,14 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
     let encodingDuration = 0
 
     if (JSQUASH_DECODER_SUPPORTED_IMAGE_TYPES.includes(file.type)) {
-        if (await canBuiltInDecodeImageType(file.type)) {
-            let useFallbackDecoders = false
-
-            try {
-                ({
-                    result: decodedImageData,
-                    duration: decodingDuration
-                } = await measurePerformance(() => builtInDecode(file)))
-            }
-            catch {
-                useFallbackDecoders = true
-            }
-
-            try {
-                if (useFallbackDecoders) {
-                    ({
-                        result: decodedImageData,
-                        duration: decodingDuration
-                    } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
-                }
-            }
-            catch {
-                throw new Error('Failed to decode image')
-            }
+        try {
+            ({
+                result: decodedImageData,
+                duration: decodingDuration
+            } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
+        }
+        catch {
+            throw new Error('Failed to decode image')
         }
     }
 

@@ -60,6 +60,8 @@
                         </p>
                     </div>
                 </HeightTransition>
+
+                <Controls />
             </div>
         </div>
     </div>
@@ -69,8 +71,6 @@
         lang="ts"
 >
 import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
-import ToggleInput from '~/components/ToggleInput.vue'
-import HeightTransition from '~/components/HeightTransition.vue'
 
 const mainStore = useMainStore()
 

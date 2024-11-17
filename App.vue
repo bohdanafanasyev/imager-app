@@ -8,7 +8,6 @@
             <UploadZone />
             <div class='w-96 h-full separator border-gray-500 py-8 px-6 flex flex-col justify-between'>
                 <Settings />
-                <Controls />
                 <Statistics />
             </div>
         </div>
@@ -18,8 +17,6 @@
 <script setup
         lang="ts"
 >
-import Controls from '~/components/Controls.vue'
-
 const mainStore = useMainStore()
 
 onMounted(() => {

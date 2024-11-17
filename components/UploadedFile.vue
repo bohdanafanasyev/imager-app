@@ -76,7 +76,6 @@
 >
 import { filesize } from 'filesize'
 import { defineProps } from 'vue'
-import PhotoIcon from '~/components/PhotoIcon.vue'
 import type { Image } from '~/types'
 
 const props = defineProps<{
