@@ -5,7 +5,6 @@ import {
 } from '~/values'
 import type { Image, OptimisedImageResult } from '~/types'
 import { formatMsToSeconds } from '~/utils/format'
-import { jsquashDecodeTest } from '~/utils/jsquashDecode'
 
 async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
