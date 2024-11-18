@@ -8,13 +8,13 @@ export async function builtInDecode(
         'createImageBitmap' in self ? createImageBitmap(blob) : blobToImg(blob)
     )
 
-    return drawableToImageData(drawable)
+    return await drawableToImageData(drawable)
 }
 
-function drawableToImageData(
+async function drawableToImageData(
     drawable: ImageBitmap | HTMLImageElement,
     options: DrawableToImageDataOptions = {}
-): ImageData {
+): Promise<ImageData> {
     const {
         width = drawable.width,
         height = drawable.height,
@@ -24,15 +24,30 @@ function drawableToImageData(
         sh = drawable.height
     } = options
 
-    // Make canvas same size as image
-    const canvas = document.createElement('canvas')
+    // Use OffscreenCanvas if available to avoid rendering on the main thread
+    const canvas = 'OffscreenCanvas' in self
+        ? new OffscreenCanvas(width, height)
+        : document.createElement('canvas')
     canvas.width = width
     canvas.height = height
+
     // Draw image onto canvas
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d') as OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D
     if (!ctx) throw new Error('Could not create canvas context')
     ctx.drawImage(drawable, sx, sy, sw, sh, 0, 0, width, height)
-    return ctx.getImageData(0, 0, width, height)
+
+    // Return ImageData
+    return new Promise<ImageData>((resolve) => {
+        // Use requestAnimationFrame to allow the browser to perform some other tasks and avoid blocking the main thread
+        requestAnimationFrame(() => {
+            if (canvas instanceof OffscreenCanvas) {
+                resolve(ctx.getImageData(0, 0, width, height))
+            }
+            else {
+                resolve((ctx as CanvasRenderingContext2D).getImageData(0, 0, width, height))
+            }
+        })
+    })
 }
 
 async function blobToImg(blob: Blob): Promise<HTMLImageElement> {
