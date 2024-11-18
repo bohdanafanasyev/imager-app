@@ -29,6 +29,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { defineProps } from 'vue'
+import { EMIT_EVENTS } from '~/values/events'
 
 type Option = {
     label: string
@@ -45,11 +46,12 @@ const props = defineProps({
     }
 })
 
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits([EMIT_EVENTS.updateModelValue, EMIT_EVENTS.change])
 
 const onChange = (event: Event) => {
-    const target = event.target as HTMLSelectElement
-    emit('update:modelValue', target.value)
-    emit('change')
+    const { value } = event.target as HTMLSelectElement
+
+    emit(EMIT_EVENTS.updateModelValue, value)
+    emit(EMIT_EVENTS.change, value)
 }
 </script>

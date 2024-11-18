@@ -21,6 +21,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { EMIT_EVENTS } from '~/values/events'
 
 const props = defineProps({
     id: String,
@@ -28,10 +29,10 @@ const props = defineProps({
     modelValue: Boolean
 })
 
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits([EMIT_EVENTS.updateModelValue, EMIT_EVENTS.change])
 
 const updateValue = (value: boolean) => {
-    emit('update:modelValue', value)
-    emit('change', value)
+    emit(EMIT_EVENTS.updateModelValue, value)
+    emit(EMIT_EVENTS.change, value)
 }
 </script>
