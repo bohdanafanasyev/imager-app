@@ -113,9 +113,7 @@ const onImageError = (image: Image): void => {
 }
 </script>
 
-<style lang="scss"
-       scoped
->
+<style scoped>
 .spinner {
     width: 20px;
     height: 20px;

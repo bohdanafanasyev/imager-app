@@ -8,6 +8,9 @@ export default {
                 '@jsquash/jpeg',
                 'elheif'
             ]
+        },
+        worker: {
+            format: 'es'
         }
     }
 }

@@ -9,7 +9,23 @@ export default defineNuxtConfig({
   ...css,
   ...modules,
   ...tailwind,
-  ...vite,
+  // ssr: false,
+
+  vite: {
+    optimizeDeps: {
+      exclude: [
+        '@jsquash/png',
+        '@jsquash/avif',
+        '@jsquash/webp',
+        '@jsquash/jpeg',
+        'elheif'
+      ]
+    },
+    worker: {
+      format: 'es'
+    }
+  },
+
   compatibilityDate: '2024-04-03',
 
   eslint: {

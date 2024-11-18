@@ -150,9 +150,7 @@ const onFileChange = async (): Promise<void> => {
 }
 </script>
 
-<style lang="scss"
-       scoped
->
+<style scoped>
 .custom-scroll {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
