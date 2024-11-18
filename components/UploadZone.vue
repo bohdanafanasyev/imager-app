@@ -22,20 +22,21 @@
         </div>
 
         <TransitionGroup
-            v-show='mainStore.images.length'
+            v-show='mainStore.images.size'
             name='list'
             tag='ul'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
         >
             <UploadedFile
-                v-for='image in mainStore.images'
-                :key='image.file.name'
-                :image='image'
+                v-for='(image, key) in mainStore.images'
+                :key='key'
+                :image='image[1]'
+                :store-key='image[0]'
             />
         </TransitionGroup>
 
         <p
-            v-show='!mainStore.images.length'
+            v-show='!mainStore.images.size'
             class='font-sans'
         >
             Select the files by clicking the plus icon

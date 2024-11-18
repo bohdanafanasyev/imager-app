@@ -38,11 +38,10 @@ async function getFileDownloadData(image: Image, rename: boolean, optimise: bool
 //     }
 // }
 
-async function downloadMultipleFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
+async function downloadMultipleFiles(images: Map<string, Image>, rename: boolean, optimise: boolean): Promise<void> {
     const zip = new JSZip()
 
-    for (let index = 0; index < images.length; index++) {
-        const image = images[index]
+    for (const [key, image] of images) {
         const { file, fileName } = await getFileDownloadData(image, rename, optimise)
 
         if (file) {
@@ -55,6 +54,6 @@ async function downloadMultipleFiles(images: Image[], rename: boolean, optimise:
     download(zipBlob, 'images.zip')
 }
 
-export async function downloadFiles(images: Image[], rename: boolean, optimise: boolean): Promise<void> {
+export async function downloadFiles(images: Map<string, Image>, rename: boolean, optimise: boolean): Promise<void> {
     await downloadMultipleFiles(images, rename, optimise)
 }

@@ -63,7 +63,7 @@
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
                 class='font-medium text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
-                @click='mainStore.removeImage(image)'
+                @click='mainStore.removeImage(storeKey)'
             >
                 Delete
             </button>
@@ -80,6 +80,7 @@ import type { Image } from '~/types'
 
 const props = defineProps<{
     image: Image
+    storeKey: string
 }>()
 
 const mainStore = useMainStore()

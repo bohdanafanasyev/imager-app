@@ -28,23 +28,23 @@
 const mainStore = useMainStore()
 
 const optimiseImages = async (): Promise<void> => {
-    if (mainStore.images.length) {
+    if (mainStore.images.size) {
         mainStore.isOptimising = true
 
         mainStore.onReOptimise()
 
-        for (const image of mainStore.images) {
+        for (const [key, image] of mainStore.images) {
             if (!mainStore.isOptimising) {
                 break
             }
 
-            if (image.optimisationResult) {
+            if (!mainStore.images.has(key) || image.optimisationResult) {
                 continue
             }
 
             const result = await optimiseImage(image, Number(mainStore.quality), mainStore.outputFormat)
 
-            if (mainStore.isOptimising) {
+            if (mainStore.isOptimising && mainStore.images.has(key)) {
                 image.optimisationResult = result
                 image.format.optimised = image.optimisationResult.encoderFormat
             }

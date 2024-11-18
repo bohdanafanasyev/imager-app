@@ -31,11 +31,11 @@ const mainStore = useMainStore()
 const stats = computed(() => [
     {
         label: 'Uploaded files',
-        value: mainStore.images.length > 0 ? mainStore.images.length : 'TBD'
+        value: mainStore.images.size > 0 ? mainStore.images.size : 'TBD'
     },
     {
         label: 'Optimised files',
-        value: mainStore.images.length > 0 ? `${mainStore.totalOptimisedFiles} of ${mainStore.images.length}` : 'TBD'
+        value: mainStore.images.size > 0 ? `${mainStore.totalOptimisedFiles} of ${mainStore.images.size}` : 'TBD'
     },
     {
         label: 'Uploaded size',

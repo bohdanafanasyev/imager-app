@@ -15,33 +15,34 @@ export const useMainStore = defineStore('main', {
         },
         isOptimising: false,
         isDebugMode: false,
-        images: [] as Image[]
+        images: new Map<string, Image>()
     }),
     actions: {
         addImages(images: Image[]) {
-            const existingImageNames = new Set(this.images.map((image) => image.file.name))
-            const newImages = images.filter((image) => !existingImageNames.has(image.file.name))
-
             const processBatch = (startIndex: number) => {
-                const maxBatchSize = Math.floor(Math.random() * 11) + 20 // Random batch size between 10 and 20
-                const imagesToAdd = newImages.slice(startIndex, startIndex + maxBatchSize)
-                this.images.push(...imagesToAdd)
-                this.assignNewNames()
+                const maxBatchSize = Math.floor(Math.random() * 11) + 20 // Random batch size between 20 and 30
+                const imagesToAdd = images.slice(startIndex, startIndex + maxBatchSize)
+                imagesToAdd.forEach((image) => {
+                    if (!this.images.has(image.file.name)) {
+                        this.images.set(image.file.name, image)
+                    }
+                })
 
-                if (startIndex + maxBatchSize < newImages.length) {
+                if (startIndex + maxBatchSize < images.length) {
                     setTimeout(() => processBatch(startIndex + maxBatchSize), 0)
+                }
+                else {
+                    this.assignNewNames()
                 }
             }
 
             processBatch(0)
         },
         assignNewNames() {
-            assignNewNames(this.images, Number(this.startingDay))
+            assignNewNames(this.imagesArray, Number(this.startingDay))
         },
-        removeImage(image: Image) {
-            const index = this.images.indexOf(image)
-
-            this.images.splice(index, 1)
+        removeImage(imageId: string) {
+            this.images.delete(imageId)
         },
         onReOptimise() {
             this.lastOptimisationSettings = {
@@ -52,17 +53,20 @@ export const useMainStore = defineStore('main', {
         }
     },
     getters: {
+        imagesArray(): Image[] {
+            return Array.from(this.images.values())
+        },
         totalFilesSize(): number {
-            return this.images.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
+            return this.imagesArray.reduce((accumulator: number, image: Image) => accumulator + image.file.size, 0)
         },
         totalOptimisedFiles(): number {
-            return this.images.filter((image: Image) => image.optimisationResult).length
+            return this.imagesArray.filter((image: Image) => image.optimisationResult).length
         },
         allImagesOptimised(): boolean {
-            return this.images.length ? this.images.every((image: Image) => image.optimisationResult) : false
+            return this.images.size ? this.imagesArray.every((image: Image) => image.optimisationResult) : false
         },
         optimisedFilesSize(): number {
-            return this.images.reduce((accumulator: number, image: Image) => {
+            return this.imagesArray.reduce((accumulator: number, image: Image) => {
                 if (image.optimisationResult?.arrayBuffer) {
                     return accumulator + image.optimisationResult.arrayBuffer.byteLength
                 }
@@ -72,7 +76,7 @@ export const useMainStore = defineStore('main', {
             }, 0)
         },
         shouldGetOptimisedResult(): boolean {
-            return this.optimise && this.images.length > 0 && this.allImagesOptimised
+            return this.optimise && this.images.size > 0 && this.allImagesOptimised
         },
         savedFilesSize(): number {
             if (this.shouldGetOptimisedResult) {
@@ -97,7 +101,7 @@ export const useMainStore = defineStore('main', {
         },
         performanceStats(): PerformanceStats | null {
             if (this.shouldGetOptimisedResult && this.isDebugMode) {
-                const stats = this.images.reduce((accumulator: PerformanceStats, image: Image) => {
+                const stats = this.imagesArray.reduce((accumulator: PerformanceStats, image: Image) => {
                     const { decoding, encoding, total } = image.optimisationResult!.performance
 
                     accumulator.decoding += decoding
