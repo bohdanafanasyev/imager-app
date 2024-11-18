@@ -55,5 +55,8 @@ async function downloadMultipleFiles(images: Map<string, Image>, rename: boolean
 }
 
 export async function downloadFiles(images: Map<string, Image>, rename: boolean, optimise: boolean): Promise<void> {
-    await downloadMultipleFiles(images, rename, optimise)
+    return new Promise<void>(async (resolve) => {
+        await downloadMultipleFiles(images, rename, optimise)
+        resolve()
+    })
 }

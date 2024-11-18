@@ -28,10 +28,16 @@ export const useMainStore = defineStore('main', {
                     }
                 })
 
+                // In the beginning assign new names only to the first batch
+                if (startIndex === 0) {
+                    this.assignNewNames()
+                }
+
                 if (startIndex + maxBatchSize < images.length) {
                     setTimeout(() => processBatch(startIndex + maxBatchSize), 0)
                 }
                 else {
+                    // Assign new names to all images after the all images have been added
                     this.assignNewNames()
                 }
             }

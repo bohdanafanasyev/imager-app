@@ -15,9 +15,10 @@
 
         <Button
             v-if='showDownloadButton'
+            :disabled='isDownloading'
             @click='downloadImages'
         >
-            Download
+            {{ isDownloading ? 'Preparing archive...' : 'Download' }}
         </Button>
     </div>
 </template>
@@ -26,6 +27,8 @@
         lang="ts"
 >
 const mainStore = useMainStore()
+
+const isDownloading = ref(false)
 
 const optimiseImages = async (): Promise<void> => {
     if (mainStore.images.size) {
@@ -54,8 +57,13 @@ const optimiseImages = async (): Promise<void> => {
     mainStore.isOptimising = false
 }
 
-const downloadImages = (): void => {
-    downloadFiles(mainStore.images, mainStore.rename, mainStore.optimise)
+const downloadImages = async () => {
+    isDownloading.value = true
+    await downloadFiles(mainStore.images, mainStore.rename, mainStore.optimise)
+
+    setTimeout(() => {
+        isDownloading.value = false
+    })
 }
 
 const onOptimisationStopClick = (): void => {
@@ -93,7 +101,3 @@ const showDownloadButton = computed(() => {
     return show
 })
 </script>
-
-<style scoped>
-
-</style>
