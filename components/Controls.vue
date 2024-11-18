@@ -1,13 +1,10 @@
 <template>
     <div class='flex mt-8'>
         <Button
-            v-if='mainStore.optimise && !mainStore.isOptimising && !mainStore.allImagesOptimised'
-            :class='{
-                ["pointer-events-none"]: mainStore.isOptimising || !mainStore.images.length
-            }'
+            v-if='showOptimiseButton'
             @click='optimiseImages'
         >
-            Optimise
+            {{ mainStore.optimisationSettingsChanged ? 'Re-optimise' : 'Optimise' }}
         </Button>
         <Button
             v-if='mainStore.isOptimising'
@@ -17,7 +14,7 @@
         </Button>
 
         <Button
-            v-if='(mainStore.optimise && mainStore.allImagesOptimised) || (mainStore.rename && !mainStore.optimise)'
+            v-if='showDownloadButton'
             @click='downloadImages'
         >
             Download
@@ -33,6 +30,8 @@ const mainStore = useMainStore()
 const optimiseImages = async (): Promise<void> => {
     if (mainStore.images.length) {
         mainStore.isOptimising = true
+
+        mainStore.onReOptimise()
 
         for (const image of mainStore.images) {
             if (!mainStore.isOptimising) {
@@ -62,6 +61,37 @@ const downloadImages = (): void => {
 const onOptimisationStopClick = (): void => {
     mainStore.isOptimising = false
 }
+
+const showOptimiseButton = computed(() => {
+    let show = false
+
+    if (mainStore.optimise) {
+        if (!mainStore.isOptimising && !mainStore.allImagesOptimised) {
+            show = true
+        }
+
+        if (mainStore.optimisationSettingsChanged) {
+            show = true
+        }
+    }
+
+    return show
+})
+
+const showDownloadButton = computed(() => {
+    let show = false
+
+    if (mainStore.optimise) {
+        if (mainStore.allImagesOptimised) {
+            show = !mainStore.optimisationSettingsChanged
+        }
+    }
+    else if (mainStore.rename) {
+        show = true
+    }
+
+    return show
+})
 </script>
 
 <style scoped>

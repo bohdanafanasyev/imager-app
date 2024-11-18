@@ -9,6 +9,10 @@ export const useMainStore = defineStore('main', {
         optimise: true,
         quality: QUALITY.seventy,
         outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
+        lastOptimisationSettings: {
+            quality: QUALITY.seventy,
+            outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
+        },
         isOptimising: false,
         isDebugMode: false,
         images: [] as Image[]
@@ -38,6 +42,13 @@ export const useMainStore = defineStore('main', {
             const index = this.images.indexOf(image)
 
             this.images.splice(index, 1)
+        },
+        onReOptimise() {
+            this.lastOptimisationSettings = {
+                quality: this.quality,
+                outputFormat: this.outputFormat
+            }
+            this.images.forEach((image) => image.optimisationResult = null)
         }
     },
     getters: {
@@ -104,6 +115,9 @@ export const useMainStore = defineStore('main', {
             }
 
             return null
+        },
+        optimisationSettingsChanged(): boolean {
+            return this.quality !== this.lastOptimisationSettings.quality || this.outputFormat !== this.lastOptimisationSettings.outputFormat
         }
     }
 })
