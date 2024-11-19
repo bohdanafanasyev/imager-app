@@ -7,7 +7,7 @@
             <div
                 v-for='stat in stats'
                 :key='stat.label'
-                class='flex text-xs place-items-center justify-between font-medium'
+                class='flex text-xs place-items-center justify-between'
             >
                 <span class='text-ital'>{{ stat.label }}</span>
                 <span
