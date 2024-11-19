@@ -7,7 +7,15 @@ const encoders = {
     [IMAGE_FORMATS.webp]: webpEncode
 }
 
-export async function encodeImageData(imageData: ImageData, quality: number, encoderFormat: string): Promise<ArrayBuffer | null> {
+interface EncodeConfig {
+    decodedImageData: ImageData
+    quality: number
+    encoderFormat: string
+}
+
+// Nuxt web worker can't receive multiple arguments, so we pass an object instead
+export async function encodeImageData(config: EncodeConfig): Promise<ArrayBuffer | null> {
+    const { decodedImageData, quality, encoderFormat } = config
     const encoder = encoders[encoderFormat]
     let result = null
 
@@ -15,11 +23,12 @@ export async function encodeImageData(imageData: ImageData, quality: number, enc
     // https://squoosh.app/editor
     try {
         result = await encoder(
-            imageData,
+            decodedImageData,
             {
                 quality,
                 method: 6
-            })
+            }
+        )
     }
     catch (error) {
         console.log(error)

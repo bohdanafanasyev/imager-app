@@ -12,7 +12,14 @@ const decoders = {
     [IMAGE_TYPES.webp]: webpDecode
 }
 
-export async function jsquashDecode(fileType: string, arrayBuffer: ArrayBuffer): Promise<ImageData | null> {
+interface DecodeConfig {
+    fileType: string
+    arrayBuffer: ArrayBuffer
+}
+
+// Nuxt web worker can't receive multiple arguments, so we pass an object instead
+export async function jsquashDecode(config: DecodeConfig): Promise<ImageData | null> {
+    const { fileType, arrayBuffer } = config
     let result = null
 
     // Options can be live experimented with here:

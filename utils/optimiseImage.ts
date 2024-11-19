@@ -54,7 +54,10 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
                     ({
                         result: decodedImageData,
                         duration: decodingDuration
-                    } = await measurePerformance(() => jsquashDecode(file.type, arrayBuffer)))
+                    } = await measurePerformance(() => jsquashDecode({
+                        fileType: file.type,
+                        arrayBuffer
+                    })))
                 }
             }
         }
@@ -70,7 +73,11 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
             ({
                 result: encodedArrayBuffer,
                 duration: encodingDuration
-            } = await measurePerformance(() => encodeImageData(decodedImageData, quality, encoderFormat)))
+            } = await measurePerformance(() => encodeImageData({
+                decodedImageData,
+                quality,
+                encoderFormat
+            })))
         }
     }
 
