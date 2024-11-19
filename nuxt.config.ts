@@ -2,49 +2,52 @@ import build from './config/build'
 import css from './config/css'
 import modules from './config/modules'
 import tailwind from './config/tailwindcss'
-import vite from './config/vite'
 
 export default defineNuxtConfig({
-  ...build,
-  ...css,
-  ...modules,
-  ...tailwind,
-
-  vite: {
-    optimizeDeps: {
-      exclude: [
-        '@jsquash/png',
-        '@jsquash/avif',
-        '@jsquash/webp',
-        '@jsquash/jpeg',
-        'elheif'
-      ]
+    ...build,
+    ...css,
+    ...modules,
+    ...tailwind,
+    eslint: {
+        config: {
+            stylistic: {
+                semi: false,
+                quotes: 'single',
+                arrowParens: true,
+                blockSpacing: true,
+                indent: 4,
+                commaDangle: 'never'
+            }
+        }
     },
-    worker: {
-      format: 'es'
+
+    routeRules: {
+        '/_nuxt/**': {headers: {'cross-origin-embedder-policy': 'require-corp'}}
+    },
+
+    // Doesn't work if imported from config/vite.ts
+    vite: {
+        optimizeDeps: {
+            exclude: [
+                '@jsquash/png',
+                '@jsquash/avif',
+                '@jsquash/webp',
+                '@jsquash/jpeg',
+                'elheif'
+            ]
+        },
+        worker: {
+            format: 'es'
+        }
+    },
+
+    compatibilityDate: '2024-04-03',
+
+    typescript: {
+        typeCheck: true
+    },
+
+    devtools: {
+        enabled: true
     }
-  },
-
-  compatibilityDate: '2024-04-03',
-
-  eslint: {
-    config: {
-      stylistic: {
-        semi: false,
-        quotes: 'single',
-        arrowParens: true,
-        blockSpacing: true,
-        indent: 4,
-        commaDangle: 'never',
-      },
-    },
-  },
-
-  typescript: {
-      typeCheck: true
-  },
-
-  devtools: {
-      enabled: true
-  },
 })
