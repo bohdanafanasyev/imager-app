@@ -9,7 +9,6 @@ export default defineNuxtConfig({
   ...css,
   ...modules,
   ...tailwind,
-  // ssr: false,
 
   vite: {
     optimizeDeps: {
