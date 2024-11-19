@@ -1254,7 +1254,7 @@ body,
 p,
 input,
 textarea {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -1271,21 +1271,21 @@ textarea {
 /* Titles */
 /* ================================================== */
 .title-thick {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
 }
 
 .title-md {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
 }
 
 .title-thin {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 200;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1294,7 +1294,7 @@ textarea {
 /* Text styles */
 /* ================================================== */
 .title-1 {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1306,7 +1306,7 @@ textarea {
 }
 
 .title-2 {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1318,7 +1318,7 @@ textarea {
 }
 
 .title-3 {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 200;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1328,7 +1328,7 @@ textarea {
 }
 
 .title-4 {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1340,7 +1340,7 @@ textarea {
 }
 
 .title-md {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -1350,7 +1350,7 @@ textarea {
 }
 
 .subtitle {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -1365,7 +1365,7 @@ textarea {
 }
 
 .eyebrow {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-size: var(--text-2xs);
   letter-spacing: 0.04em;
@@ -1378,7 +1378,7 @@ textarea {
 /* Labels */
 /* ================================================== */
 .label-xs {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
   font-size: var(--text-xs);
@@ -1387,7 +1387,7 @@ textarea {
 }
 
 .label-sm {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
   font-size: var(--text-sm);
@@ -1396,7 +1396,7 @@ textarea {
 }
 
 .label-md {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
   font-size: var(--text-md);
@@ -1618,165 +1618,165 @@ textarea {
 /* Credit: Chris Coyier */
 /* https://css-tricks.com/change-color-of-svg-on-hover/ */
 /* 💠 example */
-/*.svg-copy {*/
-/*  mask: url(/assets/icons/Copy.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-copy {
+  mask: url(/assets/icons/Copy.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-square-out {*/
-/*  mask: url(/assets/icons/SquareOut.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-square-out {
+  mask: url(/assets/icons/SquareOut.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-chev-up {*/
-/*  mask: url(/assets/icons/CaretUp.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-chev-up {
+  mask: url(/assets/icons/CaretUp.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-chev-down {*/
-/*  mask: url(/assets/icons/CaretDown.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-chev-down {
+  mask: url(/assets/icons/CaretDown.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-chev-l {*/
-/*  mask: url(/assets/icons/CaretLeft.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-chev-l {
+  mask: url(/assets/icons/CaretLeft.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-chev-r {*/
-/*  mask: url(/assets/icons/CaretRight.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-chev-r {
+  mask: url(/assets/icons/CaretRight.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-linkedin {*/
-/*  mask: url(/assets/icons/LinkedinLogo.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-linkedin {
+  mask: url(/assets/icons/LinkedinLogo.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-instagram {*/
-/*  mask: url(/assets/icons/InstagramLogo.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-instagram {
+  mask: url(/assets/icons/InstagramLogo.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-github {*/
-/*  mask: url(/assets/icons/GithubLogo.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-github {
+  mask: url(/assets/icons/GithubLogo.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-ham {*/
-/*  mask: url(/assets/icons/List.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-ham {
+  mask: url(/assets/icons/List.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-x {*/
-/*  mask: url(/assets/icons/X.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-x {
+  mask: url(/assets/icons/X.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-circleHalf {*/
-/*  mask: url(/assets/icons/CircleHalf.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-circleHalf {
+  mask: url(/assets/icons/CircleHalf.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-circleHalfTilt {*/
-/*  mask: url(/assets/icons/CircleHalfTilt.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-circleHalfTilt {
+  mask: url(/assets/icons/CircleHalfTilt.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-magnifying-glass {*/
-/*  mask: url(/assets/icons/MagnifyingGlass.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-magnifying-glass {
+  mask: url(/assets/icons/MagnifyingGlass.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-xCircle {*/
-/*  mask: url(/assets/icons/XCircle.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-xCircle {
+  mask: url(/assets/icons/XCircle.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
-/*.svg-xCircleOutline {*/
-/*  mask: url(/assets/icons/XCircleOutline.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-xCircleOutline {
+  mask: url(/assets/icons/XCircleOutline.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
 /* Glass */
 /* ================================================== */
@@ -1925,7 +1925,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -1956,7 +1956,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 25px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -1990,7 +1990,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -2021,7 +2021,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 25px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -2054,7 +2054,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -2091,7 +2091,7 @@ body {
     z-index: 3;
     background-repeat: repeat;
     background-size: 40px;
-    background-image: url(/public/img/textures/noise-rough-gray.png);
+    background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
     -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
     backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   }
@@ -2123,7 +2123,7 @@ body {
     z-index: 3;
     background-repeat: repeat;
     background-size: 25px;
-    background-image: url(/public/img/textures/noise-rough-gray.png);
+    background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
     -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
     backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   }
@@ -2501,7 +2501,7 @@ html {
   justify-content: space-between;
   gap: var(--sm);
   padding: var(--space);
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -2529,7 +2529,7 @@ html {
   padding-right: var(--space);
   padding-bottom: var(--space);
   padding-left: var(--space);
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -2709,7 +2709,7 @@ html {
 }
 .btn-sm > .btn-text {
   pointer-events: none;
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
@@ -2791,7 +2791,7 @@ html {
 }
 .btn-md > .btn-text {
   pointer-events: none;
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
@@ -2873,7 +2873,7 @@ html {
 }
 .btn-lg > .btn-text {
   pointer-events: none;
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
@@ -2956,7 +2956,7 @@ html {
 }
 .btn-full-w > .btn-text {
   pointer-events: none;
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
@@ -3656,7 +3656,7 @@ html {
 }
 
 .card-title-lg {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 200;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -3667,7 +3667,7 @@ html {
 }
 
 .card-title-md {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -3679,7 +3679,7 @@ html {
 }
 
 .card-subtitle {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -3883,7 +3883,7 @@ textarea,
 }
 
 .text-input-label {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -3896,7 +3896,7 @@ textarea,
 }
 
 .input-hint {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -3946,7 +3946,7 @@ textarea,
   height: 100%;
   background-color: transparent;
   border-radius: var(--text-input-radius);
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -3961,7 +3961,7 @@ textarea,
   padding-right: var(--text-input-padding);
 }
 .search-input::placeholder {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -3983,7 +3983,7 @@ input[type=search]::-webkit-search-cancel-button {
   z-index: 15;
   height: calc(var(--text-input-height) - var(--text-input-padding) * 2);
   aspect-ratio: 1;
-  /*background: url(/assets/icons/XCircleOutline.svg) no-repeat 50% 50%;*/
+  background: url(/assets/icons/XCircleOutline.svg) no-repeat 50% 50%;
   background-size: contain;
   opacity: 0;
   pointer-events: none;
@@ -4020,7 +4020,7 @@ input[type=search]:focus::-webkit-search-cancel-button {
   height: 100%;
   background-color: transparent;
   border-radius: var(--text-input-radius);
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -4034,7 +4034,7 @@ input[type=search]:focus::-webkit-search-cancel-button {
   padding: 0 var(--text-input-padding);
 }
 .text-input::placeholder {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -4077,7 +4077,7 @@ input[type=search]:focus::-webkit-search-cancel-button {
   height: 100%;
   background-color: transparent;
   border-radius: var(--text-input-radius);
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -4095,7 +4095,7 @@ input[type=search]:focus::-webkit-search-cancel-button {
   line-height: calc(0.125em + 2.5ex + 0.125em);
 }
 .textarea::placeholder {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -4416,7 +4416,7 @@ input[type=radio]:disabled:checked::after {
 }
 
 .input-label {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.02em;
   color: var(--text-xstrong);
@@ -4424,7 +4424,7 @@ input[type=radio]:disabled:checked::after {
 }
 
 .inline-label {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   color: var(--text-strong);
 }
@@ -4567,7 +4567,7 @@ html {
 }
 [role=tab] > .btn-text {
   pointer-events: none;
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-align: center;
@@ -4715,7 +4715,7 @@ body {
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   background-size: 40px;
   background-repeat: repeat;
 }
@@ -4735,27 +4735,27 @@ body {
 
 /*  Main nav glass logo */
 /* ================================================== */
-/*.svg-3d-glass-ui-logo {*/
-/*  mask: url(/assets/logos/3D-glass-UI-logo.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*  -webkit-backdrop-filter: blur(10px) brightness(0.8) saturate(2.5);*/
-/*  backdrop-filter: blur(10px) brightness(0.8) saturate(2.5);*/
-/*}*/
+.svg-3d-glass-ui-logo {
+  mask: url(/assets/logos/3D-glass-UI-logo.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+  -webkit-backdrop-filter: blur(10px) brightness(0.8) saturate(2.5);
+  backdrop-filter: blur(10px) brightness(0.8) saturate(2.5);
+}
 
-/*.svg-logo {*/
-/*  mask: url(/assets/logos/3D-glass-UI-logo.svg);*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*  aspect-ratio: 1;*/
-/*  mask-repeat: no-repeat;*/
-/*  mask-size: cover;*/
-/*  mask-position: center;*/
-/*}*/
+.svg-logo {
+  mask: url(/assets/logos/3D-glass-UI-logo.svg);
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  mask-position: center;
+}
 
 /*  Hero header */
 /* ================================================== */
@@ -4869,7 +4869,7 @@ body {
 }
 
 .card-3d-title {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.02em;
   text-shadow: var(--text-sha-2xl);
@@ -4889,7 +4889,7 @@ body {
 }
 
 .card-3d-text {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   font-optical-sizing: auto;
   font-style: normal;
@@ -4954,7 +4954,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -4974,7 +4974,7 @@ body {
 }
 
 .marquee-title {
-
+  font-family: "Poppins", "Arial", sans-serif;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: calc(0.125em + 1.5ex + 0.125em);
@@ -5009,7 +5009,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -5040,7 +5040,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -5071,7 +5071,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -5102,7 +5102,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -5133,7 +5133,7 @@ body {
   z-index: 3;
   background-repeat: repeat;
   background-size: 40px;
-  background-image: url(/public/img/textures/noise-rough-gray.png);
+  background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);
   -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
   backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
 }
@@ -5286,7 +5286,7 @@ body {
 }
 
 .btn-cell-label {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 600;
   font-size: var(--text-xs);
   letter-spacing: min(1vw, 10px);
@@ -5391,7 +5391,7 @@ body {
 /* Demo text styles */
 /* ================================================== */
 .class-name {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 300;
   letter-spacing: 0.04em;
   text-shadow: var(--text-sha-sm);
@@ -5405,16 +5405,17 @@ body {
 }
 
 .code-label-md {
-
+  font-family: "Nunito Sans", "Arial", sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
   font-size: var(--text-sm);
   line-height: calc(0.125em + 2.25ex + 0.125em);
+  font-family: "Fragment Mono", "Courier", monospace;
   text-shadow: var(--text-sha-2xs);
 }
 @media only screen and (min-width: 35rem) {
   .code-label-md {
-  
+    font-family: "Nunito Sans", "Arial", sans-serif;
     font-weight: 500;
     letter-spacing: 0.01em;
     font-size: var(--text-md);
@@ -5425,6 +5426,7 @@ body {
 /* Code fonts */
 /* ================================================== */
 .c-comment {
+  font-family: "Fragment Mono", "Courier", monospace;
   font-size: inherit;
   line-height: inherit;
   font-weight: 400; /* only font-weight available for this font */
