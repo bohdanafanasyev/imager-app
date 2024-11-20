@@ -4,7 +4,7 @@
             v-if='showOptimiseButton'
             @click='optimiseImages'
         >
-            {{ mainStore.optimisationSettingsChanged ? 'Re-optimise' : 'Optimise' }}
+            {{ mainStore.optimisationSettingsChanged && isOptimisedOnce ? 'Re-optimise' : 'Optimise' }}
         </Button>
         <Button
             v-if='mainStore.isOptimising'
@@ -29,10 +29,12 @@
 const mainStore = useMainStore()
 
 const isDownloading = ref(false)
+const isOptimisedOnce = ref(false)
 
 const optimiseImages = async (): Promise<void> => {
     if (mainStore.images.size) {
         mainStore.isOptimising = true
+        isOptimisedOnce.value = true
 
         mainStore.onReOptimise()
 

@@ -41,7 +41,7 @@
             <div class='flex gap-1'>
                 <p class='font-sans text-xs text-gray-400 flex gap-1'>
                     {{ filesize(image.file.size) }}
-                    <template v-if='mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
+                    <template v-if='!mainStore.optimisationSettingsChanged && mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
                         <span>→</span>
                         <span class='text-green-500'>
                             {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
