@@ -3,7 +3,7 @@
     <fieldset class='input-group flex justify-between'>
         <label
             :for='id'
-            class='text-sm font-sans text-strong'
+            class='gm-text-sm gm-text-strong flex items-center'
         >
             {{ label }}
         </label>
@@ -20,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { EMIT_EVENTS } from '~/values/events'
 
 const props = defineProps({

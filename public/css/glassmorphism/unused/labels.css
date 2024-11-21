@@ -1,0 +1,30 @@
+
+
+/* Labels */
+/* ================================================== */
+.label-xs {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: var(--text-xs);
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  text-shadow: var(--text-sha-xs);
+}
+
+.label-sm {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: var(--text-sm);
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  text-shadow: var(--text-sha-sm);
+}
+
+.label-md {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-size: var(--text-md);
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  text-shadow: var(--text-sha-md);
+}

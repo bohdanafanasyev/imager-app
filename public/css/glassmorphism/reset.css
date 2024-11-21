@@ -1,0 +1,92 @@
+/* ================================================== */
+/* Reset */
+/* ================================================== */
+/* Use box-sizing model */
+*, *::before, *::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Kill margin with fire */
+* {
+  margin: 0;
+}
+
+/* Improve text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove list styles */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Prevent text overflow */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove padding */
+a,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+p,
+blockquote,
+figure,
+form,
+fieldset,
+input,
+legend,
+pre,
+abbr,
+button,
+body,
+textarea,
+select {
+  padding: 0;
+}
+
+/* Reset interactive elements */
+a,
+input,
+button,
+textarea,
+fieldset,
+select {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  background-color: transparent;
+  border: 0;
+  border-style: none;
+  text-decoration: none;
+  appearance: none;
+  cursor: pointer;
+  pointer-events: auto;
+}

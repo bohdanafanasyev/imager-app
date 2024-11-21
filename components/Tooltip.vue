@@ -22,8 +22,6 @@
 <script setup
         lang="ts"
 >
-import { defineProps } from 'vue'
-
 const props = defineProps<{
     text: string
     disabled: boolean

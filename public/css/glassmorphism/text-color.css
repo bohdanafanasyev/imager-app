@@ -1,0 +1,51 @@
+/* Text colors MAP */
+/* ================================================== */
+/* Generate text color classes */
+.gm-text-2xstrong {
+  color: var(--text-2xstrong);
+}
+.gm-text-xstrong {
+  color: var(--text-xstrong);
+}
+.gm-text-strong {
+  color: var(--text-strong);
+}
+.gm-text-base {
+  color: var(--text-base);
+}
+.gm-text-mild {
+  color: var(--text-mild);
+}
+.gm-text-xmild {
+  color: var(--text-xmild);
+}
+.gm-text-2xmild {
+  color: var(--text-2xmild);
+}
+.gm-text-white {
+  color: var(--color-white);
+}
+.gm-text-2xlight {
+  color: var(--color-2xlight);
+}
+.gm-text-xlight {
+  color: var(--color-xlight);
+}
+.gm-text-light {
+  color: var(--color-light);
+}
+.gm-text-gray {
+  color: var(--color-gray);
+}
+.gm-text-dark {
+  color: var(--color-dark);
+}
+.gm-text-xdark {
+  color: var(--color-xdark);
+}
+.gm-text-2xdark {
+  color: var(--color-2xdark);
+}
+.gm-text-black {
+  color: var(--color-black);
+}

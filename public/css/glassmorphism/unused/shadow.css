@@ -1,0 +1,29 @@
+/* Shadows MAP */
+/* ================================================== */
+.sha-3xs {
+  box-shadow: var(--sha-3xs);
+}
+
+.sha-2xs {
+  box-shadow: var(--sha-2xs);
+}
+
+.sha-xs {
+  box-shadow: var(--sha-xs);
+}
+
+.sha-sm {
+  box-shadow: var(--sha-sm);
+}
+
+.sha-md {
+  box-shadow: var(--sha-md);
+}
+
+.sha-lg {
+  box-shadow: var(--sha-lg);
+}
+
+.sha-xl {
+  box-shadow: var(--sha-xl);
+}

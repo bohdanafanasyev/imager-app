@@ -1,5 +1,5 @@
 <template>
-    <div class='flex mt-8'>
+    <div class='flex'>
         <Button
             v-if='showOptimiseButton'
             @click='optimiseImages'
@@ -47,7 +47,7 @@ const optimiseImages = async (): Promise<void> => {
                 continue
             }
 
-            const result = await optimiseImage(image, Number(mainStore.quality), mainStore.outputFormat)
+            const result = await optimiseImage(image, Number(mainStore.quality), mainStore.format)
 
             if (mainStore.isOptimising && mainStore.images.has(key)) {
                 image.optimisationResult = result

@@ -1,0 +1,400 @@
+/* ================================================== */
+/* Distances */
+/* ================================================== */
+:root {
+  /* 4px */
+  --5xs: 0.25rem;
+  /* 8px */
+  --4xs: 0.5rem;
+  /* 12px */
+  --3xs: 0.75rem;
+  /* 14px */
+  --2xs: 0.875rem;
+  /* 16px */
+  --xs: 1rem;
+  /* 16px → 24px */
+  --sm: clamp(1rem, calc(2vw + 0.5rem), 1.5rem);
+  /* 20px → 32px */
+  --md: clamp(1.25rem, calc(2vw + 0.85rem), 2rem);
+  /* 24px → 40px */
+  --lg: clamp(1.5rem, calc(2vw + 1rem), 2.5rem);
+  /* 28px → 48px */
+  --xl: clamp(1.75rem, calc(2vw + 1.4rem), 3rem);
+  /* 32px → 56px */
+  --2xl: clamp(2rem, calc(2vw + 1.6rem), 3.5rem);
+  /* 48px → 72px */
+  --3xl: clamp(3rem, calc(2vw + 2.6rem), 4.5rem);
+  /* 64px → 96px */
+  --4xl: clamp(4rem, calc(2vw + 3.6rem), 6rem);
+  /* 80px → 120px */
+  --5xl: clamp(5rem, calc(2vw + 4.6rem), 7.5rem);
+}
+
+/* ================================================== */
+/* Color tokens */
+/* ================================================== */
+:root {
+  /* Hue and saturation values ✨ Config these values */
+  /* ================================================== */
+  --primary-h: 130;
+  --primary-s: 50%;
+  --neutral-h: 205;
+  --neutral-s: 20%;
+  /* Primary */
+  /* ================================================== */
+  --primary-98: var(--primary-h) var(--primary-s) 98%;
+  --primary-95: var(--primary-h) var(--primary-s) 95%;
+  --primary-90: var(--primary-h) var(--primary-s) 90%;
+  --primary-85: var(--primary-h) var(--primary-s) 85%;
+  --primary-80: var(--primary-h) var(--primary-s) 80%;
+  --primary-70: var(--primary-h) var(--primary-s) 70%;
+  --primary-60: var(--primary-h) var(--primary-s) 60%;
+  --primary-50: var(--primary-h) var(--primary-s) 50%;
+  --primary-40: var(--primary-h) var(--primary-s) 40%;
+  --primary-30: var(--primary-h) var(--primary-s) 30%;
+  --primary-20: var(--primary-h) var(--primary-s) 20%;
+  --primary-10: var(--primary-h) var(--primary-s) 10%;
+  --primary-5: var(--primary-h) var(--primary-s) 5%;
+  /* Neutral */
+  /* ================================================== */
+  --neutral-98: var(--neutral-h) var(--neutral-s) 98%;
+  --neutral-95: var(--neutral-h) var(--neutral-s) 95%;
+  --neutral-90: var(--neutral-h) var(--neutral-s) 90%;
+  --neutral-85: var(--neutral-h) var(--neutral-s) 85%;
+  --neutral-80: var(--neutral-h) var(--neutral-s) 80%;
+  --neutral-70: var(--neutral-h) var(--neutral-s) 70%;
+  --neutral-60: var(--neutral-h) var(--neutral-s) 60%;
+  --neutral-50: var(--neutral-h) var(--neutral-s) 50%;
+  --neutral-40: var(--neutral-h) var(--neutral-s) 40%;
+  --neutral-30: var(--neutral-h) var(--neutral-s) 30%;
+  --neutral-20: var(--neutral-h) var(--neutral-s) 20%;
+  --neutral-15: var(--neutral-h) var(--neutral-s) 15%;
+  --neutral-10: var(--neutral-h) var(--neutral-s) 10%;
+  --neutral-5: var(--neutral-h) var(--neutral-s) 5%;
+}
+
+/* ================================================== */
+/* Color theme */
+/* ================================================== */
+html {
+  /* Solid colors */
+  /* ================================================== */
+  --color-white: hsl(var(--neutral-98) / 1);
+  --color-2xlight: hsl(var(--neutral-90) / 1);
+  --color-xlight: hsl(var(--neutral-80) / 1);
+  --color-light: hsl(var(--neutral-70) / 1);
+  --color-gray: hsl(var(--neutral-50) / 1);
+  --color-dark: hsl(var(--neutral-40) / 1);
+  --color-xdark: hsl(var(--neutral-30) / 1);
+  --color-2xdark: hsl(var(--neutral-20) / 1);
+  --color-black: hsl(var(--neutral-5) / 1);
+  /* Translucent tints */
+  /* ================================================== */
+  --tint-3xlight: hsl(var(--neutral-95) / 0.4);
+  --tint-2xlight: hsl(var(--neutral-95) / 0.3);
+  --tint-xlight: hsl(var(--neutral-95) / 0.2);
+  --tint-light: hsl(var(--neutral-95) / 0.1);
+  --tint-clear: hsl(var(--neutral-10) / 0.01);
+  --tint-dark: hsl(var(--neutral-10) / 0.1);
+  --tint-xdark: hsl(var(--neutral-10) / 0.25);
+  --tint-2xdark: hsl(var(--neutral-10) / 0.4);
+  --tint-3xdark: hsl(var(--neutral-10) / 0.6);
+  /* Text colors */
+  /* ================================================== */
+  --text-2xstrong: hsl(var(--neutral-98) / 1);
+  --text-xstrong: hsl(var(--neutral-95) / 1);
+  --text-strong: hsl(var(--neutral-90) / 1);
+  --text-base: hsl(var(--neutral-85) / 1);
+  --text-mild: hsl(var(--neutral-80) / 1);
+  --text-xmild: hsl(var(--neutral-60) / 1);
+  --text-2xmild: hsl(var(--neutral-50) / 1);
+  /* Inset bg colors */
+  /* ================================================== */
+  --inset-bg-reg: hsl(var(--neutral-10) / 0.15);
+  --inset-bg-deep: hsl(var(--neutral-10) / 0.25);
+  --inset-bg-xdeep: hsl(var(--neutral-10) / 0.35);
+  /* Box-shadows | Text-shadows | Drop-shadows */
+  /* ================================================== */
+  --shadow: var(--neutral-10);
+  --highlight: var(--neutral-90);
+}
+
+/* T-shirt Size MAP */
+/* ================================================== */
+/* Update if you add/remove/edit names of fluid sizes above */
+/* ================================================== */
+/* Responsive spacing/sizing ✨ Config these values */
+/* ================================================== */
+html {
+  /* Left-right moat */
+  --moat: 1rem;
+  /* Container query value for padding / margin / gap */
+  --space-q-sm: 7cqw;
+  --space-q-md: 7cqw;
+  --space-q-lg: 11cqw;
+  /* Ui height */
+  --ui-h-xs: 1.625rem; /* 26px */
+  --ui-h-sm: 2rem; /* 32px */
+  --ui-h-md: 2.25rem; /* 36px */
+  --ui-h-lg: 2.75rem; /* 44px */
+  --ui-h-xl: 3.25rem; /* 52px */
+}
+@media only screen and (min-width: 22.5rem) {
+  html {
+    --ui-h-xs: 1.5rem; /* 28px */
+    --ui-h-sm: 2.125rem; /* 34px */
+    --ui-h-md: 2.375rem; /* 38px */
+    --ui-h-lg: 2.875rem; /* 46px */
+    --ui-h-xl: 3.375rem; /* 54px */
+  }
+}
+@media only screen and (min-width: 35rem) {
+  html {
+    --moat: 2rem;
+    --space-q-sm: 7cqw;
+    --space-q-md: 6cqw;
+    --space-q-lg: min(10cqw, 5rem);
+  }
+}
+@media only screen and (min-width: 48rem) {
+  html {
+    --moat: 3rem;
+  }
+}
+@media only screen and (min-width: 64rem) {
+  html {
+    --ui-h-sm: 2.25rem; /* 36px */
+    --ui-h-md: 2.625rem; /* 42px */
+    --ui-h-lg: 2.75rem; /* 44px */
+    --ui-h-xl: 3.5rem; /* 56px */
+  }
+}
+@media only screen and (min-width: 90rem) {
+  html {
+    --moat: 5rem;
+  }
+}
+
+/* ================================================== */
+/* Text */
+/* ================================================== */
+/* font-family: ✨ Config these values */
+/* ================================================== */
+/* ℹ️ Link your fonts in <head> of index.html */
+/* letter-spacing: ✨ Config these values */
+/* ================================================== */
+/* line-height: ✨ Config these values */
+/* ================================================== */
+/* font-weight: ✨ Config these values */
+/* ================================================== */
+/* font-size: ✨ Config these values */
+/* ================================================== */
+/* https://modern-fluid-typography.vercel.app/ */
+:root {
+  --text-2xs: clamp(0.75rem, 4vw - 1rem, 0.85rem);
+  --text-xs: clamp(0.875rem, 4vw - 1rem, 0.9rem);
+  --text-sm: clamp(1rem, 0.13vw + 1rem, 1rem);
+  --text-md: clamp(1.125rem, 0.5vw + 1rem, 1.25rem);
+  --text-lg: clamp(1.375rem, 1.3vw + 1rem, 1.75rem);
+  --text-xl: clamp(1.5rem, 1.7vw + 1rem, 2.25rem);
+  --text-2xl: clamp(2rem, calc(2vw + 1.5rem), 2.75rem);
+  --text-3xl: clamp(2.6rem, 3.8vw + 1rem, 3.75rem);
+}
+
+/* ================================================== */
+/* Forms | Text inputs */
+/* ================================================== */
+body {
+  --text-input-height: var(--ui-h-lg);
+  --text-input-maxwidth: 380px;
+  --text-input-padding: var(--3xs);
+  --text-input-radius: 12px;
+  --text-input-inset: var(--inset-md);
+  --text-input-inset-bg: var(--inset-bg-xdeep);
+  --placeholder-color: var(--text-mild);
+  --caret-color: hsl(var(--primary-70) / 1);
+}
+
+/* ================================================== */
+/* Shadows */
+/* ================================================== */
+/* Elevation shadows */
+/* ================================================== */
+html {
+  --sha-3xs: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  0.5px 0.4px 1px hsl(var(--shadow) / 0.1),
+  0.5px 0.5px 1.5px hsl(var(--shadow) / 0.08);
+  --sha-2xs: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  0.5px 0.4px 1px hsl(var(--shadow) / 0.08),
+  1px 0.75px 1.75px -0.1px hsl(var(--shadow) / 0.1);
+  --sha-xs: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  1px 0.75px 1.75px -0.1px hsl(var(--shadow) / 0.08),
+  2px 1.5px 4px -0.5px hsl(var(--shadow) / 0.08);
+  --sha-sm: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  1px 1px 1.5px -0.25px hsl(var(--shadow) / 0.08),
+  1.5px 1.5px 2px -1px hsl(var(--shadow) / 0.08),
+  3px 3px 8px -1px hsl(var(--shadow) / 0.08);
+  --sha-md: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  1px 0.75px 1.75px -0.25px hsl(var(--shadow) / 0.08),
+  2px 1.5px 3.5px -0.5px hsl(var(--shadow) / 0.08),
+  4px 3px 12px -1px hsl(var(--shadow) / 0.08);
+  --sha-lg: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  1.5px 1.5px 2px -0.5px hsl(var(--shadow) / 0.08),
+  3px 3px 6px -1px hsl(var(--shadow) / 0.08),
+  6px 4.5px 14px -1.5px hsl(var(--shadow) / 0.08);
+  --sha-xl: 0 0 0.3px hsl(var(--shadow) / 0.08),
+  0 0 0.75px hsl(var(--shadow) / 0.05),
+  1.5px 1.5px 2px -0.5px hsl(var(--shadow) / 0.08),
+  3px 3px 6px -1px hsl(var(--shadow) / 0.08),
+  8px 6px 18px -2px hsl(var(--shadow) / 0.08);
+}
+
+
+/* ================================================== */
+/* Text shadows */
+/* ================================================== */
+html {
+  --text-sha-3xs: 0.2px 0 0.2px hsl(var(--shadow) / 0.1),
+  0.2px 0.2px 0.2px hsl(var(--shadow) / 0.2),
+  0.25px 0.25px 0.5px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.15);
+  --text-sha-2xs: 0.2px 0 0.2px hsl(var(--shadow) / 0.1),
+  0.25px 0.25px 0.25px hsl(var(--shadow) / 0.2),
+  0.25px 0.25px 0.5px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.15);
+  --text-sha-xs: 0.1px 0.1px hsl(var(--shadow) / 0.3),
+  0.25px 0.25px hsl(var(--shadow) / 0.35),
+  0.02em 0.02em 0.04em hsl(var(--shadow) / 0.2),
+  0 0 0.05em hsl(var(--shadow) / 0.2),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+  --text-sha-sm: 0.2px 0 0.2px hsl(var(--shadow) / 0.1),
+  0.35px 0.35px 0.35px hsl(var(--shadow) / 0.25),
+  0.5px 0.5px 1px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.15);
+  --text-sha-md: 0.2px 0 0.2px hsl(var(--shadow) / 0.1),
+  0.4px 0.4px 0.4px hsl(var(--shadow) / 0.25),
+  0.5px 0.5px 1px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+  --text-sha-lg: 0.25px 0 0.25px hsl(var(--shadow) / 0.1),
+  0.45px 0.45px 0.45px hsl(var(--shadow) / 0.25),
+  0.75px 0.75px 1.5px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+  --text-sha-xl: 0.25px 0 0.25px hsl(var(--shadow) / 0.1),
+  0.5px 0.5px 0.5px hsl(var(--shadow) / 0.25),
+  0.75px 0.75px 1.5px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+  --text-sha-2xl: 0.25px 0 0.25px hsl(var(--shadow) / 0.1),
+  0.55px 0.55px 0.55px hsl(var(--shadow) / 0.25),
+  1px 1px 2px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+  --text-sha-3xl: 0.25px 0 0.25px hsl(var(--shadow) / 0.1),
+  0.6px 0.6px 0.6px hsl(var(--shadow) / 0.25),
+  1px 1px 2px hsl(var(--shadow) / 0.1),
+  0 0 0.05em hsl(var(--shadow) / 0.1),
+  0 0 0.7em hsl(var(--shadow) / 0.2);
+}
+
+/* Bevels */
+/* ================================================== */
+/* Curved bevels */
+/* ================================================== */
+html {
+  --bevel-xs: inset 1px 1px 0.5px -1.5px hsl(var(--highlight) / 0.7),
+  inset 1.5px 1.5px 0.75px -2.75px hsl(var(--highlight) / 0.5),
+  inset 0.25px 0.25px 0.5px -0.25px hsl(var(--highlight) / 0.15),
+  inset 0.25px 0.25px 0.25px hsl(var(--highlight) / 0.08),
+  inset 0 0 0.25px 0.25px hsl(var(--highlight) / 0.03);
+  --bevel-sm: inset 1.5px 1.5px 0.75px -2.75px hsl(var(--highlight) / 0.9),
+  inset 2px 2px 1px -3px hsl(var(--highlight) / 0.7),
+  inset 0.5px 0.5px 0.5px -0.25px hsl(var(--highlight) / 0.1),
+  inset 0.5px 0.5px 0.25px hsl(var(--highlight) / 0.05),
+  inset 0 0 0.25px 0.25px hsl(var(--highlight) / 0.03);
+  --bevel-md: inset 2px 2px 1px -3px hsl(var(--highlight) / 0.8),
+  inset 2px 2px 1px -3px hsl(var(--highlight) / 0.5),
+  inset 1px 1px 1px -0.5px hsl(var(--highlight) / 0.15),
+  inset 1px 1px 0.25px hsl(var(--highlight) / 0.03),
+  inset 0 0 0.25px 0.5px hsl(var(--highlight) / 0.03);
+  --bevel-lg: inset 2px 2px 1px -3px hsl(var(--highlight) / 0.8),
+  inset 3px 3px 1.5px -4.5px hsl(var(--highlight) / 0.5),
+  inset 1.25px 1.25px 1.25px -0.75px hsl(var(--highlight) / 0.15),
+  inset 1.25px 1.25px 0.25px hsl(var(--highlight) / 0.03),
+  inset 0 0 0.25px 0.5px hsl(var(--highlight) / 0.03);
+  --bevel-xl: inset 2px 2px 1px -3px hsl(var(--highlight) / 0.8),
+  inset 4px 4px 2px -6px hsl(var(--highlight) / 0.3),
+  inset 1.5px 1.5px 1.5px -0.75px hsl(var(--highlight) / 0.15),
+  inset 1.5px 1.5px 0.25px hsl(var(--highlight) / 0.03),
+  inset 0 0 0.25px 0.5px hsl(var(--highlight) / 0.03);
+  /* Flat bevels */
+  /* ================================================== */
+  --flat-bevel-sm: inset 0 0.25px 0.35px -0.23px hsl(var(--highlight) / 0.15),
+  inset 0 0.5px 0.5px -0.25px hsl(var(--highlight) / 0.1),
+  inset 0 0.5px 0.1px 0 hsl(var(--highlight) / 0.08);
+  --flat-bevel-md: inset 0 0.25px 0.35px -0.23px hsl(var(--highlight) / 0.2),
+  inset 0 1px 1px -1px hsl(var(--highlight) / 0.1),
+  inset 0 0.8px 0.2px hsl(var(--highlight) / 0.08);
+  --flat-bevel-lg: inset 0 0.25px 0.35px -0.22px hsl(var(--highlight) / 0.2),
+  inset 0 1px 1.25px -1px hsl(var(--highlight) / 0.15),
+  inset 0 1px 0.1px hsl(var(--highlight) / 0.08);
+}
+
+/* ================================================== */
+/* Insets */
+/* ================================================== */
+html {
+  /* Insets */
+  /* ================================================== */
+  --inset-sm: inset -2px -2px 1px -3.25px hsl(var(--highlight) / 0.99),
+  inset -0.5px -0.5px 0.5px -0.25px hsl(var(--highlight) / 0.3),
+  inset -0.75px -0.75px 0.25px hsl(var(--highlight) / 0.1),
+  inset 0.5px 0.5px 0.5px -0.5px hsl(var(--shadow) / 0.1),
+  inset 0.25px 0.25px 1.25px hsl(var(--shadow) / 0.2),
+  inset 1px 1px 2px hsl(var(--shadow) / 0.2),
+  inset 2px 2px 16px -8px hsl(var(--shadow) / 0.25);
+  --inset-md: inset -2px -2px 1px -3.25px hsl(var(--highlight) / 0.99),
+  inset -1px -1px 0.75px -0.75px hsl(var(--highlight) / 0.4),
+  inset -1px -1px 0.25px hsl(var(--highlight) / 0.1),
+  inset 0.75px 0.75px 1px -0.25px hsl(var(--shadow) / 0.1),
+  inset 0.25px 0.25px 1.25px hsl(var(--shadow) / 0.2),
+  inset 1.25px 1.25px 2px hsl(var(--shadow) / 0.2),
+  inset 2px 2px 16px -8px hsl(var(--shadow) / 0.25);
+  --inset-lg: inset -2px -2px 1px -3.25px hsl(var(--highlight) / 0.99),
+  inset -1.25px -1.25px 1px -0.75px hsl(var(--highlight) / 0.4),
+  inset -1.25px -1.25px 0.25px hsl(var(--highlight) / 0.1),
+  inset 0.75px 0.75px 1px -0.25px hsl(var(--shadow) / 0.1),
+  inset 0.25px 0.25px 1.25px hsl(var(--shadow) / 0.2),
+  inset 1.5px 1.5px 2.25px hsl(var(--shadow) / 0.2),
+  inset 4px 4px 18px -10px hsl(var(--shadow) / 0.25);
+  /* Flat insets  */
+  /* ================================================== */
+  --inset-flat-sm: inset 0 -0.75px 0.75px -0.8px hsl(var(--highlight) / 0.4),
+  inset 0 -0.75px 0.25px -0.25px hsl(var(--highlight) / 0.15),
+  inset 0 0.5px 0.5px -0.55px hsl(var(--shadow) / 0.1),
+  inset 0 1.5px 1.5px -1.55px hsl(var(--shadow) / 0.2),
+  inset 0 2px 2px -2.25px hsl(var(--shadow) / 0.35),
+  inset 0 12px 12px -13px hsl(var(--shadow) / 0.2);
+  --inset-flat-md: inset 0 -1px 1px -1.05px hsl(var(--highlight) / 0.4),
+  inset 0 -1px 0.25px -0.25px hsl(var(--highlight) / 0.15),
+  inset 0 0.5px 0.5px -0.55px hsl(var(--shadow) / 0.1),
+  inset 0 2px 2px -2.25px hsl(var(--shadow) / 0.25),
+  inset 0 3px 3px -3.25px hsl(var(--shadow) / 0.35),
+  inset 0 14px 14px -15px hsl(var(--shadow) / 0.2);
+  --inset-flat-lg: inset 0 -1.5px 1.5px -1.55px hsl(var(--highlight) / 0.4),
+  inset 0 -1.5px 0.25px -0.25px hsl(var(--highlight) / 0.15),
+  inset 0 0.5px 0.5px -0.55px hsl(var(--shadow) / 0.15),
+  inset 0 2.5px 2.5px -2.75px hsl(var(--shadow) / 0.25),
+  inset 0 4px 4px -4.25px hsl(var(--shadow) / 0.35),
+  inset 0 16px 16px -17px hsl(var(--shadow) / 0.2);
+}

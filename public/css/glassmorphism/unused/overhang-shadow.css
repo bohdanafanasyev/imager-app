@@ -1,0 +1,47 @@
+
+/* ================================================== */
+/* Flat overhang shadows */
+/* ================================================== */
+html {
+  --overhang-sha-xs: inset 0 0.5px 1px -1px hsl(var(--shadow) / 0.5),
+  inset 0 1px 2px -2px hsl(var(--shadow) / 0.5),
+  inset 0 2px 4px -4px hsl(var(--shadow) / 0.3);
+  --overhang-sha-sm: inset 0 0.5px 1px -1px hsl(var(--shadow) / 0.7),
+  inset 0 1px 2px -2px hsl(var(--shadow) / 0.5),
+  inset 0 2px 4px -4px hsl(var(--shadow) / 0.3),
+  inset 0 4px 8px -8px hsl(var(--shadow) / 0.3);
+  --overhang-sha-md: inset 0 0.5px 1px -1px hsl(var(--shadow) / 0.5),
+  inset 0 1px 2px -2px hsl(var(--shadow) / 0.5),
+  inset 0 2px 4px -4px hsl(var(--shadow) / 0.5),
+  inset 0 6px 12px -12px hsl(var(--shadow) / 0.3);
+  --overhang-sha-lg: inset 0 0.5px 1px -1px hsl(var(--shadow) / 0.4),
+  inset 0 2px 4px -4px hsl(var(--shadow) / 0.5),
+  inset 0 4px 8px -8px hsl(var(--shadow) / 0.5),
+  inset 0 8px 16px -16px hsl(var(--shadow) / 0.3);
+  --overhang-sha-xl: inset 0 0.5px 1px -1px hsl(var(--shadow) / 0.4),
+  inset 0 4px 8px -8px hsl(var(--shadow) / 0.5),
+  inset 0 8px 16px -16px hsl(var(--shadow) / 0.5),
+  inset 0 10px 20px -20px hsl(var(--shadow) / 0.3);
+}
+
+/* Flat overhang shadow MAP */
+/* ================================================== */
+.overhang-sha-xs {
+  box-shadow: var(--overhang-sha-xs);
+}
+
+.overhang-sha-sm {
+  box-shadow: var(--overhang-sha-sm);
+}
+
+.overhang-sha-md {
+  box-shadow: var(--overhang-sha-md);
+}
+
+.overhang-sha-lg {
+  box-shadow: var(--overhang-sha-lg);
+}
+
+.overhang-sha-xl {
+  box-shadow: var(--overhang-sha-xl);
+}

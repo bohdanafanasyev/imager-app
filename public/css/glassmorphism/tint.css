@@ -1,0 +1,30 @@
+/* Tints MAP */
+/* ================================================== */
+/* Generate tint classes */
+.tint-3xlight {
+  background-color: var(--tint-3xlight);
+}
+.tint-2xlight {
+  background-color: var(--tint-2xlight);
+}
+.tint-xlight {
+  background-color: var(--tint-xlight);
+}
+.tint-light {
+  background-color: var(--tint-light);
+}
+.tint-clear {
+  background-color: var(--tint-clear);
+}
+.tint-dark {
+  background-color: var(--tint-dark);
+}
+.tint-xdark {
+  background-color: var(--tint-xdark);
+}
+.tint-2xdark {
+  background-color: var(--tint-2xdark);
+}
+.tint-3xdark {
+  background-color: var(--tint-3xdark);
+}

@@ -1,0 +1,71 @@
+/* Menu link marquee */
+/* ================================================== */
+.marquee-bin {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.marquee {
+  width: fit-content;
+  min-width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--sm);
+  margin-bottom: var(--3xl);
+  background-color: var(--tint-clear);
+  border-radius: 0 var(--sm) var(--sm) 0;
+  box-shadow: var(--sha-sm);
+  position: relative;
+  z-index: 4;
+}
+.marquee::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--flat-bevel-md);
+}
+.marquee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.marquee > * {
+  position: relative;
+  z-index: 6;
+}
+@media only screen and (min-width: 22.5rem) {
+  .marquee {
+    min-width: 40%;
+  }
+}
+@media only screen and (min-width: 35rem) {
+  .marquee {
+    min-width: 33%;
+  }
+}
+
+.marquee-title {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  font-size: var(--text-xl);
+  letter-spacing: 0.02em;
+  text-align: end;
+  color: var(--text-strong);
+  text-shadow: var(--text-sha-2xl);
+}

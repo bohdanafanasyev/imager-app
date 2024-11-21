@@ -1,0 +1,89 @@
+
+/* ================================================== */
+/* Edge-to-edge classes */
+/* ================================================== */
+.e2e {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  width: calc(100% + var(--_space) * 2);
+  display: grid;
+  margin-left: var(--_neg-space);
+  margin-right: var(--_neg-space);
+  padding: var(--_space);
+}
+.e2e.p-0 {
+  padding: 0;
+}
+
+.e2e-no-t {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  width: calc(100% + var(--_space) * 2);
+  display: grid;
+  margin-left: var(--_neg-space);
+  margin-right: var(--_neg-space);
+  padding: var(--_space);
+  margin-top: var(--neg-space);
+}
+.e2e-no-t.p-0 {
+  padding: 0;
+}
+
+.e2e-no-b {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  width: calc(100% + var(--_space) * 2);
+  display: grid;
+  margin-left: var(--_neg-space);
+  margin-right: var(--_neg-space);
+  padding: var(--_space);
+  margin-bottom: var(--neg-space);
+}
+.e2e-no-b.p-0 {
+  padding: 0;
+}
+
+.e2e-no-y {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  width: calc(100% + var(--_space) * 2);
+  display: grid;
+  margin-left: var(--_neg-space);
+  margin-right: var(--_neg-space);
+  padding: var(--_space);
+  margin-top: var(--neg-space);
+  margin-bottom: var(--neg-space);
+}
+.e2e-no-y.p-0 {
+  padding: 0;
+}
+
+.e2e-inset {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  width: calc(100% + var(--_space) * 2);
+  display: grid;
+  margin-left: var(--_neg-space);
+  margin-right: var(--_neg-space);
+  padding: var(--_space);
+  margin-left: calc(var(--neg-space) + 1px);
+  margin-right: var(--neg-space);
+  background-color: var(--inset-bg-deep);
+  box-shadow: var(--inset-flat-md);
+}
+.e2e-inset.p-0 {
+  padding: 0;
+}
+
+/* Remove margin-left offset at 100vw or bigger */
+/* the -16px prevents issues with scrollbars cutting into 100vw */
+@container card (width >= calc(100vw - 16px)) {
+  .e2e-inset {
+    margin-left: var(--neg-space);
+  }
+}

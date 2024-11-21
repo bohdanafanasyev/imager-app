@@ -1,0 +1,69 @@
+body {
+  --textarea-maxwidth: 500px;
+  --textarea-minheight: 150px;
+}
+
+/* Textarea input */
+/* ================================================== */
+.textarea-bg {
+  pointer-events: none;
+  position: relative;
+  z-index: 13;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--text-input-padding);
+  background-color: var(--text-input-inset-bg);
+  box-shadow: var(--text-input-inset);
+  border-radius: var(--text-input-radius);
+  overflow: hidden;
+  width: min(var(--textarea-maxwidth), 100%);
+  min-height: var(--textarea-minheight);
+  height: fit-content;
+}
+
+.textarea {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: var(--text-input-radius);
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100, "YTLC" 500;
+  font-size: var(--text-sm);
+  z-index: 15;
+  line-height: 1;
+  text-align: start;
+  color: var(--text-base);
+  pointer-events: auto;
+  padding: var(--text-input-padding);
+  white-space: pre-wrap;
+  overflow: auto;
+  resize: none;
+  line-height: calc(0.125em + 2.5ex + 0.125em);
+}
+
+.textarea::placeholder {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100, "YTLC" 500;
+  font-size: var(--text-sm);
+  z-index: 15;
+  line-height: 1;
+  text-align: start;
+  color: var(--text-base);
+  color: var(--placeholder-color);
+}
+
+.textarea:focus-visible {
+  box-shadow: inset 0 0 0 1px hsl(var(--primary-98)/0.5), inset 0 0 0 1.5px hsl(var(--primary-95)/0.4), inset 0 0 0 2px hsl(var(--primary-5)/0.2) !important;
+}
+
+

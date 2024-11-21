@@ -1,0 +1,30 @@
+/* Telescope rect */
+.tele-rect-bin {
+  height: 450px;
+}
+@media only screen and (min-width: 22.5rem) {
+  .tele-rect-bin {
+    height: 550px;
+  }
+}
+
+.tele-rect {
+  display: grid;
+  touch-action: pan-y;
+  min-width: fit-content;
+  width: 100%;
+  overflow: hidden;
+  padding: 8% 12% 4% 4%;
+  background-color: var(--tint-xdark);
+  will-change: padding;
+  transition: padding cubic-bezier(0.46, 0.43, 0.1, 0.99) 150ms;
+}
+@media (hover: hover) {
+  .tele-rect:hover {
+    padding: 8%;
+  }
+}
+.tele-rect > p {
+  padding: var(--2xs);
+  pointer-events: none;
+}

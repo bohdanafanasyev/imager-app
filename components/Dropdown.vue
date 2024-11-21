@@ -2,7 +2,7 @@
     <fieldset class='flex flex-col gap-3'>
         <label
             :for='id'
-            class='text-xs font-sans text-strong'
+            class='gm-text-xs  gm-text-strong'
         >
             {{ label }}
         </label>
@@ -28,7 +28,6 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { defineProps } from 'vue'
 import { EMIT_EVENTS } from '~/values/events'
 
 type Option = {

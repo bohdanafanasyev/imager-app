@@ -1,0 +1,111 @@
+
+/* Flat glass */
+/* ================================================== */
+/* For elements that span edge-to-edge or don't have border-radius */
+.glass-flat {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-flat::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--flat-bevel-md);
+}
+
+.glass-flat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+
+.glass-flat > * {
+  position: relative;
+  z-index: 6;
+}
+
+.glass-flat-sm {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-flat-sm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--flat-bevel-sm);
+}
+
+.glass-flat-sm::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 25px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+
+.glass-flat-sm > * {
+  position: relative;
+  z-index: 6;
+}
+
+
+/* 2D glass -> no bevel */
+/* ================================================== */
+.glass-2d {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-2d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-none);
+}
+
+.glass-2d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+
+.glass-2d > * {
+  position: relative;
+  z-index: 6;
+}

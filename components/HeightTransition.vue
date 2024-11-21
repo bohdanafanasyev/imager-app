@@ -17,6 +17,15 @@ defineProps<{ isExpanded: boolean }>()
 const content = ref()
 const height = ref()
 
+// watch(isExpanded, () => {
+//     if (isExpanded.value) {
+//         height.value = `${content.value.getBoundingClientRect().height}px`
+//     }
+//     else {
+//         height.value = '0'
+//     }
+// })
+
 onMounted(() => {
     height.value = `${content.value.getBoundingClientRect().height}px`
 })

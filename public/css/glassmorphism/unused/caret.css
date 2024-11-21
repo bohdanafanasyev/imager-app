@@ -1,0 +1,8 @@
+
+/* Caret styling */
+/* ================================================== */
+input,
+textarea,
+[contenteditable] {
+  caret-color: var(--caret-color);
+}

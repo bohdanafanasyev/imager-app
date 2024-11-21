@@ -4,18 +4,19 @@ import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
 export const useMainStore = defineStore('main', {
     state: () => ({
-        rename: true,
-        startingDay: '1',
-        optimise: true,
-        quality: QUALITY.seventy,
-        outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
+        format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
+        images: new Map<string, Image>(),
+        isDebugMode: false,
+        isOptimising: false,
+        showMobileSlideOver: false,
         lastOptimisationSettings: {
             quality: QUALITY.seventy,
-            outputFormat: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
+            format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
         },
-        isOptimising: false,
-        isDebugMode: false,
-        images: new Map<string, Image>()
+        optimise: true,
+        quality: QUALITY.seventy,
+        rename: true,
+        startingDay: '1'
     }),
     actions: {
         addImages(images: Image[]) {
@@ -53,7 +54,7 @@ export const useMainStore = defineStore('main', {
         onReOptimise() {
             this.lastOptimisationSettings = {
                 quality: this.quality,
-                outputFormat: this.outputFormat
+                format: this.format
             }
             this.images.forEach((image) => image.optimisationResult = null)
         }
@@ -127,7 +128,7 @@ export const useMainStore = defineStore('main', {
             return null
         },
         optimisationSettingsChanged(): boolean {
-            return this.quality !== this.lastOptimisationSettings.quality || this.outputFormat !== this.lastOptimisationSettings.outputFormat
+            return this.quality !== this.lastOptimisationSettings.quality || this.format !== this.lastOptimisationSettings.format
         }
     }
 })

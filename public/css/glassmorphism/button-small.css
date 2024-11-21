@@ -1,0 +1,87 @@
+.btn-sm {
+  --_btn-h: var(--btn-h, 2.25rem);
+  --_btn-content-h: var(--btn-content-h, 1rem);
+  --_btn-padding-x: var(--btn-padding-x, 1.5rem);
+  --_btn-padding-top: var(--btn-padding-top, 0);
+  --_btn-padding-bottom: var(--btn-padding-bottom, 0);
+  --_btn-gap: var(--btn-gap, 0.25rem);
+  --_btn-radius: var(--btn-radius, 999px);
+  position: relative;
+  z-index: 17;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: var(--_btn-h);
+  padding-top: 0; /* added to .btn-text so svg is not affected */
+  padding-right: var(--_btn-padding-x);
+  padding-bottom: 0; /* added to .btn-text so svg is not affected */
+  padding-left: var(--_btn-padding-x);
+  gap: var(--_btn-gap);
+  border-radius: var(--_btn-radius);
+  pointer-events: auto;
+  cursor: pointer;
+  --btn-h: var(--ui-h-sm);
+  --btn-content-h: 0.95rem;
+  --btn-padding-x: calc(var(--btn-h) * 0.55);
+  --btn-padding-top: 0;
+  --btn-padding-bottom: 0;
+  --btn-gap: calc(var(--btn-h) * 0.25);
+  --btn-radius: 999px;
+}
+
+.btn-sm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 18;
+}
+
+.btn-sm::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 16;
+}
+
+.btn-sm > .btn-text {
+  pointer-events: none;
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  text-shadow: var(--text-sha-sm);
+  z-index: 19;
+  font-size: var(--_btn-content-h);
+  line-height: var(--_btn-content-h);
+  padding-top: var(--_btn-padding-top);
+  padding-bottom: var(--_btn-padding-bottom);
+  pointer-events: none;
+}
+
+.btn-sm > svg {
+  z-index: 19;
+  height: calc(var(--_btn-content-h) * 1.15);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+.btn-sm.icon-end {
+  padding-top: 0;
+  padding-right: calc(var(--_btn-padding-x) * 0.8);
+  padding-bottom: 0;
+  padding-left: var(--_btn-padding-x);
+}
+
+.btn-sm.icon-start {
+  padding-top: 0;
+  padding-right: var(--_btn-padding-x);
+  padding-bottom: 0;
+  padding-left: calc(var(--_btn-padding-x) * 0.8);
+}

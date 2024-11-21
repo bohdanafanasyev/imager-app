@@ -1,0 +1,57 @@
+/* ================================================== */
+/* Dropdown */
+/* ================================================== */
+.dropdown-group {
+  position: relative;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.dropdown-toggle {
+  pointer-events: auto;
+}
+.dropdown-toggle > .svg-ham {
+  display: none;
+}
+.dropdown-toggle > .svg-x {
+  display: inline-block;
+}
+.dropdown-toggle.is-closed > .svg-ham {
+  display: inline-block;
+}
+.dropdown-toggle.is-closed > .svg-x {
+  display: none;
+}
+
+.dropdown {
+  --top-offset: calc(var(--nav-item-h) + var(--nav-padding));
+  --dropdown-h: 0px; /* height value set via dropdown.js */
+  position: absolute;
+  z-index: 11;
+  min-width: 140px;
+  width: fit-content;
+  height: fit-content;
+  top: var(--top-offset);
+  right: 0;
+  display: grid;
+  gap: var(--2xs);
+  pointer-events: auto;
+  border-radius: var(--sm);
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 200ms cubic-bezier(0.46, 0.43, 0.1, 0.99), transform 400ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+}
+.dropdown.is-closed {
+  opacity: 0;
+  transform: translateY(calc(var(--dropdown-h) * 1.25));
+}
+
+.dropdown-item {
+  z-index: 12;
+  min-width: max-content;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  pointer-events: auto;
+  cursor: pointer;
+}

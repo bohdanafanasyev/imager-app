@@ -1,0 +1,75 @@
+
+/* ================================================== */
+/* Bento grids */
+/* ================================================== */
+/* Bento grid with 2 to 3 columns */
+/* ================================================== */
+.bento-2to3 {
+  width: 100%;
+  display: grid;
+  place-content: center;
+  gap: var(--md);
+  grid-template-columns: 1fr 1fr;
+}
+
+@media only screen and (min-width: 48rem) {
+  .bento-2to3 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Bento grid with 1 to 5 columns */
+/* ================================================== */
+.bento-1to5 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px;
+  place-content: center;
+  gap: var(--md);
+}
+
+@media only screen and (min-width: 22.5rem) {
+  .bento-1to5 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 35rem) {
+  .bento-1to5 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 48rem) {
+  .bento-1to5 {
+    gap: var(--lg);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 64rem) {
+  .bento-1to5 {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+/* Bento children */
+/* ================================================== */
+.bento-cube {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--md);
+}
+
+.bento-rect {
+  min-width: fit-content;
+  width: 100%;
+  aspect-ratio: 3/1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--md);
+  border-radius: var(--md);
+}

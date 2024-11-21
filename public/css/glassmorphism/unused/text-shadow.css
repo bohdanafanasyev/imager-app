@@ -1,0 +1,39 @@
+
+
+/* Text shadow MAP */
+/* ================================================== */
+.text-sha-3xs {
+  text-shadow: var(--text-sha-3xs);
+}
+
+.text-sha-2xs {
+  text-shadow: var(--text-sha-2xs);
+}
+
+.text-sha-xs {
+  text-shadow: var(--text-sha-xs);
+}
+
+.text-sha-sm {
+  text-shadow: var(--text-sha-sm);
+}
+
+.text-sha-md {
+  text-shadow: var(--text-sha-md);
+}
+
+.text-sha-lg {
+  text-shadow: var(--text-sha-lg);
+}
+
+.text-sha-xl {
+  text-shadow: var(--text-sha-xl);
+}
+
+.text-sha-2xl {
+  text-shadow: var(--text-sha-2xl);
+}
+
+.text-sha-3xl {
+  text-shadow: var(--text-sha-3xl);
+}

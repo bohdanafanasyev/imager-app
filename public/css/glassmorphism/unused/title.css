@@ -1,0 +1,106 @@
+/* Text styles */
+/* ================================================== */
+.title-1 {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  font-size: var(--text-3xl);
+  letter-spacing: -0.005em;
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  color: var(--text-strong);
+  text-shadow: var(--text-sha-2xl);
+}
+
+.title-2 {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  font-size: var(--text-xl);
+  letter-spacing: 0.02em;
+  text-align: start;
+  color: var(--text-strong);
+  text-shadow: var(--text-sha-2xl);
+}
+
+.title-3 {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  font-size: var(--text-2xl);
+  text-align: center;
+  text-shadow: var(--text-sha-lg);
+}
+
+.title-4 {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  text-align: start;
+  letter-spacing: 0.02em;
+  font-size: var(--text-lg);
+  color: var(--text-strong);
+  text-shadow: var(--text-sha-xl);
+}
+
+.title-md {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  text-align: start;
+  letter-spacing: 0.01em;
+  font-size: var(--text-md);
+}
+
+.subtitle {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100, "YTLC" 500;
+  font-size: var(--text-sm);
+  text-align: center;
+  font-size: var(--text-sm);
+  letter-spacing: -0.005em;
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  color: var(--text-mild);
+  text-shadow: var(--text-sha-3xs);
+}
+
+.eyebrow {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  font-size: var(--text-2xs);
+  letter-spacing: 0.04em;
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  color: var(--text-mild);
+  text-transform: uppercase;
+  text-shadow: var(--text-sha-3xs);
+}
+
+/* Titles */
+/* ================================================== */
+.title-thick {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+}
+
+.title-md {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+}
+
+.title-thin {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+}

@@ -1,0 +1,28 @@
+/* Generate color classes */
+.color-white {
+  background-color: var(--color-white);
+}
+.color-2xlight {
+  background-color: var(--color-2xlight);
+}
+.color-xlight {
+  background-color: var(--color-xlight);
+}
+.color-light {
+  background-color: var(--color-light);
+}
+.color-gray {
+  background-color: var(--color-gray);
+}
+.color-dark {
+  background-color: var(--color-dark);
+}
+.color-xdark {
+  background-color: var(--color-xdark);
+}
+.color-2xdark {
+  background-color: var(--color-2xdark);
+}
+.color-black {
+  background-color: var(--color-black);
+}

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class='flex gap-4 mb-8'>
-            <h4 class='text-xl font-sans text-strong'>
+            <h4 class='gm-text-xl gm-text-strong'>
                 Settings
             </h4>
         </div>
@@ -49,22 +49,22 @@
 
                     <div class='flex flex-col gap-4 mt-6'>
                         <Dropdown
-                            id='outputFormatDropdown'
-                            v-model='mainStore.outputFormat'
-                            :options='fileOutputFormatOptions'
+                            id='FormatDropdown'
+                            v-model='mainStore.format'
+                            :options='fileFormatOptions'
                             :disabled='isOptimising'
                             label='Output format'
                         />
                         <p
-                            v-if='mainStore.outputFormat === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
-                            class='text-2xs italic font-sans text-green-500'
+                            v-if='mainStore.format === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
+                            class='gm-text-2xs italic  text-green-500'
                         >
                             AVIF optimisation takes longer than WebP, however it provides better compression rates.
                         </p>
                     </div>
                 </HeightTransition>
 
-                <Controls />
+                <Controls class='mt-8' />
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@ const renameStartingDayOptions = [
     ...Array.from({ length: 29 }, (_, i) => ({ value: String(i + 2), label: `Day ${i + 2}` }))
 ]
 
-const fileOutputFormatOptions = [
+const fileFormatOptions = [
     { value: SUPPORTED_ENCODER_IMAGE_FORMATS.webp, label: 'WebP' },
     { value: SUPPORTED_ENCODER_IMAGE_FORMATS.avif, label: 'AVIF' }
 ]

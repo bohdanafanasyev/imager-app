@@ -1,15 +1,15 @@
 <template>
     <div class='flex flex-col gap-6'>
-        <h5 class='text-sm font-sans text-strong'>
+        <h5 class='gm-text-sm gm-text-strong'>
             Stats
         </h5>
         <div class='flex flex-col gap-4'>
             <div
                 v-for='stat in stats'
                 :key='stat.label'
-                class='flex text-xs place-items-center justify-between'
+                class='flex gm-text-xs place-items-center justify-between'
             >
-                <span class='text-ital'>{{ stat.label }}</span>
+                <span class='italic'>{{ stat.label }}</span>
                 <span
                     :class="{
                         'text-green-500': stat.value && stat.highlight

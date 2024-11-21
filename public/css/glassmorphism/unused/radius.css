@@ -1,0 +1,144 @@
+/* ================================================== */
+/* Border Radius */
+/* ================================================== */
+/* Conditional border-radius */
+/* ================================================== */
+/* Nested border radius */
+/* ================================================== */
+/* Top or bottom radius only */
+/* ================================================== */
+.top-radius {
+  border-radius: inherit inherit 0 0;
+  overflow: hidden;
+}
+
+.bottom-radius {
+  border-radius: 0 0 inherit inherit;
+  overflow: hidden;
+}
+
+/* Border radius classes */
+/* ================================================== */
+/* Generates classes using the $sizes map from _space.scss */
+.radius-5xs {
+  border-radius: var(--5xs);
+}
+.radius-4xs {
+  border-radius: var(--4xs);
+}
+.radius-3xs {
+  border-radius: var(--3xs);
+}
+.radius-2xs {
+  border-radius: var(--2xs);
+}
+.radius-xs {
+  border-radius: var(--xs);
+}
+.radius-sm {
+  border-radius: var(--sm);
+}
+.radius-md {
+  border-radius: var(--md);
+}
+.radius-lg {
+  border-radius: var(--lg);
+}
+.radius-xl {
+  border-radius: var(--xl);
+}
+.radius-2xl {
+  border-radius: var(--2xl);
+}
+.radius-3xl {
+  border-radius: var(--3xl);
+}
+.radius-4xl {
+  border-radius: var(--4xl);
+}
+.radius-5xl {
+  border-radius: var(--5xl);
+}
+
+/* Radius bin */
+/* ================================================== */
+/* This parent calss helps remove janky rendering artifacts that occur in some browsers when inset box-shadow + border-radius are used on the same element.
+The solution though not perfect is to add a parent wrapper that sets the border-radius while the child sets the inset box-shadow */
+.radius-bin-5xs {
+  border-radius: var(--5xs);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-4xs {
+  border-radius: var(--4xs);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-3xs {
+  border-radius: var(--3xs);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-2xs {
+  border-radius: var(--2xs);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-xs {
+  border-radius: var(--xs);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-sm {
+  border-radius: var(--sm);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-md {
+  border-radius: var(--md);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-lg {
+  border-radius: var(--lg);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-xl {
+  border-radius: var(--xl);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-2xl {
+  border-radius: var(--2xl);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-3xl {
+  border-radius: var(--3xl);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-4xl {
+  border-radius: var(--4xl);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}
+.radius-bin-5xl {
+  border-radius: var(--5xl);
+  width: 100%;
+  height: fit-content;
+  overflow: hidden;
+}

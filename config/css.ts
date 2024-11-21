@@ -1,6 +1,7 @@
 export default {
     css: [
-        '~/public/css/glass-3d.css',
-        '~/public/css/fonts.css'
+        '~/public/css/glassmorphism/index.css',
+        '~/public/css/fonts.css',
+        'tailwindcss/tailwind.css'
     ]
 }

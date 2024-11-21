@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+body {
+  --blur: 60px;
+  --bright: 1;
+  --satu: 1.5;
+}
+
+/* 3D glass ✨ Config these values */
+/* ================================================== */
+.glass-3d {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-md);
+}
+
+.glass-3d::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+
+.glass-3d > * {
+  /*position: relative;*/
+  z-index: 6;
+}
+
+.glass-3d-sm {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-3d-sm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-sm);
+}
+
+.glass-3d-sm::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 25px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+
+.glass-3d-sm > * {
+  position: relative;
+  z-index: 6;
+}
+
+/* ================================================== */
+/* Glass container queries */
+/* ================================================== */
+/* Switch to a flat-bevel at 100vw or bigger to prevent a white line down the left edge */
+/* the -16px prevents issues with scrollbars cutting into 100vw */
+@container bg (width >= calc(100vw - 16px)) {
+  .glass-3d {
+    position: relative;
+    z-index: 4;
+  }
+
+  .glass-3d::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 5;
+    box-shadow: var(--flat-bevel-md);
+  }
+
+  .glass-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 3;
+    background-repeat: repeat;
+    background-size: 40px;
+    /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+    -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+    backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  }
+
+
+  .glass-3d > * {
+    /*position: relative;*/
+    z-index: 6;
+  }
+
+  .glass-3d-sm {
+    position: relative;
+    z-index: 4;
+  }
+
+  .glass-3d-sm::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 5;
+    box-shadow: var(--flat-bevel-sm);
+  }
+
+  .glass-3d-sm::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 3;
+    background-repeat: repeat;
+    background-size: 25px;
+    /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+    -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+    backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  }
+
+  .glass-3d-sm > * {
+    position: relative;
+    z-index: 6;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 <template>
-    <li class='flex gap-4 group'>
+    <li class='flex gap-4 group last:mb-8'>
         <!-- Thumbnail image -->
         <Tooltip
             :disabled='tooltipDisabled'
@@ -14,14 +14,21 @@
                         v-if='isLoading'
                         class='spinner'
                     />
-                    <WarningIcon v-else />
+                    <NuxtImg
+                        v-else
+                        class='w-[20px] h-[20px] flex items-center justify-center relative'
+                        src='/icons/warning.svg'
+                    />
                 </div>
 
                 <div
                     v-if='thumbnailLoadError'
                     class='glass-3d tint-2xdark h-full w-full flex items-center justify-center'
                 >
-                    <PhotoIcon class='w-6 pointer-events-none' />
+                    <NuxtImg
+                        class='w-6 pointer-events-none'
+                        src='/icons/image.svg'
+                    />
                 </div>
                 <img
                     v-else
@@ -35,11 +42,11 @@
 
         <!-- Title and stats -->
         <div class='flex flex-col gap-1 justify-center'>
-            <p class='font-sans text-s'>
+            <p class=' gm-text-s'>
                 {{ mainStore.rename ? image.newName : image.file.name }}
             </p>
             <div class='flex gap-1'>
-                <p class='font-sans text-xs text-gray-400 flex gap-1'>
+                <p class=' gm-text-xs text-gray-400 flex gap-1'>
                     {{ filesize(image.file.size) }}
                     <template v-if='!mainStore.optimisationSettingsChanged && mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
                         <span>→</span>
@@ -62,7 +69,7 @@
         <!-- Controls -->
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
-                class='font-medium text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
+                class='font-medium gm-text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
                 @click='mainStore.removeImage(storeKey)'
             >
                 Delete
@@ -75,7 +82,6 @@
         lang="ts"
 >
 import { filesize } from 'filesize'
-import { defineProps } from 'vue'
 import type { Image } from '~/types'
 
 const props = defineProps<{

@@ -1,0 +1,208 @@
+
+/* Bevel classes */
+/* ================================================== */
+.bevel-none {
+  box-shadow: none;
+}
+
+.bevel-xs {
+  -webkit-box-shadow: var(--bevel-xs);
+  box-shadow: var(--bevel-xs);
+}
+
+.bevel-sm {
+  -webkit-box-shadow: var(--bevel-sm);
+  box-shadow: var(--bevel-sm);
+}
+
+.bevel-md {
+  -webkit-box-shadow: var(--bevel-md);
+  box-shadow: var(--bevel-md);
+}
+
+.bevel-lg {
+  -webkit-box-shadow: var(--bevel-lg);
+  box-shadow: var(--bevel-lg);
+}
+
+.bevel-xl {
+  -webkit-box-shadow: var(--bevel-xl);
+  box-shadow: var(--bevel-xl);
+}
+
+.flat-bevel-sm {
+  box-shadow: var(--flat-bevel-sm);
+}
+
+.flat-bevel-md {
+  box-shadow: var(--flat-bevel-md);
+}
+
+.flat-bevel-lg {
+  box-shadow: var(--flat-bevel-lg);
+}
+
+/* Glass bevel Demo */
+/* ================================================== */
+.glass-bevel-xs {
+  position: relative;
+  z-index: 4;
+}
+.glass-bevel-xs::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-xs);
+}
+.glass-bevel-xs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.glass-bevel-xs > * {
+  position: relative;
+  z-index: 6;
+}
+
+.glass-bevel-sm {
+  position: relative;
+  z-index: 4;
+}
+.glass-bevel-sm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-sm);
+}
+.glass-bevel-sm::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.glass-bevel-sm > * {
+  position: relative;
+  z-index: 6;
+}
+
+.glass-bevel-md {
+  position: relative;
+  z-index: 4;
+}
+.glass-bevel-md::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-md);
+}
+.glass-bevel-md::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.glass-bevel-md > * {
+  position: relative;
+  z-index: 6;
+}
+
+.glass-bevel-lg {
+  position: relative;
+  z-index: 4;
+}
+.glass-bevel-lg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-lg);
+}
+.glass-bevel-lg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.glass-bevel-lg > * {
+  position: relative;
+  z-index: 6;
+}
+
+.glass-bevel-xl {
+  position: relative;
+  z-index: 4;
+}
+
+.glass-bevel-xl::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+  box-shadow: var(--bevel-xl);
+}
+
+.glass-bevel-xl::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 3;
+  background-repeat: repeat;
+  background-size: 40px;
+  /*background-image: url(/assets/textures/noise-texture-rough-gray-500x500.png);*/
+
+  -webkit-backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+  backdrop-filter: blur(var(--blur)) brightness(var(--bright)) saturate(var(--satu));
+}
+.glass-bevel-xl > * {
+  position: relative;
+  z-index: 6;
+}
+

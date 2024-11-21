@@ -1,0 +1,197 @@
+/* 💠 example */
+/* ================================================== */
+/* Cards */
+/* ================================================== */
+/* Card base */
+/* ================================================== */
+.card {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  --_card-radius: var(--card-radius, 1.5rem);
+  z-index: 7;
+  position: relative;
+  height: fit-content;
+  display: grid;
+  gap: var(--_space);
+  padding: var(--_space);
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: var(--_card-radius);
+}
+
+/* Cards that fit the width of their content */
+/* ================================================== */
+.card-fit-tight {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  --_card-radius: var(--card-radius, 1.5rem);
+  z-index: 7;
+  position: relative;
+  height: fit-content;
+  display: grid;
+  gap: var(--_space);
+  padding: var(--_space);
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: var(--_card-radius);
+  --space: var(--xl);
+  max-width: 100%;
+  width: fit-content;
+  border-radius: max(0px, min(var(--md), (100vw - 16px - 100%) * 9999))/var(--md);
+}
+
+.card-fit-roomy {
+  --_space: var(--space, 1rem);
+  --neg-space: calc(-1 * var(--_space));
+  --_neg-space: var(--neg-space, -1rem);
+  --_card-radius: var(--card-radius, 1.5rem);
+  z-index: 7;
+  position: relative;
+  height: fit-content;
+  display: grid;
+  gap: var(--_space);
+  padding: var(--_space);
+  overflow: hidden;
+  pointer-events: auto;
+  border-radius: var(--_card-radius);
+  --space: var(--3xl);
+  max-width: 100%;
+  width: fit-content;
+  border-radius: max(0px, min(var(--lg), (100vw - 16px - 100%) * 9999))/var(--lg);
+}
+
+/* Card children */
+/* ================================================== */
+.card-title-lg {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 200;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  font-size: var(--text-2xl);
+  text-align: center;
+  text-shadow: var(--text-sha-lg);
+  z-index: 8;
+}
+
+.card-title-md {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: calc(0.125em + 1.5ex + 0.125em);
+  z-index: 8;
+  text-align: center;
+  font-size: var(--text-xl);
+  text-shadow: var(--text-sha-md);
+  color: var(--text-base);
+}
+
+.card-subtitle {
+  font-family: "Brandon", "Arial", sans-serif;
+  font-weight: 300;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100, "YTLC" 500;
+  font-size: var(--text-sm);
+  text-align: center;
+  font-size: var(var(--text-sm));
+  letter-spacing: -0.005em;
+  line-height: calc(0.125em + 2.25ex + 0.125em);
+  color: var(--text-mild);
+  text-shadow: var(--text-sha-3xs);
+  z-index: 8;
+}
+
+/* Card Container queries */
+/* ================================================== */
+/* 360px and smaller */
+@container bg (width < 360px ) {
+  .card {
+    --space: 7cqw;
+    --card-radius: 7cqw;
+  }
+  .title-group {
+    gap: 0.5em;
+  }
+  .card-title-lg {
+    font-size: 8cqw;
+  }
+  .card-subtitle {
+    font-size: var(--text-xs);
+  }
+}
+/* breakpoint xs: 360px and bigger */
+@container bg (width >= 360px) {
+  .card {
+    --space: 7cqw;
+    --card-radius: 7cqw;
+  }
+  .title-group {
+    gap: 0.4em;
+  }
+  .card-title-lg {
+    font-size: 8cqw;
+  }
+  .card-subtitle {
+    font-size: var(--text-sm);
+  }
+}
+/* breakpoint sm: 560px and bigger */
+@container bg (width >= 560px) {
+  .card {
+    --space: 6cqw;
+    --card-radius: 6cqw;
+  }
+  .card-title-lg {
+    font-size: 7cqw;
+  }
+}
+/* breakpoint md: 768px and bigger */
+@container bg (width >= 768px) {
+  .card {
+    --space: 5cqw;
+    --card-radius: 5cqw;
+  }
+  .title-group {
+    gap: 0.75em;
+  }
+  .card-title-lg {
+    font-size: 6cqw;
+  }
+  .card-subtitle {
+    font-size: var(--text-md);
+  }
+}
+/* breakpoint lg: 1024px and bigger */
+@container bg (width >= 1024px) {
+  .card {
+    --space: 4cqw;
+    --card-radius: 4cqw;
+  }
+  .card-title-lg {
+    font-size: 5cqw;
+  }
+}
+/* breakpoint xl: 1440px and bigger */
+@container bg (width >= 1440px) {
+  .card {
+    --space: 3.5cqw;
+    --card-radius: 3.5cqw;
+  }
+  .title-group {
+    gap: 0.5rem;
+  }
+  .card-title-lg {
+    font-size: min(4cqw, 70px);
+  }
+}
+/* Remove border-radius at 100vw or bigger */
+/* the -16px prevents issues with scrollbar cutting into 100vw */
+@container bg (width >= calc(100vw - 16px)) {
+  .card,
+  .card-fit-tight,
+  .card-fit-roomy {
+    --card-radius: 0;
+  }
+}

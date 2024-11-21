@@ -1,0 +1,41 @@
+/* Rounded inset classes */
+/* ================================================== */
+.inset-sm {
+  box-shadow: var(--inset-sm);
+}
+
+.inset-md {
+  box-shadow: var(--inset-md);
+}
+
+.inset-lg {
+  box-shadow: var(--inset-lg);
+}
+
+/* Flat inset classes */
+/* ================================================== */
+.inset-flat-sm {
+  box-shadow: var(--inset-flat-sm);
+}
+
+.inset-flat-md {
+  box-shadow: var(--inset-flat-md);
+}
+
+.inset-flat-lg {
+  box-shadow: var(--inset-flat-lg);
+}
+
+/* Inset background colors */
+/* ================================================== */
+.inset-bg-reg {
+  background-color: var(--inset-bg-reg);
+}
+
+.inset-bg-deep {
+  background-color: var(--inset-bg-deep);
+}
+
+.inset-bg-xdeep {
+  background-color: var(--inset-bg-xdeep);
+}

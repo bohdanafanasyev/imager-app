@@ -1,0 +1,71 @@
+/* ================================================== */
+/* Moats */
+/* ================================================== */
+/* ℹ️ Moats are parent classes that: */
+/* • give their child/children a left-right gutter that adapts to viewport width */
+/* • take up 100% width and center their children using grid */
+/* • add a moat starting from the breakpoint that matches their suffix */
+/* This is useful for things like text with a background that should span edge-to-edge on mobile then become a card at larger screen sizes. */
+/* 💠 example */
+/* Adds a moat at every screen size */
+.moat-all {
+  display: grid;
+  place-items: center;
+  padding: 0 var(--moat);
+}
+
+/* Adds a moat at xs breakpoint and bigger */
+.moat-xs {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+@media only screen and (min-width: 22.5rem) {
+  .moat-xs {
+    padding: 0 var(--moat);
+  }
+}
+
+.moat-sm {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+@media only screen and (min-width: 35rem) {
+  .moat-sm {
+    padding: 0 var(--moat);
+  }
+}
+
+.moat-md {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+@media only screen and (min-width: 48rem) {
+  .moat-md {
+    padding: 0 var(--moat);
+  }
+}
+
+.moat-lg {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+@media only screen and (min-width: 64rem) {
+  .moat-lg {
+    padding: 0 var(--moat);
+  }
+}
+
+.moat-xl {
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+@media only screen and (min-width: 90rem) {
+  .moat-xl {
+    padding: 0 var(--moat);
+  }
+}

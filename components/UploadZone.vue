@@ -1,15 +1,27 @@
 <template>
-    <div class='w-full py-8 pl-8 pr-1 flex flex-col'>
+    <div
+        class='w-full pt-8 px-8 flex flex-col min-h-0
+               lg:pr-1'
+    >
         <div class='flex gap-4 mb-8'>
-            <h4 class='text-xl font-sans text-strong'>
+            <h4 class='gm-text-xl gm-text-strong'>
                 Files
             </h4>
-            <label
+            <IconButton
+                tag='label'
                 for='file-input'
-                class='btn-secondary btn-icon-sm block'
             >
-                <span class='z-20 text-bold'>+</span>
-            </label>
+                <span class='text-bold'>+</span>
+            </IconButton>
+            <IconButton
+                class='ml-auto lg:hidden'
+                @click='mainStore.showMobileSlideOver = true'
+            >
+                <NuxtImg
+                    class='flex items-center justify-center relative w-3'
+                    src='/icons/settings.svg'
+                />
+            </IconButton>
             <input
                 id='file-input'
                 ref='fileInput'
@@ -37,7 +49,7 @@
 
         <p
             v-show='!mainStore.images.size'
-            class='font-sans'
+            class='pr-8'
         >
             Select the files by clicking the plus icon
             <span class='opacity-50 italic'>(supported formats {{ displayedAcceptedImageTypes }})</span>
@@ -48,7 +60,6 @@
 <script setup
         lang="ts"
 >
-import { ref } from 'vue'
 import ExifReader from 'exifreader'
 import { compareAsc } from 'date-fns'
 import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
@@ -151,11 +162,6 @@ const onFileChange = async (): Promise<void> => {
 </script>
 
 <style scoped>
-.custom-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
-}
-
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {

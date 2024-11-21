@@ -1,0 +1,103 @@
+
+.btn-secondary {
+  --_btn-text: var(--btn-text, black);
+  --_btn-icon: var(--btn-icon, var(--_btn-text));
+  --_btn-state-bg: var(--btn-state-bg, rgba(36, 156, 3, 0.9));
+  --_btn-state-text: var(--btn-state-text, var(--_btn-text));
+  --_btn-state-icon: var(--btn-state-icon, var(--_btn-state-text));
+  --_btn-bevel: var(--btn-bevel, none);
+  --_btn-blur: var(--btn-blur, 3px);
+  --_btn-brightness: var(--btn-brightness, 1);
+  --_btn-saturate: var(--btn-saturate, 1.2);
+  --_btn-rest: var(--btn-rest, 0.1);
+  --_btn-hover: var(--btn-hover, 0.3);
+  --_btn-focus: var(--btn-focus, 0.3);
+  --_btn-active: var(--btn-active, 0.7);
+  --_btn-disabled: var(--btn-disabled, 0.6);
+  --btn-text: var(--text-xstrong);
+  --btn-icon: var(--btn-text);
+  --btn-state-bg: hsl(var(--primary-5) / 0.9);
+  --btn-state-text: var(--btn-text);
+  --btn-state-icon: var(--btn-state-text);
+  --btn-bevel: var(--bevel-sm);
+  box-shadow: var(--sha-3xs);
+  --btn-blur: 10px;
+  --btn-brightness: 0.8;
+  --btn-saturate: 1.5;
+  --btn-rest: 0.1;
+  --btn-hover: 0.5;
+  --btn-focus: 0.5;
+  --btn-active: 0.9;
+  --btn-disabled: 0.6;
+}
+
+.btn-secondary::before {
+  will-change: opacity, color;
+  transition: opacity 500ms cubic-bezier(0.46, 0.43, 0.1, 0.99), color 500ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+  background-color: var(--_btn-state-bg);
+  opacity: var(--_btn-rest);
+}
+
+.btn-secondary::after {
+  -webkit-backdrop-filter: blur(var(--_btn-blur)) brightness(var(--_btn-brightness)) saturate(var(--_btn-saturate));
+  backdrop-filter: blur(var(--_btn-blur)) brightness(var(--_btn-brightness)) saturate(var(--_btn-saturate));
+  box-shadow: var(--_btn-bevel);
+}
+
+.btn-secondary > .btn-text {
+  color: var(--_btn-text);
+  will-change: opacity, color;
+  transition: opacity 500ms cubic-bezier(0.46, 0.43, 0.1, 0.99), color 500ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+}
+
+.btn-secondary > svg {
+  background-color: var(--_btn-icon);
+  will-change: background-color;
+  transition: background-color 500ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+}
+
+.btn-secondary:hover > .btn-text {
+  color: var(--_btn-state-text);
+}
+
+.btn-secondary:hover > svg {
+  background-color: var(--_btn-state-icon);
+}
+
+.btn-secondary:hover::before {
+  opacity: var(--_btn-hover);
+}
+
+.btn-secondary:focus-visible > .btn-text {
+  color: var(--_btn-state-text);
+}
+
+.btn-secondary:focus-visible > svg {
+  background-color: var(--_btn-state-icon);
+}
+
+.btn-secondary:focus-visible::before {
+  opacity: var(--_btn-focus);
+}
+
+.btn-secondary:focus-visible::after {
+  box-shadow: inset 0 0 0 1px hsl(var(--primary-98)/0.5), inset 0 0 0 1.5px hsl(var(--primary-95)/0.4), inset 0 0 0 2px hsl(var(--primary-5)/0.2) !important;
+}
+
+.btn-secondary:active > .btn-text {
+  color: var(--_btn-state-text);
+}
+
+.btn-secondary:active > svg {
+  background-color: var(--_btn-state-icon);
+}
+
+.btn-secondary:active::before {
+  opacity: var(--_btn-active);
+}
+
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: var(--_btn-disabled);
+  background-color: hsl(var(--neutral-10)/0.1);
+}
