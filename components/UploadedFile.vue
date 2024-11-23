@@ -5,7 +5,10 @@
             :disabled='tooltipDisabled'
             :text='tooltipMessage'
         >
-            <div class='w-16 h-16 rounded-xl shadow-md overflow-clip relative'>
+            <div
+                class='w-14 h-14 rounded-xl shadow-md overflow-clip relative
+                       sm:w-18 sm:h-18'
+            >
                 <div
                     v-if='isLoading || failedOptimisation'
                     class='tint-3xdark z-10 absolute inset-0 w-full h-full grid place-items-center'
