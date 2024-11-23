@@ -1,53 +1,64 @@
 <template>
-    <transition name='expand'>
-        <div
-            v-show='isExpanded'
-            ref='content'
-            class='content'
-        >
-            <slot />
-        </div>
-    </transition>
+    <div
+        ref='content'
+        :class="{
+            'content-expanded': isExpanded,
+            'content-initialLoad': initialLoad
+        }"
+        class='content'
+    >
+        <slot />
+    </div>
 </template>
 
-<script setup
-        lang="ts"
->
-defineProps<{ isExpanded: boolean }>()
-const content = ref()
-const height = ref()
+<script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { debounce } from '~/utils/debounce'
 
-// watch(isExpanded, () => {
-//     if (isExpanded.value) {
-//         height.value = `${content.value.getBoundingClientRect().height}px`
-//     }
-//     else {
-//         height.value = '0'
-//     }
-// })
+const props = defineProps<{ isExpanded: boolean }>()
+const content = ref<HTMLElement | null>(null)
+const initialLoad = ref(true)
+const height = ref('0px')
+
+const recalculateHeight = () => {
+    if (content.value) {
+        height.value = `${content.value.scrollHeight ?? content.value.clientHeight}px`
+    }
+}
+
+const debouncedRecalculateHeight = debounce(recalculateHeight, 200)
 
 onMounted(() => {
-    height.value = `${content.value.getBoundingClientRect().height}px`
+    recalculateHeight()
+    window.addEventListener('resize', debouncedRecalculateHeight)
+
+    setTimeout(() => {
+        initialLoad.value = false
+    })
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', debouncedRecalculateHeight)
 })
 </script>
 
 <style scoped>
-.expand-leave-active,
-.expand-enter-active {
+.content {
     /* Transition copied from glass3d rules */
     transition: opacity 400ms cubic-bezier(0.46, 0.43, 0.1, 0.99), height 600ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+    opacity: 0;
+    height: 0;
     overflow: hidden;
 }
 
-.expand-enter-to,
-.expand-leave-from {
-    height: v-bind(height);
+.content-expanded {
     opacity: 1;
+    height: v-bind(height);
 }
 
-.expand-enter-from,
-.expand-leave-to {
-    opacity: 0;
-    height: 0;
+.content-initialLoad {
+    transition: none;
+    height: auto;
+    overflow: auto;
 }
 </style>

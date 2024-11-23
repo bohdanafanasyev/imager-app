@@ -26,34 +26,34 @@
 import { filesize } from 'filesize'
 import { formatCO2Emissions } from '~/utils/co2Emissions'
 
-const mainStore = useMainStore()
+const imageStore = useImagesStore()
 
 const stats = computed(() => [
     {
         label: 'Uploaded files',
-        value: mainStore.images.size > 0 ? mainStore.images.size : 'TBD'
+        value: imageStore.images.size > 0 ? imageStore.images.size : 'TBD'
     },
     {
         label: 'Optimised files',
-        value: mainStore.images.size > 0 ? `${mainStore.totalOptimisedFiles} of ${mainStore.images.size}` : 'TBD'
+        value: imageStore.images.size > 0 ? `${imageStore.totalOptimisedFiles} of ${imageStore.images.size}` : 'TBD'
     },
     {
         label: 'Uploaded size',
-        value: mainStore.totalFilesSize ? filesize(mainStore.totalFilesSize) : 'TBD'
+        value: imageStore.totalFilesSize ? filesize(imageStore.totalFilesSize) : 'TBD'
     },
     {
         label: 'Optimised size',
-        value: mainStore.shouldGetOptimisedResult ? filesize(mainStore.optimisedFilesSize) : 'TBD',
-        highlight: mainStore.shouldGetOptimisedResult
+        value: imageStore.shouldGetOptimisedResult ? filesize(imageStore.optimisedFilesSize) : 'TBD',
+        highlight: imageStore.shouldGetOptimisedResult
     },
     {
         label: 'Saved size',
-        value: mainStore.shouldGetOptimisedResult ? `${filesize(mainStore.savedFilesSize)} (${mainStore.savedFilesPercentage}%)` : 'TBD'
+        value: imageStore.shouldGetOptimisedResult ? `${filesize(imageStore.savedFilesSize)} (${imageStore.savedFilesPercentage}%)` : 'TBD'
     },
     {
         label: 'CO2 saved',
-        value: mainStore.shouldGetOptimisedResult ? formatCO2Emissions(mainStore.co2Saved) : 'TBD',
-        highlight: mainStore.shouldGetOptimisedResult
+        value: imageStore.shouldGetOptimisedResult ? formatCO2Emissions(imageStore.co2Saved) : 'TBD',
+        highlight: imageStore.shouldGetOptimisedResult
     }
 ])
 </script>

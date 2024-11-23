@@ -1,10 +1,10 @@
 <template>
     <div
         class='h-screen w-full flex items-center justify-center py-5 px-5 gradient-background relative
-               sm:py-10 sm:px-20
-               md:px-15 md:py-30
-               lg:px-20 lg:py-20
-               xl:py-20 xl:px-40'
+               sm:py-10 sm:px-16
+               md:py-28 md:px-16
+               lg:py-16 lg:px-28
+               xl:py-16 xl:px-52'
     >
         <NuxtImg
             ref='backgroundImage'
@@ -20,24 +20,28 @@
         <div
             class='z-10 relative glass-3d tint-3xdark w-full h-full rounded-3xl flex flex-col
                    lg:flex-row
-                   xl:max-w-screen-2xl'
+                   xl:max-w-screen-2xl '
         >
             <UploadZone />
-            <ControlsBar class='lg:hidden' />
+            <ControlsBar v-if='!appStore.isDesktopUI' />
 
             <!-- In smaller viewports move the settings and statistics to the slide bar -->
             <SlideOver
-                :is-open='mainStore.showMobileSlideOver'
-                @close='mainStore.showMobileSlideOver = false'
+                v-if='!appStore.isDesktopUI'
+                :is-open='appStore.showMobileSlideOver'
+                @close='appStore.showMobileSlideOver = false'
             >
                 <Settings />
-                <Statistics />
+                <Statistics class='mt-8' />
             </SlideOver>
 
             <!-- In 1024+ inject settings and statistics as part of the application -->
-            <div class='w-96 h-full separator-left border-gray-500 py-8 px-6 flex-col justify-between hidden lg:flex'>
+            <div
+                v-if='appStore.isDesktopUI'
+                class='w-96 h-full separator-left border-gray-500 py-8 px-6 flex-col justify-between hidden lg:flex overflow-scroll'
+            >
                 <Settings />
-                <Statistics />
+                <Statistics class='mt-8' />
             </div>
         </div>
     </div>
@@ -46,12 +50,20 @@
 <script setup
         lang="ts"
 >
-const mainStore = useMainStore()
+const appStore = useAppStore()
 
 const isImageLoaded = ref(false)
 
+const isDesktopUI = () => window.innerWidth >= 1024 // 1024px == lg in tailwind
+
+const debouncedDetectUIStyle = debounce(() => {
+    appStore.isDesktopUI = isDesktopUI()
+}, 0)
+
 onMounted(() => {
-    mainStore.isDebugMode = isDebugMode()
+    appStore.isDebugMode = isDebugMode()
+    appStore.isDesktopUI = isDesktopUI()
+    window.addEventListener('resize', debouncedDetectUIStyle)
 })
 
 const onImageLoad = () => {
@@ -80,7 +92,7 @@ const onImageLoad = () => {
     rgb(143, 161, 171) 60%,
     rgb(141, 158, 166) 70%,
     rgb(137, 154, 162) 80%,
-    rgb(134, 151, 159) 90%);
+    rgb(134, 151, 159) 100%);
 }
 
 .transition-opacity {

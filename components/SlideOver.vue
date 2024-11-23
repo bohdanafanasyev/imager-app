@@ -38,7 +38,7 @@ const overlayUI = ref({
     wrapper: 'fixed inset-0 flex z-50',
     overlay: {
         base: 'fixed inset-0 transition-opacity',
-        background: 'bg-gray-200/75 dark:bg-gray-800/50',
+        background: 'bg-stone-200/75 dark:bg-neutral-800/50',
         transition: {
             enter: 'ease-in-out duration-500',
             enterFrom: 'opacity-0',

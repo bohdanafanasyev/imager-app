@@ -4,10 +4,10 @@
             v-if='showOptimiseButton'
             @click='optimiseImages'
         >
-            {{ mainStore.optimisationSettingsChanged && isOptimisedOnce ? 'Re-optimise' : 'Optimise' }}
+            {{ imageStore.optimisationSettingsChanged && isOptimisedOnce ? 'Re-optimise' : 'Optimise' }}
         </Button>
         <Button
-            v-if='mainStore.isOptimising'
+            v-if='imageStore.isOptimising'
             @click='onOptimisationStopClick'
         >
             Stop
@@ -26,42 +26,42 @@
 <script setup
         lang="ts"
 >
-const mainStore = useMainStore()
+const imageStore = useImagesStore()
 
 const isDownloading = ref(false)
 const isOptimisedOnce = ref(false)
 
 const optimiseImages = async (): Promise<void> => {
-    if (mainStore.images.size) {
-        mainStore.isOptimising = true
+    if (imageStore.images.size) {
+        imageStore.isOptimising = true
         isOptimisedOnce.value = true
 
-        mainStore.onReOptimise()
+        imageStore.onReOptimise()
 
-        for (const [key, image] of mainStore.images) {
-            if (!mainStore.isOptimising) {
+        for (const [key, image] of imageStore.images) {
+            if (!imageStore.isOptimising) {
                 break
             }
 
-            if (!mainStore.images.has(key) || image.optimisationResult) {
+            if (!imageStore.images.has(key) || image.optimisationResult) {
                 continue
             }
 
-            const result = await optimiseImage(image, Number(mainStore.quality), mainStore.format)
+            const result = await optimiseImage(image, Number(imageStore.quality), imageStore.format)
 
-            if (mainStore.isOptimising && mainStore.images.has(key)) {
+            if (imageStore.isOptimising && imageStore.images.has(key)) {
                 image.optimisationResult = result
                 image.format.optimised = image.optimisationResult.encoderFormat
             }
         }
     }
 
-    mainStore.isOptimising = false
+    imageStore.isOptimising = false
 }
 
 const downloadImages = async () => {
     isDownloading.value = true
-    await downloadFiles(mainStore.images, mainStore.rename, mainStore.optimise)
+    await downloadFiles(imageStore.images, imageStore.rename, imageStore.optimise)
 
     setTimeout(() => {
         isDownloading.value = false
@@ -69,18 +69,18 @@ const downloadImages = async () => {
 }
 
 const onOptimisationStopClick = (): void => {
-    mainStore.isOptimising = false
+    imageStore.isOptimising = false
 }
 
 const showOptimiseButton = computed(() => {
     let show = false
 
-    if (mainStore.optimise) {
-        if (!mainStore.isOptimising && !mainStore.allImagesOptimised) {
+    if (imageStore.optimise) {
+        if (!imageStore.isOptimising && !imageStore.allImagesOptimised) {
             show = true
         }
 
-        if (mainStore.optimisationSettingsChanged) {
+        if (imageStore.optimisationSettingsChanged) {
             show = true
         }
     }
@@ -91,12 +91,12 @@ const showOptimiseButton = computed(() => {
 const showDownloadButton = computed(() => {
     let show = false
 
-    if (mainStore.optimise) {
-        if (mainStore.allImagesOptimised) {
-            show = !mainStore.optimisationSettingsChanged
+    if (imageStore.optimise) {
+        if (imageStore.allImagesOptimised) {
+            show = !imageStore.optimisationSettingsChanged
         }
     }
-    else if (mainStore.rename) {
+    else if (imageStore.rename) {
         show = true
     }
 

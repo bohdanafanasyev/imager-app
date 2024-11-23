@@ -43,18 +43,18 @@
         <!-- Title and stats -->
         <div class='flex flex-col gap-1 justify-center'>
             <p class=' gm-text-s'>
-                {{ mainStore.rename ? image.newName : image.file.name }}
+                {{ imageStore.rename ? image.newName : image.file.name }}
             </p>
             <div class='flex gap-1'>
                 <p class=' gm-text-xs text-gray-400 flex gap-1'>
                     {{ filesize(image.file.size) }}
-                    <template v-if='!mainStore.optimisationSettingsChanged && mainStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
+                    <template v-if='!imageStore.optimisationSettingsChanged && imageStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
                         <span>→</span>
                         <span class='text-green-500'>
                             {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
                         </span>
                         <span
-                            v-if='mainStore.isDebugMode'
+                            v-if='appStore.isDebugMode'
                             class='text-gray-300'
                         >
                             [decoding: {{ image.optimisationResult.performance.decoding }}s /
@@ -70,7 +70,7 @@
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
                 class='font-medium gm-text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
-                @click='mainStore.removeImage(storeKey)'
+                @click='imageStore.removeImage(storeKey)'
             >
                 Delete
             </button>
@@ -89,10 +89,11 @@ const props = defineProps<{
     storeKey: string
 }>()
 
-const mainStore = useMainStore()
+const imageStore = useImagesStore()
+const appStore = useAppStore()
 
 const isLoading = computed(() => {
-    return mainStore.isOptimising && !props.image.optimisationResult
+    return imageStore.isOptimising && !props.image.optimisationResult
 })
 
 const failedOptimisation = computed(() => {

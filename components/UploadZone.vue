@@ -14,8 +14,9 @@
                 <span class='text-bold'>+</span>
             </IconButton>
             <IconButton
-                class='ml-auto lg:hidden'
-                @click='mainStore.showMobileSlideOver = true'
+                v-if='!appStore.isDesktopUI'
+                class='ml-auto'
+                @click='appStore.showMobileSlideOver = true'
             >
                 <NuxtImg
                     class='flex items-center justify-center relative w-3'
@@ -34,13 +35,13 @@
         </div>
 
         <TransitionGroup
-            v-show='mainStore.images.size'
+            v-show='imageStore.images.size'
             name='list'
             tag='ul'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
         >
             <UploadedFile
-                v-for='(image, key) in mainStore.images'
+                v-for='(image, key) in imageStore.images'
                 :key='key'
                 :image='image[1]'
                 :store-key='image[0]'
@@ -48,7 +49,7 @@
         </TransitionGroup>
 
         <p
-            v-show='!mainStore.images.size'
+            v-show='!imageStore.images.size'
             class='pr-8'
         >
             Select the files by clicking the plus icon
@@ -66,7 +67,8 @@ import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
 import type { Image } from '~/types'
 
 const fileInput = ref<HTMLInputElement | null>(null)
-const mainStore = useMainStore()
+const imageStore = useImagesStore()
+const appStore = useAppStore()
 
 const acceptedImageTypes = SUPPORTED_IMAGE_TYPES_VALUES.join(',')
 const displayedAcceptedImageTypes = acceptedImageTypes.replace(/image\//g, ' .')
@@ -156,7 +158,7 @@ const onFileChange = async (): Promise<void> => {
             return compareAsc(a.creationDate, b.creationDate)
         })
 
-        mainStore.addImages(imagesArray)
+        imageStore.addImages(imagesArray)
     }
 }
 </script>

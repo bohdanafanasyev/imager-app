@@ -10,17 +10,16 @@
             <div class='flex flex-col'>
                 <ToggleInput
                     id='renameInput'
-                    v-model='mainStore.rename'
+                    v-model='imageStore.rename'
                     label='Rename'
                 />
 
                 <HeightTransition
-                    :is-expanded='mainStore.rename'
+                    :is-expanded='imageStore.rename'
                 >
                     <Dropdown
-                        v-show='mainStore.rename'
                         id='startingDayDropdown'
-                        v-model='mainStore.startingDay'
+                        v-model='imageStore.startingDay'
                         class='mt-6'
                         :options='renameStartingDayOptions'
                         label='Starting day'
@@ -32,15 +31,15 @@
             <div class='flex flex-col'>
                 <ToggleInput
                     id='optimiseInput'
-                    v-model='mainStore.optimise'
+                    v-model='imageStore.optimise'
                     label='Optimise size'
                     @change='onOptimiseChange'
                 />
 
-                <HeightTransition :is-expanded='mainStore.optimise'>
+                <HeightTransition :is-expanded='imageStore.optimise'>
                     <Dropdown
                         id='qualityDropdown'
-                        v-model='mainStore.quality'
+                        v-model='imageStore.quality'
                         class='mt-6'
                         :disabled='isOptimising'
                         :options='qualityOptions'
@@ -50,13 +49,13 @@
                     <div class='flex flex-col gap-4 mt-6'>
                         <Dropdown
                             id='FormatDropdown'
-                            v-model='mainStore.format'
+                            v-model='imageStore.format'
                             :options='fileFormatOptions'
                             :disabled='isOptimising'
                             label='Output format'
                         />
                         <p
-                            v-if='mainStore.format === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
+                            v-if='imageStore.format === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
                             class='gm-text-2xs italic  text-green-500'
                         >
                             AVIF optimisation takes longer than WebP, however it provides better compression rates.
@@ -75,13 +74,13 @@
 >
 import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
-const mainStore = useMainStore()
+const imageStore = useImagesStore()
 
 const onStartingDayChange = () => {
-    mainStore.assignNewNames()
+    imageStore.assignNewNames()
 }
 
-const isOptimising = computed(() => mainStore.isOptimising)
+const isOptimising = computed(() => imageStore.isOptimising)
 
 const qualityOptions = [
     {
@@ -114,7 +113,7 @@ const fileFormatOptions = [
 
 const onOptimiseChange = (enabled: boolean) => {
     if (!enabled) {
-        mainStore.isOptimising = false
+        imageStore.isOptimising = false
     }
 }
 </script>
