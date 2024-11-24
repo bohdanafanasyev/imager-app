@@ -72,10 +72,10 @@
         <!-- Controls -->
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
-                class='font-medium gm-text-xs text-gray-300 hover:text-red-400 p-4 transition-colors'
+                class='font-medium gm-text-xs text-gray-300 fill-icon hover:fill-red-400 p-3 transition-colors'
                 @click='imageStore.removeImage(storeKey)'
             >
-                Delete
+                <DeleteIcon class='w-4' />
             </button>
         </div>
     </li>
@@ -86,6 +86,7 @@
 >
 import { filesize } from 'filesize'
 import type { Image } from '~/types'
+import DeleteIcon from '~/components/icons/DeleteIcon.vue'
 
 const props = defineProps<{
     image: Image
