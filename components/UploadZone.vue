@@ -38,7 +38,8 @@
             v-show='imageStore.images.size'
             name='list'
             tag='ul'
-            class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll pr-7'
+            class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll
+                   lg:pr-5'
         >
             <UploadedFile
                 v-for='(image, key) in imageStore.images'
