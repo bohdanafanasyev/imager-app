@@ -75,6 +75,10 @@ html, body, #app {
     height: 100%;
 }
 
+html {
+    background-color: rg(72, 88, 97);
+}
+
 * {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
