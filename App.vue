@@ -76,7 +76,7 @@ html, body, #app {
 }
 
 html {
-    background-color: rg(72, 88, 97);
+    background-color: rgb(72, 88, 97);
 }
 
 * {
