@@ -1,14 +1,12 @@
 <template>
     <div
-        class='h-screen w-full flex items-center justify-center py-5 px-5 gradient-background relative
-               sm:py-10 sm:px-16
-               md:py-28 md:px-16
+        class='h-screen w-full flex items-center justify-center gradient-background relative
                lg:py-16 lg:px-28
                xl:py-16 xl:px-52'
     >
         <NuxtImg
             ref='backgroundImage'
-            class='h-full w-full fixed z-0 transition-opacity object-cover inset-0 absolute'
+            class='h-full w-full z-0 transition-opacity object-cover fixed inset-0'
             :class="{
                 'opacity-0': !isImageLoaded
             }"
@@ -19,8 +17,8 @@
             @load='onImageLoad'
         />
         <div
-            class='z-10 relative glass-3d tint-3xdark w-full h-full rounded-3xl flex flex-col
-                   lg:flex-row
+            class='z-10 relative glass-3d tint-3xdark w-full h-full flex flex-col
+                   lg:flex-row lg:rounded-3xl
                    xl:max-w-screen-2xl '
         >
             <UploadZone />
