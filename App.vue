@@ -8,12 +8,13 @@
     >
         <NuxtImg
             ref='backgroundImage'
-            class='h-full w-full fixed z-0 transition-opacity object-cover'
+            class='h-full w-full fixed z-0 transition-opacity object-cover inset-0 absolute'
             :class="{
                 'opacity-0': !isImageLoaded
             }"
             sizes='100vw xs:100vw sm:100vw lg:100vw lg:100vw xl:100vw xxl:100vw 2xl:100vw'
             src='/img/backgrounds/1.avif'
+            alt='Background image'
             format='avif'
             @load='onImageLoad'
         />
