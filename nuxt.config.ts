@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     ...css,
     ...modules,
     ...tailwind,
+    app: {
+        rootId: 'app'
+    },
     eslint: {
         config: {
             stylistic: {

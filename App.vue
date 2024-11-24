@@ -1,6 +1,6 @@
 <template>
     <div
-        class='h-screen w-full flex items-center justify-center gradient-background relative
+        class='h-full w-full flex items-center justify-center gradient-background relative
                lg:py-16 lg:px-28
                xl:py-16 xl:px-52'
     >
@@ -71,6 +71,10 @@ const onImageLoad = () => {
 </script>
 
 <style>
+html, body, #app {
+    height: 100%;
+}
+
 * {
     scrollbar-width: thin;
     scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
