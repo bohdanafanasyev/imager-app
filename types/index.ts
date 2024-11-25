@@ -1,4 +1,4 @@
-import type { RENAME_OPTIONS } from '~/values'
+import type { RENAME_OPTIONS, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
 export type PerformanceStats = {
     decoding: number
@@ -43,4 +43,15 @@ export type RenameOptions = {
     startingDay: string
     startingIndex: number
     use12hFormat: boolean
+}
+
+export type OptimiseOptions = {
+    enabled: boolean
+    format: typeof SUPPORTED_ENCODER_IMAGE_FORMATS[keyof typeof SUPPORTED_ENCODER_IMAGE_FORMATS]
+    isOptimising: boolean
+    lastSettings: {
+        quality: string
+        format: typeof SUPPORTED_ENCODER_IMAGE_FORMATS[keyof typeof SUPPORTED_ENCODER_IMAGE_FORMATS]
+    }
+    quality: string
 }

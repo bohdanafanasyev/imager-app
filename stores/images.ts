@@ -2,7 +2,8 @@ import { defineStore } from 'pinia'
 import type {
     Image,
     PerformanceStats,
-    RenameOptions
+    RenameOptions,
+    OptimiseOptions
 } from '~/types'
 import { useAppStore } from '~/stores/app'
 import {
@@ -24,7 +25,7 @@ export const useImagesStore = defineStore('images', {
                 format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
             },
             quality: QUALITY.seventy
-        },
+        } as OptimiseOptions,
         renameOptions: {
             enabled: true,
             preset: RENAME_OPTIONS.numericOrder,
