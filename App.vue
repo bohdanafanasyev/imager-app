@@ -49,7 +49,10 @@
 <script setup
         lang="ts"
 >
+import { is12HourFormat } from '~/utils/is12HourFormat'
+
 const appStore = useAppStore()
+const imagesStore = useImagesStore()
 
 const isImageLoaded = ref(false)
 
@@ -62,6 +65,7 @@ const debouncedDetectUIStyle = debounce(() => {
 onMounted(() => {
     appStore.isDebugMode = isDebugMode()
     appStore.isDesktopUI = isDesktopUI()
+    imagesStore.renameOptions.use12hFormat = is12HourFormat()
     window.addEventListener('resize', debouncedDetectUIStyle)
 })
 

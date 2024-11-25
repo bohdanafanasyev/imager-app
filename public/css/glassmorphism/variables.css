@@ -133,6 +133,7 @@ html {
   --space-q-md: 7cqw;
   --space-q-lg: 11cqw;
   /* Ui height */
+  --ui-h-xxs: 1.425rem; /* 26px */
   --ui-h-xs: 1.625rem; /* 26px */
   --ui-h-sm: 2rem; /* 32px */
   --ui-h-md: 2.25rem; /* 36px */
@@ -141,7 +142,8 @@ html {
 }
 @media only screen and (min-width: 22.5rem) {
   html {
-    --ui-h-xs: 1.5rem; /* 28px */
+    --ui-h-xxs: 1.25rem; /* 16px */
+    --ui-h-xs: 1.5rem; /* 24px */
     --ui-h-sm: 2.125rem; /* 34px */
     --ui-h-md: 2.375rem; /* 38px */
     --ui-h-lg: 2.875rem; /* 46px */

@@ -61,7 +61,7 @@ const optimiseImages = async (): Promise<void> => {
 
 const downloadImages = async () => {
     isDownloading.value = true
-    await downloadFiles(imageStore.images, imageStore.rename, imageStore.optimise)
+    await downloadFiles(imageStore.images, imageStore.renameOptions.enabled, imageStore.optimise)
 
     setTimeout(() => {
         isDownloading.value = false
@@ -96,7 +96,7 @@ const showDownloadButton = computed(() => {
             show = !imageStore.optimisationSettingsChanged
         }
     }
-    else if (imageStore.rename) {
+    else if (imageStore.renameOptions.enabled) {
         show = true
     }
 

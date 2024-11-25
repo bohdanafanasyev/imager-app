@@ -10,21 +10,48 @@
             <div class='flex flex-col'>
                 <ToggleInput
                     id='renameInput'
-                    v-model='imageStore.rename'
+                    v-model='imageStore.renameOptions.enabled'
                     label='Rename'
                 />
 
                 <HeightTransition
-                    :is-expanded='imageStore.rename'
+                    :is-expanded='imageStore.renameOptions.enabled'
                 >
-                    <Dropdown
-                        id='startingDayDropdown'
-                        v-model='imageStore.startingDay'
-                        class='mt-6'
-                        :options='renameStartingDayOptions'
-                        label='Starting day'
-                        @change='onStartingDayChange'
-                    />
+                    <div class='flex flex-col'>
+                        <Dropdown
+                            id='renamePresetsDropdown'
+                            v-model='imageStore.renameOptions.preset'
+                            class='mt-6'
+                            :options='presetOptions'
+                            label='Preset'
+                            @change='onRenameSettingsChange'
+                        />
+                        <Dropdown
+                            v-show='imageStore.renameOptions.preset === RENAME_OPTIONS.tripDayOrganiser'
+                            id='startingDayDropdown'
+                            v-model='imageStore.renameOptions.startingDay'
+                            class='mt-6'
+                            :options='renameStartingDayOptions'
+                            label='Starting day'
+                            @change='onRenameSettingsChange'
+                        />
+                        <NumberInput
+                            v-show='imageStore.renameOptions.preset === RENAME_OPTIONS.numericOrder'
+                            id='use12hFormatCheckbox'
+                            v-model='imageStore.renameOptions.startingIndex'
+                            class='mt-6'
+                            label='Starting index'
+                            @change='onRenameSettingsChange'
+                        />
+                        <Checkbox
+                            v-show='imageStore.renameOptions.preset !== RENAME_OPTIONS.numericOrder'
+                            id='use12hFormatCheckbox'
+                            v-model='imageStore.renameOptions.use12hFormat'
+                            class='mt-6'
+                            label='Use 12h format'
+                            @change='onRenameSettingsChange'
+                        />
+                    </div>
                 </HeightTransition>
             </div>
 
@@ -72,15 +99,21 @@
 <script setup
         lang="ts"
 >
-import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
+import { QUALITY, RENAME_OPTIONS, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
 const imageStore = useImagesStore()
 
-const onStartingDayChange = () => {
+const onRenameSettingsChange = () => {
     imageStore.assignNewNames()
 }
 
 const isOptimising = computed(() => imageStore.isOptimising)
+
+const presetOptions = [
+    { label: 'Trip Day Organizer', value: RENAME_OPTIONS.tripDayOrganiser },
+    { label: 'Full Date & Time', value: RENAME_OPTIONS.fullDateAndTime },
+    { label: 'Numeric order', value: RENAME_OPTIONS.numericOrder }
+]
 
 const qualityOptions = [
     {

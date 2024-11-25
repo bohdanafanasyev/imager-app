@@ -90,3 +90,31 @@ select {
   cursor: pointer;
   pointer-events: auto;
 }
+
+input {
+  padding: 0;
+  cursor: pointer;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  &:not([type="checkbox"]) {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

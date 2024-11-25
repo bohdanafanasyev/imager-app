@@ -49,7 +49,7 @@ const overlayUI = ref({
         }
     },
     base: 'relative flex-1 flex flex-col w-full focus:outline-none',
-    background: 'bg-white-none dark:bg-gray-none glass-3d tint-dark',
+    background: 'bg-white-none dark:bg-gray-none glass-3d',
     ring: '',
     rounded: '',
     padding: '',

@@ -1,7 +1,16 @@
 import { defineStore } from 'pinia'
-import type { Image, PerformanceStats } from '~/types'
+import type {
+    Image,
+    PerformanceStats,
+    RenameOptions
+} from '~/types'
 import { useAppStore } from '~/stores/app'
-import { QUALITY, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
+import {
+    QUALITY,
+    SUPPORTED_ENCODER_IMAGE_FORMATS,
+    RENAME_OPTIONS
+} from '~/values'
+import { assignNewNames } from '~/utils/assignNewNames'
 
 export const useImagesStore = defineStore('images', {
     state: () => ({
@@ -12,10 +21,15 @@ export const useImagesStore = defineStore('images', {
             quality: QUALITY.seventy,
             format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
         },
+        renameOptions: {
+            enabled: true,
+            preset: RENAME_OPTIONS.numericOrder,
+            startingDay: '1',
+            startingIndex: 1,
+            use12hFormat: false
+        } as RenameOptions,
         optimise: true,
-        quality: QUALITY.seventy,
-        rename: true,
-        startingDay: '1'
+        quality: QUALITY.seventy
     }),
     actions: {
         addImages(images: Image[]) {
@@ -45,7 +59,7 @@ export const useImagesStore = defineStore('images', {
             processBatch(0)
         },
         assignNewNames() {
-            assignNewNames(this.imagesArray, Number(this.startingDay))
+            assignNewNames(this.imagesArray, this.renameOptions)
         },
         removeImage(imageId: string) {
             this.images.delete(imageId)

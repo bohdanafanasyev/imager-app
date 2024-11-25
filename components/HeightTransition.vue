@@ -6,13 +6,14 @@
             'content-initialLoad': initialLoad
         }"
         class='content'
+        @transitionend='onTransitionEnd'
     >
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
 import { debounce } from '~/utils/debounce'
 
 const props = defineProps<{ isExpanded: boolean }>()
@@ -40,6 +41,18 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('resize', debouncedRecalculateHeight)
 })
+
+watch(() => props.isExpanded, () => {
+    if (props.isExpanded) {
+        recalculateHeight()
+    }
+})
+
+const onTransitionEnd = () => {
+    if (props.isExpanded) {
+        height.value = 'auto'
+    }
+}
 </script>
 
 <style scoped>

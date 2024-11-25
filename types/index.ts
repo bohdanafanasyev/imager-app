@@ -1,3 +1,5 @@
+import type { RENAME_OPTIONS } from '~/values'
+
 export type PerformanceStats = {
     decoding: number
     encoding: number
@@ -33,4 +35,12 @@ export interface DrawableToImageDataOptions {
     sy?: number
     sw?: number
     sh?: number
+}
+
+export type RenameOptions = {
+    enabled: boolean
+    preset: typeof RENAME_OPTIONS[keyof typeof RENAME_OPTIONS]
+    startingDay: string
+    startingIndex: number
+    use12hFormat: boolean
 }

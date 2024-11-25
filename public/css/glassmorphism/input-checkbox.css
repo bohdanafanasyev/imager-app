@@ -2,7 +2,7 @@
 /* Checkbox */
 /* ================================================== */
 input[type=checkbox].checkbox {
-  --input-h: var(--ui-h-xs);
+  --input-h: var(--ui-h-xxs);
   --bg: var(--inset-bg-deep);
   --bg-hover: var(--tint-2xdark);
   --inset: var(--inset-sm);

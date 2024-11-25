@@ -46,7 +46,7 @@
         <!-- Title and stats -->
         <div class='flex flex-col gap-1 justify-center'>
             <p class=' gm-text-s'>
-                {{ imageStore.rename ? image.newName : image.file.name }}
+                {{ imageStore.renameOptions.enabled ? image.newName : image.file.name }}
             </p>
             <div class='flex gap-1'>
                 <p class=' gm-text-xs text-gray-400 flex gap-1'>

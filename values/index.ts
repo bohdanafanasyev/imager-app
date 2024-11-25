@@ -6,3 +6,9 @@ export const QUALITY = {
     seventy: '70',
     sixty: '60'
 }
+
+export const RENAME_OPTIONS = {
+    tripDayOrganiser: 'tripDayOrganiser',
+    fullDateAndTime: 'fullDateAndTime',
+    numericOrder: 'numericOrder'
+}
