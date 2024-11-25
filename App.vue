@@ -41,6 +41,13 @@
             >
                 <Settings />
                 <Statistics class='mt-8' />
+
+                <button
+                    id='errorBtn'
+                    @click='triggerError'
+                >
+                    Trigger Error
+                </button>
             </div>
         </div>
     </div>
@@ -68,6 +75,10 @@ onMounted(() => {
     imagesStore.renameOptions.use12hFormat = is12HourFormat()
     window.addEventListener('resize', debouncedDetectUIStyle)
 })
+
+const triggerError = () => {
+    throw new Error('Nuxt Button Error')
+}
 
 const onImageLoad = () => {
     isImageLoaded.value = true
