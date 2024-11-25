@@ -57,7 +57,7 @@ const onTransitionEnd = () => {
 <style scoped>
 .content {
     /* Transition copied from glass3d rules */
-    transition: opacity 400ms cubic-bezier(0.46, 0.43, 0.1, 0.99), height 600ms cubic-bezier(0.46, 0.43, 0.1, 0.99);
+    transition: opacity 400ms cubic-bezier(0.46, 0.43, 0.1, 1), height 600ms cubic-bezier(0.46, 0.43, 0.1, 1);
     height: v-bind(height);
     opacity: 0;
     overflow: hidden;

@@ -36,14 +36,16 @@
 
         <TransitionGroup
             v-show='imagesStore.images.size'
+            appear
             name='list'
             tag='ul'
-            class='flex flex-col gap-4 overflow-y-scroll flex-1'
+            class='flex flex-col gap-4 overflow-y-scroll flex-1 relative'
         >
             <UploadedFile
                 v-for='(image, key) in imagesStore.images'
                 :key='key'
                 :image='image[1]'
+                class='relative'
                 :store-key='image[0]'
             />
         </TransitionGroup>
@@ -164,24 +166,12 @@ const onFileChange = async (): Promise<void> => {
 </script>
 
 <style scoped>
-.list-move, /* apply transition to moving elements */
-.list-enter-active,
-.list-leave-active {
-    transition: all 0.48s ease;
+.list-enter-active {
+    transition: all 0.5s ease;
 }
 
-.list-enter-from,
-.list-leave-to {
+.list-enter-from {
     opacity: 0;
-}
-
-.list-leave-to {
-    transform: translate(-10%, 100%);
-}
-
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
-.list-leave-active {
-    position: absolute;
+    transform: translateX(5px);
 }
 </style>
