@@ -6,7 +6,7 @@
     >
         <NuxtImg
             ref='backgroundImage'
-            class='h-full w-full z-0 transition-opacity object-cover fixed inset-0'
+            class='h-full w-full z-0 transition-opacity object-cover fixed inset-0 pointer-events-none'
             :class="{
                 'opacity-0': !isImageLoaded
             }"
@@ -81,11 +81,6 @@ html, body, #app {
 
 html {
     background-color: rgb(72, 88, 97);
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(72, 70, 70, 0.8) transparent;
 }
 
 .separator-left {

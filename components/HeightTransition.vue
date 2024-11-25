@@ -11,7 +11,9 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup
+        lang="ts"
+>
 import { ref, watch } from 'vue'
 
 const heightValues = {
@@ -36,7 +38,7 @@ watch(() => props.isExpanded, () => {
     if (!props.isExpanded) {
         setContentHeight()
 
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             height.value = heightValues.zero
         })
     }
