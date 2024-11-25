@@ -14,12 +14,16 @@ import { assignNewNames } from '~/utils/assignNewNames'
 
 export const useImagesStore = defineStore('images', {
     state: () => ({
-        format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
         images: new Map<string, Image>(),
-        isOptimising: false,
-        lastOptimisationSettings: {
-            quality: QUALITY.seventy,
-            format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
+        optimiseOptions: {
+            enabled: true,
+            format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
+            isOptimising: false,
+            lastSettings: {
+                quality: QUALITY.seventy,
+                format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
+            },
+            quality: QUALITY.seventy
         },
         renameOptions: {
             enabled: true,
@@ -27,9 +31,7 @@ export const useImagesStore = defineStore('images', {
             startingDay: '1',
             startingIndex: 1,
             use12hFormat: false
-        } as RenameOptions,
-        optimise: true,
-        quality: QUALITY.seventy
+        } as RenameOptions
     }),
     actions: {
         addImages(images: Image[]) {
@@ -65,9 +67,9 @@ export const useImagesStore = defineStore('images', {
             this.images.delete(imageId)
         },
         onReOptimise() {
-            this.lastOptimisationSettings = {
-                quality: this.quality,
-                format: this.format
+            this.optimiseOptions.lastSettings = {
+                quality: this.optimiseOptions.quality,
+                format: this.optimiseOptions.format
             }
             this.images.forEach((image) => image.optimisationResult = null)
         }
@@ -96,7 +98,7 @@ export const useImagesStore = defineStore('images', {
             }, 0)
         },
         shouldGetOptimisedResult(): boolean {
-            return this.optimise && this.images.size > 0 && this.allImagesOptimised
+            return this.optimiseOptions.enabled && this.images.size > 0 && this.allImagesOptimised
         },
         savedFilesSize(): number {
             if (this.shouldGetOptimisedResult) {
@@ -143,7 +145,7 @@ export const useImagesStore = defineStore('images', {
             return null
         },
         optimisationSettingsChanged(): boolean {
-            return this.quality !== this.lastOptimisationSettings.quality || this.format !== this.lastOptimisationSettings.format
+            return this.optimiseOptions.quality !== this.optimiseOptions.lastSettings.quality || this.optimiseOptions.format !== this.optimiseOptions.lastSettings.format
         }
     }
 })

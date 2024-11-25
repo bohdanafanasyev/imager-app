@@ -10,43 +10,43 @@
             <div class='flex flex-col'>
                 <ToggleInput
                     id='renameInput'
-                    v-model='imageStore.renameOptions.enabled'
+                    v-model='imagesStore.renameOptions.enabled'
                     label='Rename'
                 />
 
                 <HeightTransition
-                    :is-expanded='imageStore.renameOptions.enabled'
+                    :is-expanded='imagesStore.renameOptions.enabled'
                 >
                     <div class='flex flex-col'>
                         <Dropdown
                             id='renamePresetsDropdown'
-                            v-model='imageStore.renameOptions.preset'
+                            v-model='imagesStore.renameOptions.preset'
                             class='mt-6'
                             :options='presetOptions'
                             label='Preset'
                             @change='onRenameSettingsChange'
                         />
                         <Dropdown
-                            v-show='imageStore.renameOptions.preset === RENAME_OPTIONS.tripDayOrganiser'
+                            v-show='imagesStore.renameOptions.preset === RENAME_OPTIONS.tripDayOrganiser'
                             id='startingDayDropdown'
-                            v-model='imageStore.renameOptions.startingDay'
+                            v-model='imagesStore.renameOptions.startingDay'
                             class='mt-6'
                             :options='renameStartingDayOptions'
                             label='Starting day'
                             @change='onRenameSettingsChange'
                         />
                         <NumberInput
-                            v-show='imageStore.renameOptions.preset === RENAME_OPTIONS.numericOrder'
+                            v-show='imagesStore.renameOptions.preset === RENAME_OPTIONS.numericOrder'
                             id='use12hFormatCheckbox'
-                            v-model='imageStore.renameOptions.startingIndex'
+                            v-model='imagesStore.renameOptions.startingIndex'
                             class='mt-6'
                             label='Starting index'
                             @change='onRenameSettingsChange'
                         />
                         <Checkbox
-                            v-show='imageStore.renameOptions.preset !== RENAME_OPTIONS.numericOrder'
+                            v-show='imagesStore.renameOptions.preset !== RENAME_OPTIONS.numericOrder'
                             id='use12hFormatCheckbox'
-                            v-model='imageStore.renameOptions.use12hFormat'
+                            v-model='imagesStore.renameOptions.use12hFormat'
                             class='mt-6'
                             label='Use 12h format'
                             @change='onRenameSettingsChange'
@@ -58,15 +58,15 @@
             <div class='flex flex-col'>
                 <ToggleInput
                     id='optimiseInput'
-                    v-model='imageStore.optimise'
+                    v-model='imagesStore.optimiseOptions.enabled'
                     label='Optimise size'
                     @change='onOptimiseChange'
                 />
 
-                <HeightTransition :is-expanded='imageStore.optimise'>
+                <HeightTransition :is-expanded='imagesStore.optimiseOptions.enabled'>
                     <Dropdown
                         id='qualityDropdown'
-                        v-model='imageStore.quality'
+                        v-model='imagesStore.optimiseOptions.quality'
                         class='mt-6'
                         :disabled='isOptimising'
                         :options='qualityOptions'
@@ -76,13 +76,13 @@
                     <div class='flex flex-col gap-4 mt-6'>
                         <Dropdown
                             id='FormatDropdown'
-                            v-model='imageStore.format'
+                            v-model='imagesStore.optimiseOptions.format'
                             :options='fileFormatOptions'
                             :disabled='isOptimising'
                             label='Output format'
                         />
                         <p
-                            v-if='imageStore.format === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
+                            v-if='imagesStore.optimiseOptions.format === SUPPORTED_ENCODER_IMAGE_FORMATS.avif'
                             class='gm-text-2xs italic  text-green-500'
                         >
                             AVIF optimisation takes longer than WebP, however it provides better compression rates.
@@ -101,13 +101,13 @@
 >
 import { QUALITY, RENAME_OPTIONS, SUPPORTED_ENCODER_IMAGE_FORMATS } from '~/values'
 
-const imageStore = useImagesStore()
+const imagesStore = useImagesStore()
 
 const onRenameSettingsChange = () => {
-    imageStore.assignNewNames()
+    imagesStore.assignNewNames()
 }
 
-const isOptimising = computed(() => imageStore.isOptimising)
+const isOptimising = computed(() => imagesStore.optimiseOptions.isOptimising)
 
 const presetOptions = [
     { label: 'Trip Day Organizer', value: RENAME_OPTIONS.tripDayOrganiser },
@@ -146,7 +146,7 @@ const fileFormatOptions = [
 
 const onOptimiseChange = (enabled: boolean) => {
     if (!enabled) {
-        imageStore.isOptimising = false
+        imagesStore.optimiseOptions.isOptimising = false
     }
 }
 </script>

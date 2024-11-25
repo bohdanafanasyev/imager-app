@@ -35,14 +35,14 @@
         </div>
 
         <TransitionGroup
-            v-show='imageStore.images.size'
+            v-show='imagesStore.images.size'
             name='list'
             tag='ul'
             class='flex flex-col gap-4 overflow-y-scroll flex-1 custom-scroll
                    lg:pr-5'
         >
             <UploadedFile
-                v-for='(image, key) in imageStore.images'
+                v-for='(image, key) in imagesStore.images'
                 :key='key'
                 :image='image[1]'
                 :store-key='image[0]'
@@ -50,7 +50,7 @@
         </TransitionGroup>
 
         <p
-            v-show='!imageStore.images.size'
+            v-show='!imagesStore.images.size'
             class='pr-8'
         >
             Select the files by clicking the plus icon
@@ -68,7 +68,7 @@ import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
 import type { Image } from '~/types'
 
 const fileInput = ref<HTMLInputElement | null>(null)
-const imageStore = useImagesStore()
+const imagesStore = useImagesStore()
 const appStore = useAppStore()
 
 const acceptedImageTypes = SUPPORTED_IMAGE_TYPES_VALUES.join(',')
@@ -159,7 +159,7 @@ const onFileChange = async (): Promise<void> => {
             return compareAsc(a.creationDate, b.creationDate)
         })
 
-        imageStore.addImages(imagesArray)
+        imagesStore.addImages(imagesArray)
     }
 }
 </script>

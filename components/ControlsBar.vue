@@ -10,7 +10,7 @@
 <script setup
         lang="ts"
         >
-const imageStore = useImagesStore()
+const imagesStore = useImagesStore()
 </script>
 
 <style scoped>

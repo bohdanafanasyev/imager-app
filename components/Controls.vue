@@ -4,10 +4,10 @@
             v-if='showOptimiseButton'
             @click='optimiseImages'
         >
-            {{ imageStore.optimisationSettingsChanged && isOptimisedOnce ? 'Re-optimise' : 'Optimise' }}
+            {{ imagesStore.optimisationSettingsChanged && isOptimisedOnce ? 'Re-optimise' : 'Optimise' }}
         </Button>
         <Button
-            v-if='imageStore.isOptimising'
+            v-if='imagesStore.optimiseOptions.isOptimising'
             @click='onOptimisationStopClick'
         >
             Stop
@@ -26,42 +26,42 @@
 <script setup
         lang="ts"
 >
-const imageStore = useImagesStore()
+const imagesStore = useImagesStore()
 
 const isDownloading = ref(false)
 const isOptimisedOnce = ref(false)
 
 const optimiseImages = async (): Promise<void> => {
-    if (imageStore.images.size) {
-        imageStore.isOptimising = true
+    if (imagesStore.images.size) {
+        imagesStore.optimiseOptions.isOptimising = true
         isOptimisedOnce.value = true
 
-        imageStore.onReOptimise()
+        imagesStore.onReOptimise()
 
-        for (const [key, image] of imageStore.images) {
-            if (!imageStore.isOptimising) {
+        for (const [key, image] of imagesStore.images) {
+            if (!imagesStore.optimiseOptions.isOptimising) {
                 break
             }
 
-            if (!imageStore.images.has(key) || image.optimisationResult) {
+            if (!imagesStore.images.has(key) || image.optimisationResult) {
                 continue
             }
 
-            const result = await optimiseImage(image, Number(imageStore.quality), imageStore.format)
+            const result = await optimiseImage(image, Number(imagesStore.optimiseOptions.quality), imagesStore.optimiseOptions.format)
 
-            if (imageStore.isOptimising && imageStore.images.has(key)) {
+            if (imagesStore.optimiseOptions.isOptimising && imagesStore.images.has(key)) {
                 image.optimisationResult = result
                 image.format.optimised = image.optimisationResult.encoderFormat
             }
         }
     }
 
-    imageStore.isOptimising = false
+    imagesStore.optimiseOptions.isOptimising = false
 }
 
 const downloadImages = async () => {
     isDownloading.value = true
-    await downloadFiles(imageStore.images, imageStore.renameOptions.enabled, imageStore.optimise)
+    await downloadFiles(imagesStore.images, imagesStore.renameOptions.enabled, imagesStore.optimiseOptions.enabled)
 
     setTimeout(() => {
         isDownloading.value = false
@@ -69,18 +69,18 @@ const downloadImages = async () => {
 }
 
 const onOptimisationStopClick = (): void => {
-    imageStore.isOptimising = false
+    imagesStore.optimiseOptions.isOptimising = false
 }
 
 const showOptimiseButton = computed(() => {
     let show = false
 
-    if (imageStore.optimise) {
-        if (!imageStore.isOptimising && !imageStore.allImagesOptimised) {
+    if (imagesStore.optimiseOptions.enabled) {
+        if (!imagesStore.optimiseOptions.isOptimising && !imagesStore.allImagesOptimised) {
             show = true
         }
 
-        if (imageStore.optimisationSettingsChanged) {
+        if (imagesStore.optimisationSettingsChanged) {
             show = true
         }
     }
@@ -91,12 +91,12 @@ const showOptimiseButton = computed(() => {
 const showDownloadButton = computed(() => {
     let show = false
 
-    if (imageStore.optimise) {
-        if (imageStore.allImagesOptimised) {
-            show = !imageStore.optimisationSettingsChanged
+    if (imagesStore.optimiseOptions.enabled) {
+        if (imagesStore.allImagesOptimised) {
+            show = !imagesStore.optimisationSettingsChanged
         }
     }
-    else if (imageStore.renameOptions.enabled) {
+    else if (imagesStore.renameOptions.enabled) {
         show = true
     }
 

@@ -46,12 +46,12 @@
         <!-- Title and stats -->
         <div class='flex flex-col gap-1 justify-center'>
             <p class=' gm-text-s'>
-                {{ imageStore.renameOptions.enabled ? image.newName : image.file.name }}
+                {{ imagesStore.renameOptions.enabled ? image.newName : image.file.name }}
             </p>
             <div class='flex gap-1'>
                 <p class=' gm-text-xs text-gray-400 flex gap-1'>
                     {{ filesize(image.file.size) }}
-                    <template v-if='!imageStore.optimisationSettingsChanged && imageStore.optimise && image.optimisationResult?.arrayBuffer?.byteLength'>
+                    <template v-if='!imagesStore.optimisationSettingsChanged && imagesStore.optimiseOptions.enabled && image.optimisationResult?.arrayBuffer?.byteLength'>
                         <span>→</span>
                         <span class='text-green-500'>
                             {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
@@ -73,7 +73,7 @@
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>
             <button
                 class='font-medium gm-text-xs text-gray-300 fill-icon hover:fill-red-400 p-3 transition-colors'
-                @click='imageStore.removeImage(storeKey)'
+                @click='imagesStore.removeImage(storeKey)'
             >
                 <DeleteIcon class='w-4' />
             </button>
@@ -93,11 +93,11 @@ const props = defineProps<{
     storeKey: string
 }>()
 
-const imageStore = useImagesStore()
+const imagesStore = useImagesStore()
 const appStore = useAppStore()
 
 const isLoading = computed(() => {
-    return imageStore.isOptimising && !props.image.optimisationResult
+    return imagesStore.optimiseOptions.isOptimising && !props.image.optimisationResult
 })
 
 const failedOptimisation = computed(() => {
