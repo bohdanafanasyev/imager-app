@@ -49,7 +49,6 @@
 <script setup
         lang="ts"
 >
-import { getAnalytics, logEvent } from 'firebase/analytics'
 import { is12HourFormat } from '~/utils/is12HourFormat'
 
 const appStore = useAppStore()
@@ -70,11 +69,6 @@ const prefillStores = () => {
 }
 
 onMounted(() => {
-    const analytics = getAnalytics()
-    // setTimeout(() => {
-    // }, 5000)
-    logEvent(analytics, 'notification_received', { debug_mode: true })
-
     prefillStores()
     window.addEventListener('resize', debouncedDetectUIStyle)
 })

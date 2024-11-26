@@ -36,6 +36,8 @@ const optimiseImages = async (): Promise<void> => {
         imagesStore.optimiseOptions.isOptimising = true
         isOptimisedOnce.value = true
 
+        trackOptimisationStarted()
+
         imagesStore.onReOptimise()
 
         for (const [key, image] of imagesStore.images) {
@@ -54,6 +56,8 @@ const optimiseImages = async (): Promise<void> => {
                 image.format.optimised = image.optimisationResult.encoderFormat
             }
         }
+
+        trackOptimisationCompleted()
     }
 
     imagesStore.optimiseOptions.isOptimising = false
@@ -65,6 +69,7 @@ const downloadImages = async () => {
 
     setTimeout(() => {
         isDownloading.value = false
+        trackDownloadCompleted()
     })
 }
 
