@@ -49,6 +49,7 @@
 <script setup
         lang="ts"
 >
+import { getAnalytics, logEvent } from 'firebase/analytics'
 import { is12HourFormat } from '~/utils/is12HourFormat'
 
 const appStore = useAppStore()
@@ -62,10 +63,19 @@ const debouncedDetectUIStyle = debounce(() => {
     appStore.isDesktopUI = isDesktopUI()
 }, 0)
 
-onMounted(() => {
+const prefillStores = () => {
     appStore.isDebugMode = isDebugMode()
     appStore.isDesktopUI = isDesktopUI()
     imagesStore.renameOptions.use12hFormat = is12HourFormat()
+}
+
+onMounted(() => {
+    const analytics = getAnalytics()
+    // setTimeout(() => {
+    // }, 5000)
+    logEvent(analytics, 'notification_received', { debug_mode: true })
+
+    prefillStores()
     window.addEventListener('resize', debouncedDetectUIStyle)
 })
 

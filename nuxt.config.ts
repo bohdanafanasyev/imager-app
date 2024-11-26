@@ -24,6 +24,10 @@ export default defineNuxtConfig({
         }
     },
 
+    plugins: [
+        '~/plugins/firebase.client.ts'
+    ],
+
     routeRules: {
         '/_nuxt/**': {headers: {'cross-origin-embedder-policy': 'require-corp'}}
     },
