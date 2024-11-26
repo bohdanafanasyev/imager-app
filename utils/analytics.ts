@@ -16,5 +16,5 @@ export function trackOptimisationCompleted() {
 export function trackDownloadCompleted() {
     const analytics = getAnalytics()
 
-    logEvent(analytics, ANALYTICS_EVENTS.downloadStarted)
+    logEvent(analytics, ANALYTICS_EVENTS.downloadCompleted)
 }
