@@ -9,7 +9,7 @@
                 :key='stat.label'
                 class='flex gm-text-xs place-items-center justify-between'
             >
-                <span class='italic'>{{ stat.label }}</span>
+                <span class='italic gm-text-strong'>{{ stat.label }}</span>
                 <span
                     :class="{
                         'text-green-500': stat.value && stat.highlight
