@@ -110,9 +110,9 @@ const onRenameSettingsChange = () => {
 const isOptimising = computed(() => imagesStore.optimiseOptions.isOptimising)
 
 const presetOptions = [
-    { label: 'Trip Day Organizer', value: RENAME_OPTIONS.tripDayOrganiser },
+    { label: 'Numeric order', value: RENAME_OPTIONS.numericOrder },
     { label: 'Full Date & Time', value: RENAME_OPTIONS.fullDateAndTime },
-    { label: 'Numeric order', value: RENAME_OPTIONS.numericOrder }
+    { label: 'Trip Day Organizer', value: RENAME_OPTIONS.tripDayOrganiser }
 ]
 
 const qualityOptions = [
