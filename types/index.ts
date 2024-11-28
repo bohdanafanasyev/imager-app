@@ -23,8 +23,6 @@ export type Image = {
 
 export type OptimisedImageResult = {
     arrayBuffer: ArrayBuffer | null
-    quality: number
-    encoderFormat: string
     performance: PerformanceStats
 }
 

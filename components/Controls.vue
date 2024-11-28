@@ -53,7 +53,7 @@ const optimiseImages = async (): Promise<void> => {
 
             if (imagesStore.optimiseOptions.isOptimising && imagesStore.images.has(key)) {
                 image.optimisationResult = result
-                image.format.optimised = image.optimisationResult.encoderFormat
+                image.format.optimised = imagesStore.optimiseOptions.format
             }
         }
 
@@ -65,7 +65,13 @@ const optimiseImages = async (): Promise<void> => {
 
 const downloadImages = async () => {
     isDownloading.value = true
-    await downloadFiles(imagesStore.images, imagesStore.renameOptions.enabled, imagesStore.optimiseOptions.enabled)
+
+    await downloadFiles(
+        imagesStore.images,
+        imagesStore.renameOptions.enabled,
+        imagesStore.optimiseOptions.enabled,
+        imagesStore.optimiseOptions.format
+    )
 
     setTimeout(() => {
         isDownloading.value = false

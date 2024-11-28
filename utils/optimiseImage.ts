@@ -85,8 +85,6 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
 
     return {
         arrayBuffer: encodedArrayBuffer,
-        quality,
-        encoderFormat,
         performance: {
             decoding: formatMsToSeconds(decodingDuration),
             encoding: formatMsToSeconds(encodingDuration),

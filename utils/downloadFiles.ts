@@ -12,9 +12,14 @@ function download(blob: Blob, fileName: string): void {
     URL.revokeObjectURL(url)
 }
 
-async function getFileDownloadData(image: Image, rename: boolean, optimise: boolean) {
+async function getFileDownloadData(
+    image: Image,
+    rename: boolean,
+    optimise: boolean,
+    encoderFormat: string
+) {
     const file = optimise ? image.optimisationResult!.arrayBuffer : await image.file.arrayBuffer()
-    const format = optimise ? SUPPORTED_ENCODER_IMAGE_FORMATS[image.optimisationResult!.encoderFormat] : image.format.original
+    const format = optimise ? SUPPORTED_ENCODER_IMAGE_FORMATS[encoderFormat] : image.format.original
     const name = rename ? image.newName : getFileNameWithoutExtension(image.file.name)
     const type = optimise ? IMAGE_TYPES.webp : image.file.type
     const fileName = `${name}.${format}`
@@ -38,11 +43,16 @@ async function getFileDownloadData(image: Image, rename: boolean, optimise: bool
 //     }
 // }
 
-async function downloadMultipleFiles(images: Map<string, Image>, rename: boolean, optimise: boolean): Promise<void> {
+async function downloadMultipleFiles(
+    images: Map<string, Image>,
+    rename: boolean,
+    optimise: boolean,
+    encoderFormat: string
+): Promise<void> {
     const zip = new JSZip()
 
-    for (const [key, image] of images) {
-        const { file, fileName } = await getFileDownloadData(image, rename, optimise)
+    for (const [_, image] of images) {
+        const { file, fileName } = await getFileDownloadData(image, rename, optimise, encoderFormat)
 
         if (file) {
             zip.file(fileName, file)
@@ -54,9 +64,14 @@ async function downloadMultipleFiles(images: Map<string, Image>, rename: boolean
     download(zipBlob, 'images.zip')
 }
 
-export async function downloadFiles(images: Map<string, Image>, rename: boolean, optimise: boolean): Promise<void> {
+export async function downloadFiles(
+    images: Map<string, Image>,
+    rename: boolean,
+    optimise: boolean,
+    encoderFormat: string
+): Promise<void> {
     return new Promise<void>(async (resolve) => {
-        await downloadMultipleFiles(images, rename, optimise)
+        await downloadMultipleFiles(images, rename, optimise, encoderFormat)
         resolve()
     })
 }

@@ -88,6 +88,9 @@ export const useImagesStore = defineStore('images', {
         allImagesOptimised(): boolean {
             return this.images.size ? this.imagesArray.every((image: Image) => image.optimisationResult) : false
         },
+        shouldGetOptimisedResult(): boolean {
+            return this.optimiseOptions.enabled && this.images.size > 0 && this.allImagesOptimised
+        },
         optimisedFilesSize(): number {
             return this.imagesArray.reduce((accumulator: number, image: Image) => {
                 if (image.optimisationResult?.arrayBuffer) {
@@ -97,9 +100,6 @@ export const useImagesStore = defineStore('images', {
                 // If the image has not been optimised, return the original size
                 return accumulator + image.file.size
             }, 0)
-        },
-        shouldGetOptimisedResult(): boolean {
-            return this.optimiseOptions.enabled && this.images.size > 0 && this.allImagesOptimised
         },
         savedFilesSize(): number {
             if (this.shouldGetOptimisedResult) {
@@ -121,29 +121,6 @@ export const useImagesStore = defineStore('images', {
             }
 
             return 0
-        },
-        performanceStats(): PerformanceStats | null {
-            const appStore = useAppStore()
-
-            if (this.shouldGetOptimisedResult && appStore.isDebugMode) {
-                const stats = this.imagesArray.reduce((accumulator: PerformanceStats, image: Image) => {
-                    const { decoding, encoding, total } = image.optimisationResult!.performance
-
-                    accumulator.decoding += decoding
-                    accumulator.encoding += encoding
-                    accumulator.total += total
-
-                    return accumulator
-                }, { decoding: 0, encoding: 0, total: 0 })
-
-                return {
-                    decoding: Number(stats.decoding.toFixed(2)),
-                    encoding: Number(stats.encoding.toFixed(2)),
-                    total: Number(stats.total.toFixed(2))
-                }
-            }
-
-            return null
         },
         optimisationSettingsChanged(): boolean {
             return this.optimiseOptions.quality !== this.optimiseOptions.lastSettings.quality || this.optimiseOptions.format !== this.optimiseOptions.lastSettings.format
