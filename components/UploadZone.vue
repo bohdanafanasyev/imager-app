@@ -18,7 +18,7 @@
                 class='ml-auto'
                 @click='appStore.showMobileSlideOver = true'
             >
-                <NuxtImg
+                <SettingsIcon
                     class='flex items-center justify-center relative w-3'
                     src='/icons/settings.svg'
                 />
@@ -67,6 +67,7 @@ import ExifReader from 'exifreader'
 import { compareAsc } from 'date-fns'
 import { SUPPORTED_IMAGE_TYPES_VALUES } from '~/values'
 import type { Image } from '~/types'
+import SettingsIcon from '~/components/icons/SettingsIcon.vue'
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const imagesStore = useImagesStore()
