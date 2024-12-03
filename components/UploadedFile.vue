@@ -1,5 +1,5 @@
 <template>
-    <li class='flex gap-4 group last:mb-8'>
+    <li class='flex gap-4 group last:mb-8 items-center'>
         <!-- Thumbnail image -->
         <Tooltip
             :disabled='tooltipDisabled'
@@ -49,25 +49,52 @@
                 {{ imagesStore.renameOptions.enabled ? image.newName : image.file.name }}
             </p>
             <div class='flex gap-1'>
-                <p class=' gm-text-xs text-gray-400 flex gap-1'>
+                <p class='gm-text-xs text-gray-400 flex gap-1'>
                     {{ filesize(image.file.size) }}
                     <template v-if='!imagesStore.optimisationSettingsChanged && imagesStore.optimiseOptions.enabled && image.optimisationResult?.arrayBuffer?.byteLength'>
                         <span>→</span>
                         <span class='text-green-500'>
                             {{ filesize(image.optimisationResult.arrayBuffer.byteLength) }}
                         </span>
-                        <span
-                            v-if='appStore.isDebugMode'
-                            class='text-gray-300'
-                        >
-                            [decoding: {{ image.optimisationResult.performance.decoding }}s /
-                            encoding: {{ image.optimisationResult.performance.encoding }}s /
-                            total: {{ image.optimisationResult.performance.total }}s]
-                        </span>
                     </template>
                 </p>
             </div>
         </div>
+
+        <!-- Statistics -->
+        <table
+            v-if='appStore.isDebugMode && image.optimisationResult?.statistics'
+            class='table-auto border-collapse border border-gray-500 gm-text-xs text-gray-300 relative capitalize'
+        >
+            <tbody>
+                <tr>
+                    <td
+                        v-for='(category, key) in image.optimisationResult?.statistics'
+                        :key='key'
+                        class='border border-gray-500 align-top'
+                    >
+                        <h3 class='px-2 font-semibold p-2 border-b border-gray-500'>
+                            {{ key }}
+                        </h3>
+                        <table class='w-full'>
+                            <template v-if='category'>
+                                <tr
+                                    v-for='[subKey, value] in Object.entries(category)'
+                                    :key='subKey'
+                                >
+                                    <td class='px-3 py-2 text-left'>
+                                        {{ subKey }}
+                                    </td>
+                                    <td class='px-3 py-2 text-right'>
+                                        {{ value }}
+                                    </td>
+                                </tr>
+                            </template>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- Controls -->
         <div class='flex items-center opacity-0 transition-opacity group-hover:opacity-100 ml-auto'>

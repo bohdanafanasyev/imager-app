@@ -1,6 +1,5 @@
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import { ANALYTICS_EVENTS } from '~/values/analytics'
-import { getOptimisationTrackingData } from '~/utils/analytics/getOptimisationTrackingData'
 
 export function trackOptimisationStarted() {
     const analytics = getAnalytics()
@@ -10,7 +9,7 @@ export function trackOptimisationStarted() {
 
 export function trackOptimisationCompleted() {
     const analytics = getAnalytics()
-    const data = getOptimisationTrackingData()
+    const data = {}
 
     logEvent(analytics, ANALYTICS_EVENTS.optimisationCompleted, { data: JSON.stringify(data) })
 }

@@ -3,8 +3,12 @@ import {
     ELHEIF_SUPPORTED_IMAGE_TYPES,
     SUPPORTED_IMAGE_TYPES_VALUES
 } from '~/values'
-import type { Image, OptimisedImageResult } from '~/types'
-import { formatMsToSeconds } from '~/utils/format'
+import type {
+    Image,
+    OptimisedImageResult,
+    OptimisedImageResultStatistics
+} from '~/types'
+import { roundToTwoDecimals } from '~/utils/format'
 
 async function measurePerformance<T>(fn: () => Promise<T>) {
     const startTime = performance.now()
@@ -15,6 +19,40 @@ async function measurePerformance<T>(fn: () => Promise<T>) {
     return {
         result,
         duration
+    }
+}
+
+function getStatistics(
+    decodingDuration: number,
+    encodingDuration: number,
+    totalStartTime: number,
+    totalEndTime: number,
+    arrayBuffer: ArrayBuffer | null,
+    encodedArrayBuffer: ArrayBuffer | null
+): OptimisedImageResultStatistics {
+    let co2Saved = null
+    let size = null
+
+    if (arrayBuffer && encodedArrayBuffer) {
+        const savedBytes = arrayBuffer.byteLength - encodedArrayBuffer.byteLength
+        co2Saved = calculateCO2Emissions(arrayBuffer.byteLength, encodedArrayBuffer.byteLength)
+
+        size = {
+            original: arrayBuffer.byteLength,
+            optimised: encodedArrayBuffer.byteLength,
+            saved: savedBytes,
+            savedPercentage: roundToTwoDecimals((savedBytes / arrayBuffer.byteLength) * 100)
+        }
+    }
+
+    return {
+        co2Saved,
+        size,
+        duration: {
+            total: roundToTwoDecimals(totalEndTime - totalStartTime),
+            decoding: roundToTwoDecimals(decodingDuration),
+            encoding: roundToTwoDecimals(encodingDuration)
+        }
     }
 }
 
@@ -85,10 +123,13 @@ export async function optimiseImage(image: Image, quality: number, encoderFormat
 
     return {
         arrayBuffer: encodedArrayBuffer,
-        performance: {
-            decoding: formatMsToSeconds(decodingDuration),
-            encoding: formatMsToSeconds(encodingDuration),
-            total: formatMsToSeconds(totalEndTime - totalStartTime)
-        }
+        statistics: getStatistics(
+            decodingDuration,
+            encodingDuration,
+            totalStartTime,
+            totalEndTime,
+            arrayBuffer,
+            encodedArrayBuffer
+        )
     }
 }

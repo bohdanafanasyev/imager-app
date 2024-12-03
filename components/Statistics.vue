@@ -9,7 +9,7 @@
                 :key='stat.label'
                 class='flex gm-text-xs place-items-center justify-between'
             >
-                <span class='italic gm-text-strong'>{{ stat.label }}</span>
+                <span class='gm-text-strong'>{{ stat.label }}</span>
                 <span
                     :class="{
                         'text-green-500': stat.value && stat.highlight
@@ -39,21 +39,25 @@ const stats = computed(() => [
     },
     {
         label: 'Uploaded size',
-        value: imagesStore.totalFilesSize ? filesize(imagesStore.totalFilesSize) : 'TBD'
+        value: imagesStore.statistics ? filesize(imagesStore.statistics.total.size.original.total) : 'TBD'
     },
     {
         label: 'Optimised size',
-        value: imagesStore.shouldGetOptimisedResult ? filesize(imagesStore.optimisedFilesSize) : 'TBD',
-        highlight: imagesStore.shouldGetOptimisedResult
+        value: imagesStore.statistics ? filesize(imagesStore.statistics.total.size.optimised.total) : 'TBD',
+        highlight: imagesStore.statistics
     },
     {
         label: 'Saved size',
-        value: imagesStore.shouldGetOptimisedResult ? `${filesize(imagesStore.savedFilesSize)} (${imagesStore.savedFilesPercentage}%)` : 'TBD'
+        value: imagesStore.statistics
+            ? `${filesize(imagesStore.statistics.total.size.saved.total)} (${imagesStore.statistics.total.size.savedPercentage.total}%)`
+            : 'TBD'
     },
     {
         label: 'CO2 saved',
-        value: imagesStore.shouldGetOptimisedResult ? formatCO2Emissions(imagesStore.co2Saved) : 'TBD',
-        highlight: imagesStore.shouldGetOptimisedResult
+        value: imagesStore.statistics
+            ? formatCO2Emissions(imagesStore.statistics.total.co2Saved.saved.total)
+            : 'TBD',
+        highlight: imagesStore.statistics
     }
 ])
 </script>

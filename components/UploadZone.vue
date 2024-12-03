@@ -117,7 +117,7 @@ const setImageData = async (images: Image[]): Promise<void> => {
             }
         }
 
-        image.format.original = getFileExtensionFromFileType(file.type)
+        image.format.original = getImageFormatFromFileType(file.type)
         image.creationDate = creationDate
         image.thumbnail.url = URL.createObjectURL(file)
     }))

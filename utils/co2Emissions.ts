@@ -1,20 +1,22 @@
-// Constants for CO₂ emissions per GB of storage and per GB of data transfer
+import { roundToTwoDecimals } from '~/utils/format'
+import type { ImageStatisticsData } from '~/types'
+
 const CO2_EMISSIONS_STORAGE_PER_GB_PER_YEAR = 0.4 // kg CO₂ per GB per year
 const CO2_EMISSIONS_TRANSFER_PER_GB = 0.2 // kg CO₂ per GB of data transfer
 
-export function formatCO2Emissions(kg: number): string {
-    if (kg < 1) {
-        const grams = kg * 1000 // Convert kg to grams
+export function formatCO2Emissions(grams: number): string {
+    if (grams < 1000) {
         return `${grams.toFixed(2)} g` // Return as grams with two decimals
     }
-    return `${kg.toFixed(2)} kg` // Return as kg if >= 1 kg
+    const kg = grams / 1000 // Convert grams to kg
+    return `${kg.toFixed(2)} kg` // Return as kg if >= 1000 grams
 }
 
-// Calculate the CO₂ emissions for the original and optimised images in kg
+// Calculate the CO₂ emissions for the original and optimised images in grams
 export function calculateCO2Emissions(
     originalTotalSizeBytes: number,
     optimisedTotalSizeBytes: number
-): { original: number, optimised: number, reduction: number } {
+): ImageStatisticsData {
     // Average number of views per month
     const viewsPerMonth = 1.5
     // Convert total sizes from bytes to GB
@@ -33,15 +35,16 @@ export function calculateCO2Emissions(
     const optimisedTransferEmissions = optimisedAnnualTransferGB * CO2_EMISSIONS_TRANSFER_PER_GB
 
     // Total emissions for original and optimised images over one year
-    const original = originalStorageEmissions + originalTransferEmissions
-    const optimised = optimisedStorageEmissions + optimisedTransferEmissions
+    const original = (originalStorageEmissions + originalTransferEmissions) * 1000 // Convert to grams
+    const optimised = (optimisedStorageEmissions + optimisedTransferEmissions) * 1000 // Convert to grams
 
-    // Calculate the reduction in CO₂ emissions
-    const reduction = original - optimised
+    // Calculate the saved in CO₂ emissions
+    const saved = original - optimised
 
     return {
-        original,
-        optimised,
-        reduction
+        original: roundToTwoDecimals(original),
+        optimised: roundToTwoDecimals(optimised),
+        saved: roundToTwoDecimals(saved),
+        savedPercentage: roundToTwoDecimals((saved / original) * 100)
     }
 }

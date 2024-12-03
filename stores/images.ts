@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
 import type {
     Image,
-    PerformanceStats,
     RenameOptions,
-    OptimiseOptions
+    OptimiseOptions,
+    OptimisationStatistics
 } from '~/types'
-import { useAppStore } from '~/stores/app'
 import {
     QUALITY,
     SUPPORTED_ENCODER_IMAGE_FORMATS,
@@ -16,6 +15,7 @@ import { assignNewNames } from '~/utils/assignNewNames'
 export const useImagesStore = defineStore('images', {
     state: () => ({
         images: new Map<string, Image>(),
+        statistics: null as OptimisationStatistics | null,
         optimiseOptions: {
             enabled: true,
             format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
@@ -87,40 +87,6 @@ export const useImagesStore = defineStore('images', {
         },
         allImagesOptimised(): boolean {
             return this.images.size ? this.imagesArray.every((image: Image) => image.optimisationResult) : false
-        },
-        shouldGetOptimisedResult(): boolean {
-            return this.optimiseOptions.enabled && this.images.size > 0 && this.allImagesOptimised
-        },
-        optimisedFilesSize(): number {
-            return this.imagesArray.reduce((accumulator: number, image: Image) => {
-                if (image.optimisationResult?.arrayBuffer) {
-                    return accumulator + image.optimisationResult.arrayBuffer.byteLength
-                }
-
-                // If the image has not been optimised, return the original size
-                return accumulator + image.file.size
-            }, 0)
-        },
-        savedFilesSize(): number {
-            if (this.shouldGetOptimisedResult) {
-                return this.totalFilesSize - this.optimisedFilesSize
-            }
-
-            return 0
-        },
-        savedFilesPercentage(): number {
-            if (this.shouldGetOptimisedResult) {
-                return Number((this.savedFilesSize / this.totalFilesSize * 100).toFixed(2))
-            }
-
-            return 0
-        },
-        co2Saved(): number {
-            if (this.shouldGetOptimisedResult) {
-                return calculateCO2Emissions(this.totalFilesSize, this.optimisedFilesSize).reduction
-            }
-
-            return 0
         },
         optimisationSettingsChanged(): boolean {
             return this.optimiseOptions.quality !== this.optimiseOptions.lastSettings.quality || this.optimiseOptions.format !== this.optimiseOptions.lastSettings.format

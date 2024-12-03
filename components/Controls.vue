@@ -34,6 +34,7 @@ const isOptimisedOnce = ref(false)
 const optimiseImages = async (): Promise<void> => {
     if (imagesStore.images.size) {
         imagesStore.optimiseOptions.isOptimising = true
+        imagesStore.statistics = null
         isOptimisedOnce.value = true
 
         trackOptimisationStarted()
@@ -56,6 +57,8 @@ const optimiseImages = async (): Promise<void> => {
                 image.format.optimised = imagesStore.optimiseOptions.format
             }
         }
+
+        imagesStore.statistics = getOptimisationStatistics()
 
         trackOptimisationCompleted()
     }
