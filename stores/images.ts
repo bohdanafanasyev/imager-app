@@ -66,13 +66,20 @@ export const useImagesStore = defineStore('images', {
         },
         removeImage(imageId: string) {
             this.images.delete(imageId)
+            this.getOptimisationStatistics()
         },
-        onReOptimise() {
-            this.optimiseOptions.lastSettings = {
-                quality: this.optimiseOptions.quality,
-                format: this.optimiseOptions.format
+        onOptimise() {
+            if (this.optimisationSettingsChanged) {
+                this.optimiseOptions.lastSettings = {
+                    quality: this.optimiseOptions.quality,
+                    format: this.optimiseOptions.format
+                }
+
+                this.images.forEach((image) => image.optimisationResult = null)
             }
-            this.images.forEach((image) => image.optimisationResult = null)
+        },
+        getOptimisationStatistics() {
+            this.statistics = getOptimisationStatistics()
         }
     },
     getters: {
@@ -90,6 +97,12 @@ export const useImagesStore = defineStore('images', {
         },
         optimisationSettingsChanged(): boolean {
             return this.optimiseOptions.quality !== this.optimiseOptions.lastSettings.quality || this.optimiseOptions.format !== this.optimiseOptions.lastSettings.format
+        },
+        shouldGetOptimisedResult(): boolean {
+            return this.optimiseOptions.enabled
+                && this.images.size > 0
+                && this.allImagesOptimised
+                && this.statistics !== null
         }
     }
 })
