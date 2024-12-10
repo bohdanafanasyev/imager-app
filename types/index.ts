@@ -24,6 +24,7 @@ export type OptimiseOptions = {
     enabled: boolean
     format: typeof SUPPORTED_ENCODER_IMAGE_FORMATS[keyof typeof SUPPORTED_ENCODER_IMAGE_FORMATS]
     isOptimising: boolean
+    isPaused: boolean
     lastSettings: {
         quality: string
         format: typeof SUPPORTED_ENCODER_IMAGE_FORMATS[keyof typeof SUPPORTED_ENCODER_IMAGE_FORMATS]

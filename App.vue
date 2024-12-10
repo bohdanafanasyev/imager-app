@@ -49,10 +49,12 @@
 <script setup
         lang="ts"
 >
-import { is12HourFormat } from '~/utils/is12HourFormat'
+import { getUserSessionId } from '~/utils/user'
+import { generateOptimisationAbortedLink } from '~/utils/analytics'
 
 const appStore = useAppStore()
 const imagesStore = useImagesStore()
+const userStore = useUserStore()
 
 const isImageLoaded = ref(false)
 
@@ -65,6 +67,8 @@ const debouncedDetectUIStyle = debounce(() => {
 const prefillStores = () => {
     appStore.isDebugMode = isDebugMode()
     appStore.isDesktopUI = isDesktopUI()
+    userStore.id = getUserId()
+    userStore.sessionId = getUserSessionId()
     imagesStore.renameOptions.use12hFormat = is12HourFormat()
 }
 

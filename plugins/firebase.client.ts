@@ -15,7 +15,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const app = initializeApp(firebaseConfig)
     const analytics = getAnalytics(app)
-    // const auth = getAuth(app)
 
     nuxtApp.vueApp.provide('analytics', analytics)
 })

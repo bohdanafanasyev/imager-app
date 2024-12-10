@@ -8,9 +8,9 @@
         </Button>
         <Button
             v-if='imagesStore.optimiseOptions.isOptimising'
-            @click='onOptimisationStopClick'
+            @click='onOptimisationPauseClick'
         >
-            Stop
+            Pause
         </Button>
 
         <Button
@@ -33,13 +33,14 @@ const isOptimisedOnce = ref(false)
 
 const optimiseImages = async (): Promise<void> => {
     if (imagesStore.images.size) {
-        imagesStore.optimiseOptions.isOptimising = true
-        imagesStore.statistics = null
+        if (imagesStore.optimiseOptions.isPaused) {
+            trackOptimisationResumed(imagesStore.images.size)
+        }
+        else {
+            trackOptimisationStarted(imagesStore.images.size)
+        }
 
-        isOptimisedOnce.value = true
-        imagesStore.onOptimise()
-
-        trackOptimisationStarted()
+        onOptimise()
 
         for (const [key, image] of imagesStore.images) {
             // Check if optimisation is still enabled (it might have been stopped
@@ -59,8 +60,10 @@ const optimiseImages = async (): Promise<void> => {
             }
         }
 
-        imagesStore.getOptimisationStatistics()
-        trackOptimisationCompleted()
+        if (!imagesStore.optimiseOptions.isPaused) {
+            imagesStore.getOptimisationStatistics()
+            trackOptimisationCompleted(imagesStore.statistics)
+        }
     }
 
     imagesStore.optimiseOptions.isOptimising = false
@@ -82,8 +85,27 @@ const downloadImages = async () => {
     })
 }
 
-const onOptimisationStopClick = (): void => {
+const onOptimise = () => {
+    isOptimisedOnce.value = true
+    imagesStore.optimiseOptions.isOptimising = true
+    imagesStore.optimiseOptions.isPaused = false
+    imagesStore.statistics = null
+
+    if (imagesStore.optimisationSettingsChanged) {
+        imagesStore.optimiseOptions.lastSettings = {
+            quality: imagesStore.optimiseOptions.quality,
+            format: imagesStore.optimiseOptions.format
+        }
+
+        imagesStore.images.forEach((image) => image.optimisationResult = null)
+    }
+}
+
+const onOptimisationPauseClick = (): void => {
     imagesStore.optimiseOptions.isOptimising = false
+    imagesStore.optimiseOptions.isPaused = true
+
+    trackOptimisationPaused()
 }
 
 const showOptimiseButton = computed(() => {

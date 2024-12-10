@@ -20,6 +20,7 @@ export const useImagesStore = defineStore('images', {
             enabled: true,
             format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp,
             isOptimising: false,
+            isPaused: false,
             lastSettings: {
                 quality: QUALITY.seventy,
                 format: SUPPORTED_ENCODER_IMAGE_FORMATS.webp
@@ -67,16 +68,6 @@ export const useImagesStore = defineStore('images', {
         removeImage(imageId: string) {
             this.images.delete(imageId)
             this.getOptimisationStatistics()
-        },
-        onOptimise() {
-            if (this.optimisationSettingsChanged) {
-                this.optimiseOptions.lastSettings = {
-                    quality: this.optimiseOptions.quality,
-                    format: this.optimiseOptions.format
-                }
-
-                this.images.forEach((image) => image.optimisationResult = null)
-            }
         },
         getOptimisationStatistics() {
             this.statistics = getOptimisationStatistics()
