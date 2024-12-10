@@ -1,3 +1,4 @@
+import type { Analytics } from 'firebase/analytics'
 import { getAnalytics, logEvent } from 'firebase/analytics'
 import type { OptimisationStatistics } from '~/types'
 import { ANALYTICS_EVENTS } from '~/values/analytics'
@@ -11,14 +12,15 @@ const isInitialEvent = Object.fromEntries(
     Object.keys(eventKeys).map((key) => [key, true])
 )
 let optimisationIterationCount = 1
+let analytics: Analytics | null = null
 
 function getUserData() {
     const userStore = useUserStore()
 
     return {
-        id: userStore!.id,
+        userId: userStore!.id,
         sessionId: userStore!.sessionId,
-        optimisationIteration: optimisationIterationCount
+        cycleId: optimisationIterationCount
     }
 }
 
@@ -35,95 +37,60 @@ function createPayloadData(eventKey: InitialEventKey, trackingData?: object) {
     }
 }
 
-export function trackImagesAdded(imagesAmount: number) {
-    const analytics = getAnalytics()
+async function logAnalyticsEvent(eventName: string, payload: object) {
+    if (analytics === null) {
+        analytics = getAnalytics()
+    }
+    console.warn(`Logging event: ${eventName}`, payload)
 
-    logEvent(
-        analytics,
+    await logEvent(analytics, eventName, payload)
+}
+
+export async function trackImagesAdded(imagesAmount: number) {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.imagesAdded,
-        createPayloadData(
-            eventKeys.imagesAdded,
-            {
-                imagesAmount
-            }
-        )
+        createPayloadData(eventKeys.imagesAdded, { imagesAmount })
     )
 }
 
-export function trackOptimisationStarted(imagesAmount: number) {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
+export async function trackOptimisationStarted(imagesAmount: number) {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationStarted,
-        createPayloadData(
-            eventKeys.optimisationStarted,
-            {
-                imagesAmount
-            }
-        )
+        createPayloadData(eventKeys.optimisationStarted, { imagesAmount })
     )
 }
 
-export function trackOptimisationPaused() {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
+export async function trackOptimisationPaused() {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationPaused,
         createPayloadData(eventKeys.optimisationPaused)
     )
 }
 
-export function trackOptimisationResumed(imagesAmount: number) {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
+export async function trackOptimisationResumed(imagesAmount: number) {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationResumed,
-        createPayloadData(
-            eventKeys.optimisationResumed,
-            {
-                imagesAmount
-            }
-        )
+        createPayloadData(eventKeys.optimisationResumed, { imagesAmount })
     )
 }
 
-export function trackOptimisationCompleted(statistics: OptimisationStatistics | null) {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
+export async function trackOptimisationCompleted(statistics: OptimisationStatistics | null) {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationCompleted,
-        createPayloadData(
-            eventKeys.optimisationCompleted,
-            {
-                statistics
-            }
-        )
+        createPayloadData(eventKeys.optimisationCompleted, { statistics })
     )
-
     optimisationIterationCount++
 }
 
-export function trackDownloadCompleted() {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
+export async function trackDownloadCompleted() {
+    await logAnalyticsEvent(
         ANALYTICS_EVENTS.downloadCompleted,
         createPayloadData(eventKeys.downloadCompleted)
     )
 }
 
-export function trackOptimisationAborted() {
-    const analyticsStore = useAnalyticsStore()
-    const imagesStore = useImagesStore()
-
-    if (imagesStore.optimiseOptions.isOptimising) {
-        navigator.sendBeacon(analyticsStore.abortEvent.url)
-    }
+export function trackOptimisationAborted(url: string) {
+    navigator.sendBeacon(url)
 }
 
 export function generateOptimisationAbortedLink() {

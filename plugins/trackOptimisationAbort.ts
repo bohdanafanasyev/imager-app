@@ -2,16 +2,19 @@ import { ANALYTICS_EVENTS } from '~/values/analytics'
 
 export default defineNuxtPlugin(() => {
     if (window) {
+        const imagesStore = useImagesStore()
         const originalFetch = window.fetch
+        const abortEvent = {
+            url: '',
+            options: {}
+        }
 
         window.fetch = async function (resource, options) {
             if (typeof resource === 'string' && resource.includes(ANALYTICS_EVENTS.optimisationAborted)) {
-                const analyticsStore = useAnalyticsStore()
-
-                analyticsStore.abortEvent.url = resource
+                abortEvent.url = resource
 
                 if (options) {
-                    analyticsStore.abortEvent.options = options
+                    abortEvent.options = options
                 }
 
                 window.fetch = originalFetch
@@ -25,7 +28,9 @@ export default defineNuxtPlugin(() => {
         generateOptimisationAbortedLink()
 
         window.addEventListener('beforeunload', () => {
-            trackOptimisationAborted()
+            if (imagesStore.optimiseOptions.isOptimising) {
+                trackOptimisationAborted(abortEvent.url)
+            }
         })
     }
 })

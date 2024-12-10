@@ -162,7 +162,7 @@ const onFileChange = async (): Promise<void> => {
         })
 
         imagesStore.addImages(imagesArray)
-        trackImagesAdded(imagesArray.length)
+        await trackImagesAdded(imagesArray.length)
     }
 }
 </script>
