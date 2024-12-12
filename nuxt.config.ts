@@ -24,11 +24,6 @@ export default defineNuxtConfig({
         }
     },
 
-    plugins: [
-        '~/plugins/firebase.client.ts',
-        '~/plugins/trackOptimisationAbort.ts',
-    ],
-
     routeRules: {
         '/_nuxt/**': {headers: {'cross-origin-embedder-policy': 'require-corp'}}
     },

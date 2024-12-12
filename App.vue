@@ -50,7 +50,6 @@
         lang="ts"
 >
 import { getUserSessionId } from '~/utils/user'
-import { generateOptimisationAbortedLink } from '~/utils/analytics'
 
 const appStore = useAppStore()
 const imagesStore = useImagesStore()
@@ -72,9 +71,19 @@ const prefillStores = () => {
     imagesStore.renameOptions.use12hFormat = is12HourFormat()
 }
 
+const addEventListeners = () => {
+    window.addEventListener('resize', debouncedDetectUIStyle)
+
+    window.addEventListener('beforeunload', () => {
+        if (imagesStore.optimiseOptions.isOptimising) {
+            trackOptimisationAborted()
+        }
+    })
+}
+
 onMounted(() => {
     prefillStores()
-    window.addEventListener('resize', debouncedDetectUIStyle)
+    addEventListeners()
 })
 
 const onImageLoad = () => {

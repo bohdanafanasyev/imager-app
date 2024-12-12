@@ -1,5 +1,4 @@
-import type { Analytics } from 'firebase/analytics'
-import { getAnalytics, logEvent } from 'firebase/analytics'
+import type { RequestOptions } from 'mixpanel-browser'
 import type { OptimisationStatistics } from '~/types'
 import { ANALYTICS_EVENTS } from '~/values/analytics'
 
@@ -12,7 +11,6 @@ const isInitialEvent = Object.fromEntries(
     Object.keys(eventKeys).map((key) => [key, true])
 )
 let optimisationIterationCount = 1
-let analytics: Analytics | null = null
 
 function getUserData() {
     const userStore = useUserStore()
@@ -29,75 +27,74 @@ function createPayloadData(eventKey: InitialEventKey, trackingData?: object) {
     isInitialEvent[eventKey] = false
 
     return {
-        data: JSON.stringify({
-            initial,
-            ...trackingData,
-            ...getUserData()
-        })
+        initial,
+        ...trackingData,
+        ...getUserData()
     }
 }
 
-async function logAnalyticsEvent(eventName: string, payload: object) {
-    if (analytics === null) {
-        analytics = getAnalytics()
-    }
-    console.warn(`Logging event: ${eventName}`, payload)
+function logAnalyticsEvent(
+    eventName: string,
+    payload: object,
+    transport: RequestOptions['transport'] = 'xhr'
+) {
+    const { $analytics } = useNuxtApp()
+    const appStore = useAppStore()
 
-    await logEvent(analytics, eventName, payload)
+    if (appStore.isDebugMode) {
+        console.log('Analytics event:', eventName, payload)
+    }
+
+    $analytics.track(eventName, payload, { transport })
 }
 
-export async function trackImagesAdded(imagesAmount: number) {
-    await logAnalyticsEvent(
+export function trackImagesAdded(imagesAmount: number) {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.imagesAdded,
         createPayloadData(eventKeys.imagesAdded, { imagesAmount })
     )
 }
 
-export async function trackOptimisationStarted(imagesAmount: number) {
-    await logAnalyticsEvent(
+export function trackOptimisationStarted(imagesAmount: number) {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationStarted,
         createPayloadData(eventKeys.optimisationStarted, { imagesAmount })
     )
 }
 
-export async function trackOptimisationPaused() {
-    await logAnalyticsEvent(
+export function trackOptimisationPaused() {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationPaused,
         createPayloadData(eventKeys.optimisationPaused)
     )
 }
 
-export async function trackOptimisationResumed(imagesAmount: number) {
-    await logAnalyticsEvent(
+export function trackOptimisationResumed(imagesAmount: number) {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationResumed,
         createPayloadData(eventKeys.optimisationResumed, { imagesAmount })
     )
 }
 
-export async function trackOptimisationCompleted(statistics: OptimisationStatistics | null) {
-    await logAnalyticsEvent(
+export function trackOptimisationCompleted(statistics: OptimisationStatistics | null) {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.optimisationCompleted,
         createPayloadData(eventKeys.optimisationCompleted, { statistics })
     )
     optimisationIterationCount++
 }
 
-export async function trackDownloadCompleted() {
-    await logAnalyticsEvent(
+export function trackDownloadCompleted() {
+    logAnalyticsEvent(
         ANALYTICS_EVENTS.downloadCompleted,
         createPayloadData(eventKeys.downloadCompleted)
     )
 }
 
-export function trackOptimisationAborted(url: string) {
-    navigator.sendBeacon(url)
-}
-
-export function generateOptimisationAbortedLink() {
-    const analytics = getAnalytics()
-
-    logEvent(
-        analytics,
-        ANALYTICS_EVENTS.optimisationAborted
+export function trackOptimisationAborted() {
+    logAnalyticsEvent(
+        ANALYTICS_EVENTS.optimisationAborted,
+        createPayloadData(eventKeys.optimisationAborted),
+        'sendBeacon'
     )
 }

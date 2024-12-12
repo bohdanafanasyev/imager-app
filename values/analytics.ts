@@ -1,9 +1,9 @@
 export const ANALYTICS_EVENTS = {
-    downloadCompleted: 'download_completed',
-    imagesAdded: 'images_added',
-    optimisationAborted: 'optimisation_aborted',
-    optimisationCompleted: 'optimisation_completed',
-    optimisationPaused: 'optimisation_paused',
-    optimisationResumed: 'optimisation_resumed',
-    optimisationStarted: 'optimisation_started'
+    downloadCompleted: 'Download Completed',
+    imagesAdded: 'Images Added',
+    optimisationAborted: 'Optimisation Aborted',
+    optimisationCompleted: 'Optimisation Completed',
+    optimisationPaused: 'Optimisation Paused',
+    optimisationResumed: 'Optimisation Resumed',
+    optimisationStarted: 'Optimisation Started'
 } as const
